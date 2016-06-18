@@ -116,10 +116,48 @@ class RB_Recipe extends CPT_Core {
 	public function fields() {
 		$prefix = 'rb_recipe_';
 
+	/**
+	 * Handles the Recipe Information CMB2 box.
+	 * @param  string $prefix The meta prefix.
+	 */
+	private function recipe_meta( $prefix ) {
+
+		$post_id = isset( $_GET['post'] ) ? absint( esc_attr( $_GET['post'] ) ) : false;
+
 		$cmb = new_cmb2_box( array(
-			'id'            => $prefix . 'metabox',
-			'title'         => __( 'Recipe Box Rb_recipe Meta Box', 'recipe-box' ),
-			'object_types'  => array( 'rb-rb-recipe' ),
+			'id'           => $prefix . 'info_metabox',
+			'title'        => __( 'Recipe Information', 'recipe-box' ),
+			'object_types' => array( 'rb_recipe' ),
+			'classes'      => 'recipe-meta',
+		) );
+
+		$cmb->add_field( array(
+			'name'       => __( 'Servings', 'recipe-box' ),
+			'id'         => $prefix . 'servings',
+			'type'       => 'text_small',
+			'default'    => '2',
+		) );
+
+		$cmb->add_field( array(
+			'name'       => __( 'Preparation Time', 'recipe-box' ),
+			'id'         => $prefix . 'prep_time',
+			'type'       => 'text_small',
+			'desc'       => __( 'minutes<br>Time to prepare the recipe.', 'recipe-box' ),
+		) );
+
+		$cmb->add_field( array(
+			'name'       => __( 'Cook Time', 'recipe-box' ),
+			'id'         => $prefix . 'cook_time',
+			'type'       => 'text_small',
+			'desc'       => __( 'minutes<br>Time to cook the recipe.', 'recipe-box' ),
+		) );
+
+		$cmb->add_field( array(
+			'name'       => __( 'Total Time (optional)', 'recipe-box' ),
+			'id'         => $prefix . 'total_time',
+			'type'       => 'text_small',
+			'desc'       => __( 'minutes<br>The total time to prepare the recipe. (Defaults to Prep Time + Cook Time. Change if that is not accurate.', 'recipe-box' ),
+			'default'    => ( $post_id ) ? $this->get_total_time( $post_id ) : '',
 		) );
 	}
 
