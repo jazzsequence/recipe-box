@@ -1,6 +1,6 @@
 <?php
 /**
- * Recipe Box Rb_recipe
+ * Recipe CPT
  *
  * @since NEXT
  * @package Recipe Box
@@ -10,12 +10,12 @@ require_once dirname(__FILE__) . '/../vendor/cpt-core/CPT_Core.php';
 require_once dirname(__FILE__) . '/../vendor/cmb2/init.php';
 
 /**
- * Recipe Box Rb_recipe post type class.
+ * Recipe Box RB_Recipe post type class.
  *
  * @see https://github.com/WebDevStudios/CPT_Core
  * @since NEXT
  */
-class RB_Rb_recipe extends CPT_Core {
+class RB_Recipe extends CPT_Core {
 	/**
 	 * Parent plugin class
 	 *
@@ -39,7 +39,7 @@ class RB_Rb_recipe extends CPT_Core {
 		// Register this cpt
 		// First parameter should be an array with Singular, Plural, and Registered name.
 		parent::__construct(
-			array( __( 'Recipe Box Rb_recipe', 'recipe-box' ), __( 'Recipe Box Rb_recipes', 'recipe-box' ), 'rb-rb-recipe' ),
+			array( __( 'Recipe', 'recipe-box' ), __( 'Recipes', 'recipe-box' ), 'rb_recipe' ),
 			array( 'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail' ) )
 		);
 	}
@@ -61,7 +61,7 @@ class RB_Rb_recipe extends CPT_Core {
 	 * @return void
 	 */
 	public function fields() {
-		$prefix = 'rb_rb_recipe_';
+		$prefix = 'rb_recipe_';
 
 		$cmb = new_cmb2_box( array(
 			'id'            => $prefix . 'metabox',
