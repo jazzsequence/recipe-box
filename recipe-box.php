@@ -149,7 +149,8 @@ final class Recipe_Box {
 	 */
 	public function plugin_classes() {
 		// Attach other plugin classes to the base plugin class.
-		$this->recipe = new RB_Recipe( $this );
+		$this->cpt      = new RB_Recipe( $this );
+		$this->taxonomy = new RB_Taxonomies( $this );
 	} // END OF PLUGIN CLASSES FUNCTION
 
 	/**
