@@ -161,6 +161,51 @@ class RB_Recipe extends CPT_Core {
 		) );
 	}
 
+
+	/**
+	 * Handles the recipe instructions metabox.
+	 * @param  string $prefix The post meta key prefix.
+	 */
+	private function instructions( $prefix ) {
+		$cmb = new_cmb2_box( array(
+			'id'           => $prefix . 'metabox',
+			'title'        => __( 'Preparation', 'recipe-box' ),
+			'object_types' => array( 'rb_recipe' ),
+			'classes'      => 'preparation',
+		) );
+
+		$group_field_id = $cmb->add_field( array(
+			'id'          => $prefix . 'group',
+			'type'        => 'group',
+			'description' => __( 'Add the instructions for the recipe. Instructions can be divided up into multiple groups of steps (e.g. Batter Instructions, Filling Instructions).', 'recipe-box' ),
+			'options'     => array(
+				'group_title'   => __( 'Preparation Group {#}', 'recipe-box' ),
+				'add_button'    => __( 'Add another group', 'recipe-box' ),
+				'remove_button' => __( 'Remove group', 'recipe-box' ),
+				'sortable'      => true,
+			),
+		) );
+
+		$cmb->add_group_field( $group_field_id, array(
+			'name'       => __( 'Title', 'recipe-box' ),
+			'id'         => $prefix . 'title',
+			'type'       => 'text',
+			'desc'       => __( 'The title you want to appear above your preparation instructions in this group.', 'recipe-box' ),
+			'default'    => __( 'Instructions', 'recipe-box' ),
+		) );
+
+		$cmb->add_group_field( $group_field_id, array(
+			'name'        => __( 'Steps', 'recipe-box' ),
+			'id'          => 'content',
+			'desc'        => __( 'Click "Add another step" to add more steps to this instruction group.', 'recipe-box' ),
+			'type'        => 'textarea_small',
+			'options'     => array(
+				'add_row_text' => __( 'Add another step', 'recipe-box' ),
+			),
+			'repeatable'  => true,
+		) );
+	}
+
 	/**
 	 * Registers admin columns to display. Hooked in via CPT_Core.
 	 *
