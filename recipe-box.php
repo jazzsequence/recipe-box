@@ -109,6 +109,14 @@ final class Recipe_Box {
 	protected static $single_instance = null;
 
 	/**
+	 * Instance of RB_Rb_recipe
+	 *
+	 * @since NEXT
+	 * @var RB_Rb_recipe
+	 */
+	protected $rb_recipe;
+
+	/**
 	 * Creates or returns an instance of this class.
 	 *
 	 * @since  NEXT
@@ -141,7 +149,7 @@ final class Recipe_Box {
 	 */
 	public function plugin_classes() {
 		// Attach other plugin classes to the base plugin class.
-		// $this->plugin_class = new RB_Plugin_Class( $this );
+		$this->rb_recipe = new RB_Rb_recipe( $this );
 	} // END OF PLUGIN CLASSES FUNCTION
 
 	/**
@@ -261,6 +269,7 @@ final class Recipe_Box {
 			case 'basename':
 			case 'url':
 			case 'path':
+			case 'rb_recipe':
 				return $this->$field;
 			default:
 				throw new Exception( 'Invalid '. __CLASS__ .' property: ' . $field );
