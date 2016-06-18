@@ -206,6 +206,60 @@ class RB_Recipe extends CPT_Core {
 		) );
 	}
 
+
+	/**
+	 * The ingredients list metabox.
+	 * @param  string $prefix The post metakey prefix.
+	 */
+	private function ingredients( $prefix ) {
+		$cmb = new_cmb2_box( array(
+			'id'           => $prefix . 'metabox',
+			'title'        => __( 'Ingredients', 'recipe-box' ),
+			'object_types' => array( 'rb_recipe' ),
+			'show_names'   => true,
+			'classes'      => 'ingredients',
+		) );
+
+		$group_field_id = $cmb->add_field( array(
+			'id'          => $prefix . 'group',
+			'type'        => 'group',
+			'description' => __( 'Add the ingredients for this recipe from the database of available products. For each ingredient, start typing in the Ingredient box. Your ingredient will be automatically matched to an existing ingredient or you can enter a custom ingredient.', 'recipe-box' ),
+			'options'     => array(
+				'group_title'   => __( 'Ingredient {#}', 'recipe-box' ),
+				'add_button'    => __( 'Add another ingredient', 'recipe-box' ),
+				'remove_button' => __( 'Remove ingredient', 'recipe-box' ),
+				'sortable'      => true,
+			),
+		) );
+
+		$cmb->add_group_field( $group_field_id, array(
+			'name'        => __( 'Quantity', 'recipe-box' ),
+			'description' => __( 'How many units of this ingredient?', 'recipe-box' ),
+			'id'          => $prefix . 'quantity',
+			'type'        => 'text_small',
+			'attributes'  => array( 'type' => 'number' ),
+		) );
+
+		$cmb->add_group_field( $group_field_id, array(
+			'name'        => __( 'Unit of measurement', 'recipe-box' ),
+			'description' => __( '(2 Tbsp, 3 cups, 1 handful, etc.)' ),
+			'id'          => $prefix . 'unit',
+			'type'        => 'select',
+			'options'     => $this->get_units(),
+			'attributes'  => array(
+				'data-placeholder' => __( 'Select unit of measurement.', 'recipe-box' ),
+			),
+		) );
+
+		$cmb->add_group_field( $group_field_id, array(
+			'name'        => __( 'Ingredient', 'recipe-box' ),
+			'id'          => $prefix . 'product',
+			'type'        => 'text',
+			'desc'        => __( 'Enter the ingredient name.', 'recipe-box' ),
+			'attributes'  => array( 'class' => 'ingredient' ),
+		) );
+	}
+
 	/**
 	 * Registers admin columns to display. Hooked in via CPT_Core.
 	 *
