@@ -111,6 +111,8 @@ class RB_Recipe extends CPT_Core {
 			return array_unique( $ingredient_list );
 		}
 
+		return new WP_Error( 'rb_ingredients_remote_get_fail', __( 'WordPress remote get operation failed.', 'recipe-box' ), $request );
+	}
 	public function fields() {
 		$prefix = 'rb_recipe_';
 
