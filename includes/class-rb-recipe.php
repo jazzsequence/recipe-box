@@ -270,6 +270,34 @@ class RB_Recipe extends CPT_Core {
 		) );
 	}
 
+
+	/**
+	 * Return various units of measurement.
+	 * @return array Different units of measurement that could be used in a recipe.
+	 */
+	private function get_units() {
+		return array(
+			'none'    => '&mdash;',
+			'cup'     => __( 'cup(s)', 'recipe-box' ),
+			'tbsp'    => __( 'tablespoon(s)', 'recipe-box' ),
+			'tsp'     => __( 'teaspoon(s)', 'recipe-box' ),
+			'oz'      => __( 'ounce(s)', 'recipe-box' ),
+			'gram'    => __( 'gram(s)', 'recipe-box' ),
+			'piece'   => __( 'piece(s)', 'recipe-box' ),
+			'quart'   => __( 'quart(s)', 'recipe-box' ),
+			'gallon'  => __( 'gallon(s)', 'recipe-box' ),
+			'half'    => __( 'halves', 'recipe-box' ),
+			'can'     => __( 'can(s)', 'recipe-box' ),
+			'package' => __( 'package(s)', 'recipe-box' ),
+			'sprig'   => __( 'sprig(s)', 'recipe-box' ),
+			'dash'    => __( 'dash(es)', 'recipe-box' ),
+			'drop'    => __( 'drop(s)', 'recipe-box' ),
+			'bunch'   => __( 'bunch(es)', 'recipe-box' ),
+			'hand'    => __( 'handful(s)', 'recipe-box' ),
+			'splash'  => __( 'splash(es)', 'recipe-box' ),
+			'pinch'   => __( 'pinch(es)', 'recipe-box' ),
+		);
+	}
 	/**
 	 * Registers admin columns to display. Hooked in via CPT_Core.
 	 *
