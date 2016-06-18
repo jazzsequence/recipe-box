@@ -6,11 +6,6 @@
  * @license      GPL-2.0+
  * @link         http://webdevstudios.com
  *
- * Plugin Name:  CMB2
- * Plugin URI:   https://github.com/WebDevStudios/CMB2
- * Description:  CMB2 will create metaboxes and forms with custom fields that will blow your mind.
- * Author:       WebDevStudios
- * Author URI:   http://webdevstudios.com
  * Contributors: WebDevStudios (@webdevstudios / webdevstudios.com)
  *               Justin Sternberg (@jtsternberg / dsgnwrks.pro)
  *               Jared Atchison (@jaredatch / jaredatchison.com)
