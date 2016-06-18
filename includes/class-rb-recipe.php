@@ -7,7 +7,6 @@
  */
 
 require_once dirname(__FILE__) . '/../vendor/cpt-core/CPT_Core.php';
-require_once dirname(__FILE__) . '/../vendor/taxonomy-core/Taxonomy_Core.php';
 require_once dirname(__FILE__) . '/../vendor/cmb2/init.php';
 
 /**
