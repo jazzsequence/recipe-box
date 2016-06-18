@@ -50,14 +50,67 @@ class RB_Recipe extends CPT_Core {
 	 */
 	public function hooks() {
 		add_action( 'cmb2_init', array( $this, 'fields' ) );
+		// add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+	}
+
+
+	/**
+	 * Enqueue admin javascript. Mostly for autocompletion.
+	 *
+	 * @param  string $hook The current admin page.
+	 * @return void
+	 */
+	public function admin_enqueue_scripts( $hook ) {
+		global $post;
+
+		// Bail if we aren't editing a post.
+		if ( ! in_array( $hook, array( 'post.php', 'post-new.php' ) ) ) {
+			return;
+		}
+
+		// Bail if we aren't editing a recipe.
+		if ( 'rb_recipe' !== $post->post_type ) {
+			return;
+		}
+
+		$min = '.min';
+
+		// Don't use minified js/css if DEBUG is on.
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			$min = '';
+		}
+
+		wp_enqueue_script( 'jquery-ui-autocomplete' );
+		wp_enqueue_script( 'recipes', wdscm()->url . 'assets/js/recipes' . $min . '.js', array( 'jquery' ), wdscm()->version, true );
+		wp_enqueue_style( 'recipes', wdscm()->url . 'assets/css/recipes' . $min . '.css', array(), wdscm()->version, 'screen' );
+		wp_localize_script( 'recipes', 'recipes', array(
+			'autosuggest' => $this->autosuggest_terms(),
+			'wp_debug'    => ( defined( 'WP_DEBUG' ) && WP_DEBUG ),
+		) );
 	}
 
 	/**
-	 * Add custom fields to the CPT
-	 *
-	 * @since  NEXT
-	 * @return void
+	 * Get an array of unique ingredient names using the WP-API.
+	 * @todo         This whole thing needs to be edited to use post meta instead of an ingredient cpt.
+	 * @return array An array of ingredient names (post titles).
 	 */
+	public function autosuggest_terms() {
+		// Get the ingredients from the WP-API.
+		$request = wp_remote_get( home_url( '/wp-json/wp/v2/ingredients?filter[posts_per_page]=1000' ) );
+
+		if ( $request && ! is_wp_error( $request ) ) {
+			// Decode the json.
+			$results = json_decode( $request['body'] );
+
+			// Build an array of ingredient names.
+			foreach ( $results as $ingredient ) {
+				$ingredient_list[] = $ingredient->title->rendered;
+			}
+
+			// Strip out any duplicate ingredients and return.
+			return array_unique( $ingredient_list );
+		}
+
 	public function fields() {
 		$prefix = 'rb_recipe_';
 
