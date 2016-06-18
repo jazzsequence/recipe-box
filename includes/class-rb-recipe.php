@@ -30,7 +30,6 @@ class RB_Recipe extends CPT_Core {
 	 *
 	 * @since  NEXT
 	 * @param  object $plugin Main plugin object.
-	 * @return void
 	 */
 	public function __construct( $plugin ) {
 		$this->plugin = $plugin;
@@ -48,7 +47,6 @@ class RB_Recipe extends CPT_Core {
 	 * Initiate our hooks
 	 *
 	 * @since  NEXT
-	 * @return void
 	 */
 	public function hooks() {
 		add_action( 'cmb2_init', array( $this, 'fields' ) );
