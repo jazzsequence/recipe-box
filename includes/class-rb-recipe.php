@@ -298,6 +298,54 @@ class RB_Recipe extends CPT_Core {
 			'pinch'   => __( 'pinch(es)', 'recipe-box' ),
 		);
 	}
+
+	/**
+	 * Helper function to calculate the total time based on prep time and cook time.
+	 * @param  int $post_id The post ID.
+	 * @return int          The total time calculation.
+	 */
+	public function get_total_time( $post_id ) {
+		$total_time = get_post_meta( $post_id, '_rb_total_time', true );
+		if ( '' == $total_time || ! $total_time ) {
+			$total_time = get_post_meta( $post_id, '_rb_prep_time', true ) + get_post_meta( $post_id, '_rb_cook_time', true );
+		}
+
+		return $total_time;
+	}
+
+	/**
+	 * Function to calculate time in HH:MM from time stored only in minutes.
+	 * @param  integer $time_in_minutes Time in minutes.
+	 * @param  string  $format          The desired format of the calculated time.
+	 *         Accepted possibilities are:
+	 *         'hh:mm' or 'HH:MM'        Time in hours and minutes, e.g. 4:30.
+	 *         'array'                   Returns an array of hours and minutes.
+	 *         'string'                  Returns the time in plain english.
+	 * @return mixed                     Time in HH:MM (default) or whatever format was passed.
+	 */
+	public function calculate_hours_minutes( $time_in_minutes, $format = 'hh:mm' ) {
+		// Store hours and minutes in an array.
+		$time = array(
+			'hours'   => intval( $time_in_minutes / 60 ),
+			'minutes' => $time_in_minutes - ( $hours * 60 ),
+		);
+
+		// Check the format. If we want the time in HH:MM format, return that.
+		if ( in_array( $format, array( 'hh:mm', 'HH:MM' ) ) ) {
+			return ( $time['hours'] >= 1 ) ? sprintf( '%d:%d', $time['hours'], $time['minutes'] ) : $time['minutes'];
+		}
+
+		// ...but maybe we want to do something like "4 hours and 20 minutes", or manipulate the format manually. In that case we can just return the array of hours/minutes.
+		if ( 'array' == $format ) {
+			return $time;
+		}
+
+		// We can also use this array to return the time in plain text.
+		if ( 'string' == $format ) {
+			return ( $time['hours'] >= 1 ) ? sprintf( __( '%d hours and %d minutes', 'recipe-box' ), $time['hours'], $time['minutes'] ) : sprintf( __( '%d minutes', 'recipe-box' ), $time['minutes'] );
+		}
+	}
+
 	/**
 	 * Registers admin columns to display. Hooked in via CPT_Core.
 	 *
