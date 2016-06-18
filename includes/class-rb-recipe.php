@@ -113,8 +113,18 @@ class RB_Recipe extends CPT_Core {
 
 		return new WP_Error( 'rb_ingredients_remote_get_fail', __( 'WordPress remote get operation failed.', 'recipe-box' ), $request );
 	}
+
+	/**
+	 * Register the CMB2 fields and metaboxes.
+	 */
 	public function fields() {
-		$prefix = 'rb_recipe_';
+		$prefix = '_rb_';
+
+		$this->recipe_meta( $prefix );
+		$this->instructions( $prefix . 'instructions_' );
+		$this->ingredients( $prefix . 'ingredients_' );
+	}
+
 
 	/**
 	 * Handles the Recipe Information CMB2 box.
