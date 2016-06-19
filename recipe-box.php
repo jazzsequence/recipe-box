@@ -263,6 +263,7 @@ final class Recipe_Box {
 	 * This function is hooked into tgmpa_init, which is fired within the
 	 * TGM_Plugin_Activation class constructor.
 	 *
+	 * @since 0.1.0
 	 * @uses  tgmpa
 	 * @link  https://github.com/TGMPA/TGM-Plugin-Activation
 	 */
