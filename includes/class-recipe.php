@@ -15,7 +15,7 @@ require_once dirname( __FILE__ ) . '/../vendor/cmb2/init.php';
  * @see https://github.com/WebDevStudios/CPT_Core
  * @since NEXT
  */
-class RB_Recipe extends CPT_Core {
+class RB_Recipe {
 	/**
 	 * Parent plugin class
 	 *
@@ -34,13 +34,9 @@ class RB_Recipe extends CPT_Core {
 	public function __construct( $plugin ) {
 		$this->plugin = $plugin;
 		$this->hooks();
+	}
 
-		// Register this cpt
-		// First parameter should be an array with Singular, Plural, and Registered name.
-		parent::__construct(
-			array( __( 'Recipe', 'recipe-box' ), __( 'Recipes', 'recipe-box' ), 'rb_recipe' ),
 			array(
-				'supports' => array( 'title', 'editor', 'thumbnail' ),
 				'menu_icon' => 'dashicons-carrot',
 			)
 		);
