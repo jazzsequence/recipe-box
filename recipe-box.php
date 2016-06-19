@@ -160,6 +160,8 @@ final class Recipe_Box {
 	 * @return void
 	 */
 	public function hooks() {
+		register_activation_hook( __FILE__, array( rb(), '_activate' ) );
+		register_deactivation_hook( __FILE__, array( rb(), '_deactivate' ) );
 
 		add_action( 'init', array( $this, 'init' ) );
 	}
@@ -332,6 +334,3 @@ function rb() {
 
 // Kick it off.
 add_action( 'plugins_loaded', array( rb(), 'hooks' ) );
-
-register_activation_hook( __FILE__, array( rb(), '_activate' ) );
-register_deactivation_hook( __FILE__, array( rb(), '_deactivate' ) );
