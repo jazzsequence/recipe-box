@@ -57,7 +57,7 @@ function rb_autoload_classes( $class_name ) {
 		substr( $class_name, strlen( 'RB_' ) )
 	) );
 
-	Recipe_Box::include_file( $filename );
+	Recipe_Box::include_file( 'includes/class-' . $filename );
 }
 spl_autoload_register( 'rb_autoload_classes' );
 
