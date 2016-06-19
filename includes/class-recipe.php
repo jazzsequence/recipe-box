@@ -41,7 +41,7 @@ class RB_Recipe extends CPT_Core {
 			array( __( 'Recipe', 'recipe-box' ), __( 'Recipes', 'recipe-box' ), 'rb_recipe' ),
 			array(
 				'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail' ),
-				'menu_icon' => 'dashicons-carrot'
+				'menu_icon' => 'dashicons-carrot',
 			)
 		);
 	}
