@@ -145,6 +145,9 @@ final class Recipe_Box {
 		// Attach other plugin classes to the base plugin class.
 		$this->cpt      = new RB_Recipe( $this );
 		$this->taxonomy = new RB_Taxonomies( $this );
+
+		// Include TGM Plugin Activation.
+		require_once( $this->path . '/vendor/tgm-plugin-activation/class-tgm-plugin-activation.php' );
 	} // END OF PLUGIN CLASSES FUNCTION
 
 	/**
@@ -158,6 +161,7 @@ final class Recipe_Box {
 		register_deactivation_hook( __FILE__, array( rb(), '_deactivate' ) );
 
 		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'tgmpa_register', array( $this, 'register_required_plugins' ) );
 	}
 
 	/**
