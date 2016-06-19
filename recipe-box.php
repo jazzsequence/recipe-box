@@ -131,6 +131,8 @@ final class Recipe_Box {
 		$this->basename = plugin_basename( __FILE__ );
 		$this->url      = plugin_dir_url( __FILE__ );
 		$this->path     = plugin_dir_path( __FILE__ );
+
+		$this->plugin_classes();
 	}
 
 	/**
@@ -187,7 +189,6 @@ final class Recipe_Box {
 	public function init() {
 		if ( $this->check_requirements() ) {
 			load_plugin_textdomain( 'recipe-box', false, dirname( $this->basename ) . '/languages/' );
-			$this->plugin_classes();
 		}
 	}
 
