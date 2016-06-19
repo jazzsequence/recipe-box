@@ -169,7 +169,7 @@ class RB_Recipe extends CPT_Core {
 			'name'       => __( 'Total Time (optional)', 'recipe-box' ),
 			'id'         => $prefix . 'total_time',
 			'type'       => 'text_small',
-			'desc'       => __( 'minutes<br>The total time to prepare the recipe. (Defaults to Prep Time + Cook Time. Change if that is not accurate.', 'recipe-box' ),
+			'desc'       => __( 'minutes<br>The total time to prepare the recipe. (Defaults to Prep Time + Cook Time. Change if that is not accurate.)', 'recipe-box' ),
 			'default'    => ( $post_id ) ? $this->get_total_time( $post_id ) : '',
 		) );
 	}
