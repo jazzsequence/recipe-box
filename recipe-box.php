@@ -109,14 +109,6 @@ final class Recipe_Box {
 	protected static $single_instance = null;
 
 	/**
-	 * Instance of RB_Rb_recipe
-	 *
-	 * @since NEXT
-	 * @var RB_Rb_recipe
-	 */
-	protected $rb_recipe;
-
-	/**
 	 * Creates or returns an instance of this class.
 	 *
 	 * @since  NEXT
@@ -272,7 +264,6 @@ final class Recipe_Box {
 			case 'basename':
 			case 'url':
 			case 'path':
-			case 'rb_recipe':
 				return $this->$field;
 			default:
 				throw new Exception( 'Invalid '. __CLASS__ .' property: ' . $field );
