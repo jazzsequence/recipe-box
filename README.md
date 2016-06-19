@@ -3,10 +3,10 @@
 **Donate link:**       https://jazzsequence.com
 **Tags:**
 **Requires at least:** 4.4
-**Tested up to:**      4.4
+**Tested up to:**      4.5.2
 **Stable tag:**        0.1
 **License:**           GPLv3
-**License URI:**       http://www.gnu.org/licenses/gpl-2.0.html
+**License URI:**       http://www.gnu.org/licenses/gpl-3.0.html
 
 ## Description ##
 
