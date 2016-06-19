@@ -236,7 +236,7 @@ class RB_Recipe extends CPT_Core {
 		$group_field_id = $cmb->add_field( array(
 			'id'          => $prefix . 'group',
 			'type'        => 'group',
-			'description' => __( 'Add the ingredients for this recipe from the database of available products. For each ingredient, start typing in the Ingredient box. Your ingredient will be automatically matched to an existing ingredient or you can enter a custom ingredient.', 'recipe-box' ),
+			'description' => __( 'Add the ingredients for this recipe. For each ingredient, you can enter a custom ingredient or if you start typing in the Ingredient box, your ingredient will be automatically matched to an existing ingredient from a previous recipe.', 'recipe-box' ),
 			'options'     => array(
 				'group_title'   => __( 'Ingredient {#}', 'recipe-box' ),
 				'add_button'    => __( 'Add another ingredient', 'recipe-box' ),
