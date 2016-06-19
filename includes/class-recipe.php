@@ -36,8 +36,25 @@ class RB_Recipe {
 		$this->hooks();
 	}
 
+	/**
+	 * Register the CPTs, yo.
+	 *
+	 * @since NEXT
+	 */
+	public function register_cpts() {
+		// Register Recipes.
+		register_via_cpt_core(
 			array(
+				__( 'Recipe', 'recipe-box' ),  // Singular.
+				__( 'Recipes', 'recipe-box' ), // Plural.
+				'rb_recipe',                   // Post type name.
+			),
+			array(
+				'supports'  => array( 'title', 'editor', 'thumbnail' ),
 				'menu_icon' => 'dashicons-carrot',
+				'rewrite'   => array( 'slug' => 'recipe' ),
+			)
+		);
 			)
 		);
 	}
