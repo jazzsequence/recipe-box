@@ -52,7 +52,7 @@ class RB_Taxonomies {
 		// Recipe Category.
 		register_via_taxonomy_core( array(
 				__( 'Recipe Category', 'recipe-box' ),   // Singular.
-				__( 'Recipe Categorys', 'recipe-box' ),  // Plural.
+				__( 'Recipe Categories', 'recipe-box' ),  // Plural.
 				'rb_recipe_category',                    // Registered name.
 			),
 			array(),             // Array of taxonomy arguments.
