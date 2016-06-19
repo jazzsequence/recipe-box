@@ -39,7 +39,10 @@ class RB_Recipe extends CPT_Core {
 		// First parameter should be an array with Singular, Plural, and Registered name.
 		parent::__construct(
 			array( __( 'Recipe', 'recipe-box' ), __( 'Recipes', 'recipe-box' ), 'rb_recipe' ),
-			array( 'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail' ) )
+			array(
+				'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail' ),
+				'menu_icon' => 'dashicons-carrot'
+			)
 		);
 	}
 
