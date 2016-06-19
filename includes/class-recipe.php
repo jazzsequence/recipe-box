@@ -55,6 +55,19 @@ class RB_Recipe {
 				'rewrite'   => array( 'slug' => 'recipe' ),
 			)
 		);
+
+		// Register ingredients CPT.
+		register_via_cpt_core(
+			array(
+				__( 'Ingredient', 'centralmarket' ),  // Singular.
+				__( 'Ingredients', 'centralmarket' ), // Plural.
+				'rb_ingredient',                      // Post type name.
+			),
+			array(
+				'supports'     => array( 'title' ),
+				// 'public'       => false, // Commented out for now so we can see this. This will be an internal-only cpt.
+				'show_in_rest' => true,
+				'rest_base'    => 'ingredients',
 			)
 		);
 	}
