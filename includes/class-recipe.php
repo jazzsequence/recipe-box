@@ -6,8 +6,8 @@
  * @package Recipe Box
  */
 
-require_once dirname(__FILE__) . '/../vendor/cpt-core/CPT_Core.php';
-require_once dirname(__FILE__) . '/../vendor/cmb2/init.php';
+require_once dirname( __FILE__ ) . '/../vendor/cpt-core/CPT_Core.php';
+require_once dirname( __FILE__ ) . '/../vendor/cmb2/init.php';
 
 /**
  * Recipe Box RB_Recipe post type class.
