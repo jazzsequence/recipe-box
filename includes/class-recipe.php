@@ -79,6 +79,7 @@ class RB_Recipe {
 	 */
 	public function hooks() {
 		add_action( 'cmb2_init', array( $this, 'fields' ) );
+		add_action( 'init', array( $this, 'register_cpts' ), 9 );
 		// add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
 
