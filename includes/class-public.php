@@ -117,6 +117,50 @@ class RB_Public {
 	}
 
 	/**
+	 * Handles the markup for recipe instructions.
+	 * @param  mixed $post_id The post ID (optional).
+	 * @return string         The markup for the recipe steps.
+	 */
+	public function render_steps( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		// Get the steps.
+		$instruction_groups = $this->get_steps( $post_id );
+
+		// Initialize the $output with an empty string.
+		$output = '';
+
+		if ( is_array( $instruction_groups ) && ! empty( $instruction_groups ) ) {
+
+			// Loop through each group.
+			foreach ( $instruction_groups as $instruction_group ) {
+				$instructions_title = esc_html( $instruction_group['_rb_instructions_title'] );
+				$instruction_group_slug = sanitize_title( $instructions_title );
+
+				$steps = $instruction_group['content'];
+
+				$output .= '<div class="recipe-instruction-group ' . $instruction_group_slug . '">';
+				$output .= '<h3 class="instruction-heading">' . $instructions_title . '</h3>';
+				$output .= '<ol class="' . $instruction_group_slug . '-steps">';
+
+				// Within each group is a series of steps. Loop through each set of steps.
+				foreach ( $steps as $step ) {
+					$output .= sprintf(
+						'%s' . wp_kses_post( $step ) . '%s',
+						'<li class="recipe-step">',
+						'</li>'
+					);
+				}
+
+				$output .= '</ol> <!-- .' . $instruction_group_slug . '-steps -->';
+				$output .= '</div> <!-- .recipe-instruction-group.' . $instruction_group_slug . ' -->';
+
+			}
+		}
+
+		return $output;
+	}
 	 * Handles echoing the recipe meta (ingredients and recipe steps).
 	 * @param  mixed $post_id The post ID (optional).
 	 */
