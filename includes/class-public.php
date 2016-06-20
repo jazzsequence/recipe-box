@@ -93,9 +93,21 @@ class RB_Public {
 				$unit     = $ingredient['_rb_ingredients_unit'];
 				$quantity = $ingredient['_rb_ingredients_quantity'];
 
-				$output .= '<li><span class="recipe-ingredient-quantity">' . esc_html( $quantity ) . '</span> ';
-				$output .= '<span class="recipe-ingredient-unit">' . esc_html( $unit ) . '</span> ';
-				$output .= '<span class="recipe-ingredient-item">' . esc_html( $item ) . '</span></li>';
+				$output .= sprintf(
+					'%s' . esc_html( $quantity ) . '%s',
+					'<li><span class="recipe-ingredient-quantity">',
+					'</span> '
+				);
+				$output .= sprintf(
+					'%s' . esc_html( $unit ) . '%s',
+					'<span class="recipe-ingredient-unit">',
+					'</span> '
+				);
+				$output .= sprintf(
+					'%s' . esc_html( $item ) . '%s',
+					'<span class="recipe-ingredient-item">',
+					'</span></li>'
+				);
 			}
 
 			$output .= '</ul> <!-- .recipe-ingredients -->';
