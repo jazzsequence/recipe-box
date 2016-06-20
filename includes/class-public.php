@@ -68,6 +68,11 @@ class RB_Public {
 		return get_post_meta( $post_id, '_rb_instructions_group', true );
 	}
 
+	/**
+	 * Handles the markup for the ingredients.
+	 * @param  mixed $post_id The post ID (optional).
+	 * @return string         The markup for the recipe ingredients.
+	 */
 	public function render_ingredients( $post_id = false ) {
 		// Get the post ID.
 		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
