@@ -40,6 +40,7 @@ class RB_Public {
 	 * @return void
 	 */
 	public function hooks() {
+		add_filter( 'the_content', array( $this, 'append_to_the_content' ) );
 	}
 
 	/**
@@ -161,6 +162,8 @@ class RB_Public {
 
 		return $output;
 	}
+
+	/**
 	 * Handles echoing the recipe meta (ingredients and recipe steps).
 	 * @param  mixed $post_id The post ID (optional).
 	 */
@@ -176,5 +179,18 @@ class RB_Public {
 
 		echo $ingredients; // WPCS: XSS ok. Already sanitized.
 		echo $steps; // WPCS: XSS ok. Already sanitized.
+	}
+
+	/**
+	 * Filter the_content to add recipe instructions to the bottom of recipe posts.
+	 * @param  string $content The post content.
+	 * @return string          The updated post content.
+	 */
+	public function append_to_the_content( $content ) {
+		if ( is_singular( 'rb_recipe' ) ) {
+			$content = $content . $this->render_display( get_the_ID() );
+		}
+
+		return $content;
 	}
 }
