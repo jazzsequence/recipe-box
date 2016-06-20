@@ -103,4 +103,22 @@ class RB_Public {
 
 		return $output;
 	}
+
+	/**
+	 * Handles echoing the recipe meta (ingredients and recipe steps).
+	 * @param  mixed $post_id The post ID (optional).
+	 */
+	public function render_display( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		// Get the ingredients.
+		$ingredients = $this->render_ingredients( $post_id );
+
+		// Get the steps.
+		$steps = $this->render_steps( $post_id );
+
+		echo $ingredients; // WPCS: XSS ok. Already sanitized.
+		echo $steps; // WPCS: XSS ok. Already sanitized.
+	}
 }
