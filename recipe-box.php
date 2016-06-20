@@ -109,6 +109,14 @@ final class Recipe_Box {
 	protected static $single_instance = null;
 
 	/**
+	 * Instance of RB_Public
+	 *
+	 * @since NEXT
+	 * @var RB_Public
+	 */
+	protected $public;
+
+	/**
 	 * Creates or returns an instance of this class.
 	 *
 	 * @since  NEXT
@@ -145,6 +153,7 @@ final class Recipe_Box {
 		// Attach other plugin classes to the base plugin class.
 		$this->cpt      = new RB_Recipe( $this );
 		$this->taxonomy = new RB_Taxonomies( $this );
+		$this->public   = new RB_Public( $this );
 
 		// Include TGM Plugin Activation.
 		require_once( $this->path . '/vendor/tgm-plugin-activation/class-tgm-plugin-activation.php' );
@@ -344,6 +353,7 @@ final class Recipe_Box {
 			case 'basename':
 			case 'url':
 			case 'path':
+			case 'public':
 				return $this->$field;
 			default:
 				throw new Exception( 'Invalid '. __CLASS__ .' property: ' . $field );

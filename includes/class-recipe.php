@@ -80,6 +80,7 @@ class RB_Recipe {
 	public function hooks() {
 		add_action( 'cmb2_init', array( $this, 'fields' ) );
 		add_action( 'init', array( $this, 'register_cpts' ), 9 );
+		add_action( 'save_post', array( $this, 'save_ingredient' ), 10, 3 );
 		// add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
 
@@ -373,6 +374,48 @@ class RB_Recipe {
 		// We can also use this array to return the time in plain text.
 		if ( 'string' == $format ) {
 			return ( $time['hours'] >= 1 ) ? sprintf( __( '%d hours and %d minutes', 'recipe-box' ), $time['hours'], $time['minutes'] ) : sprintf( __( '%d minutes', 'recipe-box' ), $time['minutes'] );
+		}
+	}
+
+	/**
+	 * Save ingredients as ingredient CPT posts when a recipe is saved.
+	 *
+	 * @since  NEXT
+	 * @param  int    $post_id The post ID of the recipe being saved.
+	 * @param  object $post    The post object of the recipe.
+	 * @param  bool   $update  Whether or not the post was updated.
+	 */
+	public function save_ingredient( $post_id, $post, $update ) {
+		// If we aren't saving a recipe post, bail.
+		if ( 'rb_recipe' !== $post->post_type ) {
+			return;
+		}
+
+		$ingredients = get_post_meta( $post_id, '_rb_ingredients_group', true );
+
+		foreach ( $ingredients as $ingredient ) {
+			// Get the name of the ingredient.
+			$item_slug = sanitize_title( $ingredient['_rb_ingredients_product'] );
+			$item_name = esc_html( $ingredient['_rb_ingredients_product'] );
+
+			// See if there's an existing ingredient CPT with this slug.
+			$match = new WP_Query( array(
+				'name'        => $item_slug,
+				'post_type'   => 'rb_ingredient',
+				'post_status' => 'publish',
+				'numberposts' => 1,
+				'fields'      => 'ids',
+			) );
+
+			// If nothing matches, we're going to add a new ingredient with this name.
+			if ( empty( $match->posts ) ) {
+				wp_insert_post( array(
+					'post_title'  => $item_name,
+					'post_name'   => $item_slug,
+					'post_type'   => 'rb_ingredient',
+					'post_status' => 'publish',
+				) );
+			}
 		}
 	}
 
