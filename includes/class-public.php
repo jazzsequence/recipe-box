@@ -85,7 +85,7 @@ class RB_Public {
 		return array(
 			'prep_time'  => ( $prep_time ) ? $prep_time : '',
 			'cook_time'  => ( $cook_time ) ? $cook_time : '',
-			'total_time' => $total_time,
+			'total_time' => ( $total_time ) ? $total_time : '',
 		);
 	}
 
