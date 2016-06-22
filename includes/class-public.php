@@ -70,6 +70,26 @@ class RB_Public {
 	}
 
 	/**
+	 * Returns an array of cook times (prep, cook and total).
+	 * @param  mixed $post_id The post ID (optional).
+	 * @return array          An array of times.
+	 */
+	public function get_cook_time( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		$prep_time  = get_post_meta( $post_id, '_rb_prep_time', true );
+		$cook_time  = get_post_meta( $post_id, '_rb_cook_time', true );
+		$total_tiem = rb()->cpt->get_total_time( $post_id );
+
+		return array(
+			'prep_time'  => ( $prep_time ) ? $prep_time : '',
+			'cook_time'  => ( $cook_time ) ? $cook_time : '',
+			'total_time' => $total_time,
+		);
+	}
+
+	/**
 	 * Handles the markup for the ingredients.
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return string         The markup for the recipe ingredients.
