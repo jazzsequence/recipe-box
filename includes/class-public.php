@@ -80,7 +80,7 @@ class RB_Public {
 
 		$prep_time  = get_post_meta( $post_id, '_rb_prep_time', true );
 		$cook_time  = get_post_meta( $post_id, '_rb_cook_time', true );
-		$total_tiem = rb()->cpt->get_total_time( $post_id );
+		$total_time = rb()->cpt->get_total_time( $post_id );
 
 		return array(
 			'prep_time'  => ( $prep_time ) ? $prep_time : '',
