@@ -212,14 +212,18 @@ class RB_Public {
 		// Get the post ID.
 		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
 
+		// Get the cook times.
+		$cook_times = $this->render_cook_times( $post_id );
+
 		// Get the ingredients.
 		$ingredients = $this->render_ingredients( $post_id );
 
 		// Get the steps.
 		$steps = $this->render_steps( $post_id );
 
+		echo $cook_times;  // WPCS: XSS ok. Already sanitized.
 		echo $ingredients; // WPCS: XSS ok. Already sanitized.
-		echo $steps; // WPCS: XSS ok. Already sanitized.
+		echo $steps;       // WPCS: XSS ok. Already sanitized.
 	}
 
 	/**
