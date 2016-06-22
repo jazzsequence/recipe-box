@@ -355,6 +355,12 @@ class RB_Recipe {
 	 * @return mixed                     Time in HH:MM (default) or whatever format was passed.
 	 */
 	public function calculate_hours_minutes( $time_in_minutes, $format = 'hh:mm' ) {
+
+		// If no time is saved, bail.
+		if ( ! $time_in_minutes ) {
+			return;
+		}
+
 		// Store hours and minutes in an array.
 		$time = array(
 			'hours'   => intval( $time_in_minutes / 60 ),
