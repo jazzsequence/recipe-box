@@ -361,10 +361,13 @@ class RB_Recipe {
 			return;
 		}
 
+		$hours   = intval( $time_in_minutes / 60 );
+		$minutes = $time_in_minutes - ( $hours * 60 );
+
 		// Store hours and minutes in an array.
 		$time = array(
-			'hours'   => intval( $time_in_minutes / 60 ),
-			'minutes' => $time_in_minutes - ( $hours * 60 ),
+			'hours'   => $hours,
+			'minutes' => $minutes,
 		);
 
 		// Check the format. If we want the time in HH:MM format, return that.
