@@ -221,9 +221,7 @@ class RB_Public {
 		// Get the steps.
 		$steps = $this->render_steps( $post_id );
 
-		echo $cook_times;  // WPCS: XSS ok. Already sanitized.
-		echo $ingredients; // WPCS: XSS ok. Already sanitized.
-		echo $steps;       // WPCS: XSS ok. Already sanitized.
+		return $cook_times . $ingredients . $steps;
 	}
 
 	/**
