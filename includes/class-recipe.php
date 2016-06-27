@@ -278,7 +278,6 @@ class RB_Recipe {
 			'description' => __( 'How many units of this ingredient?', 'recipe-box' ),
 			'id'          => $prefix . 'quantity',
 			'type'        => 'text_small',
-			'attributes'  => array( 'type' => 'number' ),
 		) );
 
 		$cmb->add_group_field( $group_field_id, array(
