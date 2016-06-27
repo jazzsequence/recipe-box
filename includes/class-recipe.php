@@ -326,6 +326,7 @@ class RB_Recipe {
 			'hand'    => __( 'handful(s)', 'recipe-box' ),
 			'splash'  => __( 'splash(es)', 'recipe-box' ),
 			'pinch'   => __( 'pinch(es)', 'recipe-box' ),
+			'clove'   => __( 'clove(s)', 'recipe-box' ),
 		);
 	}
 
