@@ -152,8 +152,8 @@ class RB_Recipe {
 		$prefix = '_rb_';
 
 		$this->recipe_meta( $prefix );
-		$this->instructions( $prefix . 'instructions_' );
 		$this->ingredients( $prefix . 'ingredients_' );
+		$this->instructions( $prefix . 'instructions_' );
 	}
 
 
