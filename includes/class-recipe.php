@@ -116,7 +116,7 @@ class RB_Recipe {
 		wp_enqueue_style( 'recipes', rb()->url . 'assets/css/recipes' . $min . '.css', array(), rb()->version, 'screen' );
 		wp_localize_script( 'recipes', 'recipes', array(
 			'autosuggest' => $this->autosuggest_terms(),
-			'wp_debug'    => ( defined( 'WP_DEBUG' ) && WP_DEBUG ),
+			'wp_debug'    => ( defined( 'WP_DEBUG' ) ) ? WP_DEBUG : false,
 		) );
 	}
 
