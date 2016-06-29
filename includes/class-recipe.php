@@ -298,6 +298,13 @@ class RB_Recipe {
 			'desc'        => __( 'Enter the ingredient name.', 'recipe-box' ),
 			'attributes'  => array( 'class' => 'ingredient' ),
 		) );
+
+		$cmb->add_group_field( $group_field_id, array(
+			'name'        => __( 'Notes', 'recipe-box' ),
+			'id'          => $prefix . 'notes',
+			'type'        => 'text',
+			'desc'        => __( 'Any notes about the ingredient (alternate ingredients, substitutions, etc.).', 'recipe-box' ),
+		) );
 	}
 
 
