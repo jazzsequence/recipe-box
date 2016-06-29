@@ -113,6 +113,7 @@ class RB_Public {
 				$item     = $ingredient['_rb_ingredients_product'];
 				$unit     = $ingredient['_rb_ingredients_unit'];
 				$quantity = $ingredient['_rb_ingredients_quantity'];
+				$notes    = isset( $ingredient['_rb_ingredients_notes'] ) ? $ingredient['_rb_ingredients_notes'] : false;
 
 				$output .= sprintf(
 					'%s' . esc_html( $quantity ) . '%s',
@@ -127,8 +128,18 @@ class RB_Public {
 				$output .= sprintf(
 					'%s' . esc_html( $item ) . '%s',
 					'<span class="recipe-ingredient-item">',
-					'</span></li>'
+					'</span>'
 				);
+
+				if ( $notes ) {
+					$output .= sprintf(
+						' %s' . esc_html( $notes ) . '%s',
+						'<span class="recipe-ingredient-notes">',
+						'</span>'
+					);
+				}
+
+				$output .= '</li>';
 			}
 
 			$output .= '</ul> <!-- .recipe-ingredients -->';
