@@ -303,7 +303,7 @@ class RB_Recipe {
 			'name'        => __( 'Notes', 'recipe-box' ),
 			'id'          => $prefix . 'notes',
 			'type'        => 'text',
-			'desc'        => __( 'Any notes about the ingredient (alternate ingredients, substitutions, etc.).', 'recipe-box' ),
+			'desc'        => __( 'Any notes about the ingredient (alternate ingredients, substitutions, "to taste", optional instructions etc.).', 'recipe-box' ),
 		) );
 	}
 
