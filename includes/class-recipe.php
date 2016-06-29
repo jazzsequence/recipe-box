@@ -81,7 +81,7 @@ class RB_Recipe {
 		add_action( 'cmb2_init', array( $this, 'fields' ) );
 		add_action( 'init', array( $this, 'register_cpts' ), 9 );
 		add_action( 'save_post', array( $this, 'save_ingredient' ), 10, 3 );
-		// add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 9999 );
 	}
 
 
@@ -112,8 +112,8 @@ class RB_Recipe {
 		}
 
 		wp_enqueue_script( 'jquery-ui-autocomplete' );
-		wp_enqueue_script( 'recipes', wdscm()->url . 'assets/js/recipes' . $min . '.js', array( 'jquery' ), wdscm()->version, true );
-		wp_enqueue_style( 'recipes', wdscm()->url . 'assets/css/recipes' . $min . '.css', array(), wdscm()->version, 'screen' );
+		wp_enqueue_script( 'recipes', rb()->url . 'assets/js/recipes' . $min . '.js', array( 'jquery' ), rb()->version, true );
+		wp_enqueue_style( 'recipes', rb()->url . 'assets/css/recipes' . $min . '.css', array(), rb()->version, 'screen' );
 		wp_localize_script( 'recipes', 'recipes', array(
 			'autosuggest' => $this->autosuggest_terms(),
 			'wp_debug'    => ( defined( 'WP_DEBUG' ) && WP_DEBUG ),
