@@ -274,6 +274,14 @@ class RB_Recipe {
 		) );
 
 		$cmb->add_group_field( $group_field_id, array(
+			'name'        => __( 'Ingredient', 'recipe-box' ),
+			'id'          => $prefix . 'product',
+			'type'        => 'text',
+			'desc'        => __( 'Enter the ingredient name.', 'recipe-box' ),
+			'attributes'  => array( 'class' => 'ingredient' ),
+		) );
+
+		$cmb->add_group_field( $group_field_id, array(
 			'name'        => __( 'Quantity', 'recipe-box' ),
 			'description' => __( 'How many units of this ingredient?', 'recipe-box' ),
 			'id'          => $prefix . 'quantity',
@@ -289,14 +297,6 @@ class RB_Recipe {
 			'attributes'  => array(
 				'data-placeholder' => __( 'Select unit of measurement.', 'recipe-box' ),
 			),
-		) );
-
-		$cmb->add_group_field( $group_field_id, array(
-			'name'        => __( 'Ingredient', 'recipe-box' ),
-			'id'          => $prefix . 'product',
-			'type'        => 'text',
-			'desc'        => __( 'Enter the ingredient name.', 'recipe-box' ),
-			'attributes'  => array( 'class' => 'ingredient' ),
 		) );
 
 		$cmb->add_group_field( $group_field_id, array(
