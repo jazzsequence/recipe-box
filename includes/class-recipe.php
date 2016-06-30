@@ -66,6 +66,7 @@ class RB_Recipe {
 			array(
 				'supports'     => array( 'title' ),
 				'public'       => false,
+				'show_in_menu' => false,
 				'show_in_rest' => true,
 				'rest_base'    => 'ingredients',
 			)
