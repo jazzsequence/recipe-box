@@ -11,6 +11,7 @@ window.recipe_box = {};
 	that.bindEvents = function() {
 		that.$c.window.on( 'load', that.doTrashCan );
 		that.$c.window.on( 'load', that.doAutosuggest );
+		that.$c.window.on( 'load', that.addNotesParentClass );
 	};
 
  	// Cache all the things.
@@ -23,6 +24,7 @@ window.recipe_box = {};
 			ingredient: '.cmb-repeatable-grouping input.ingredient',
 			recipesPage: $( 'body.post-type-rb_recipe' ),
 			removeGroupRowButton: $( '.ingredients .cmb-remove-row .cmb-remove-group-row' ),
+			notesInput: $( 'input.notes' ),
 		};
 	};
 
@@ -31,6 +33,12 @@ window.recipe_box = {};
 		that.$c.removeGroupRowButton.html( '<span class="dashicons dashicons-trash"></span>' );
 	};
 
+	// Add notes-parent to the container of the notes input.
+	that.addNotesParentClass = function() {
+		that.$c.notesInput.parent().parent().addClass('notes-parent');
+	}
+
+	// Handles the autosuggestion business.
 	that.doAutosuggest = function() {
 
 		// Show console log if debugging is active.
