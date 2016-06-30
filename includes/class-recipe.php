@@ -258,7 +258,7 @@ class RB_Recipe {
 			'title'        => __( 'Ingredients', 'recipe-box' ),
 			'object_types' => array( 'rb_recipe' ),
 			'show_names'   => true,
-			'classes'      => 'ingredients',
+			'classes'      => array( 'ingredients' ),
 		) );
 
 		$group_field_id = $cmb->add_field( array(
