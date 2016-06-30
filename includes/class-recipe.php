@@ -65,7 +65,7 @@ class RB_Recipe {
 			),
 			array(
 				'supports'     => array( 'title' ),
-				// 'public'       => false, // Commented out for now so we can see this. This will be an internal-only cpt.
+				'public'       => false,
 				'show_in_rest' => true,
 				'rest_base'    => 'ingredients',
 			)
