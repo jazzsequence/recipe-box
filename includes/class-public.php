@@ -70,6 +70,26 @@ class RB_Public {
 	}
 
 	/**
+	 * Returns an array of cook times (prep, cook and total).
+	 * @param  mixed $post_id The post ID (optional).
+	 * @return array          An array of times.
+	 */
+	public function get_cook_time( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		$prep_time  = get_post_meta( $post_id, '_rb_prep_time', true );
+		$cook_time  = get_post_meta( $post_id, '_rb_cook_time', true );
+		$total_time = rb()->cpt->get_total_time( $post_id );
+
+		return array(
+			'prep_time'  => ( $prep_time ) ? $prep_time : '',
+			'cook_time'  => ( $cook_time ) ? $cook_time : '',
+			'total_time' => ( $total_time ) ? $total_time : '',
+		);
+	}
+
+	/**
 	 * Handles the markup for the ingredients.
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return string         The markup for the recipe ingredients.
@@ -93,6 +113,7 @@ class RB_Public {
 				$item     = $ingredient['_rb_ingredients_product'];
 				$unit     = $ingredient['_rb_ingredients_unit'];
 				$quantity = $ingredient['_rb_ingredients_quantity'];
+				$notes    = isset( $ingredient['_rb_ingredients_notes'] ) ? $ingredient['_rb_ingredients_notes'] : false;
 
 				$output .= sprintf(
 					'%s' . esc_html( $quantity ) . '%s',
@@ -107,8 +128,18 @@ class RB_Public {
 				$output .= sprintf(
 					'%s' . esc_html( $item ) . '%s',
 					'<span class="recipe-ingredient-item">',
-					'</span></li>'
+					'</span>'
 				);
+
+				if ( $notes ) {
+					$output .= sprintf(
+						' %s' . esc_html( $notes ) . '%s',
+						'<span class="recipe-ingredient-notes">',
+						'</span>'
+					);
+				}
+
+				$output .= '</li>';
 			}
 
 			$output .= '</ul> <!-- .recipe-ingredients -->';
@@ -164,6 +195,27 @@ class RB_Public {
 	}
 
 	/**
+	 * Handles markup for cooking and preparation times.
+	 * @param  mixed $post_id The post ID (optional).
+	 * @return string         The cook time markup.
+	 */
+	public function render_cook_times( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		// Get the cook times.
+		$times = $this->get_cook_time( $post_id );
+
+		$output = '<div class="recipe-preparation-times"><p>';
+		$output .= ( '' !== $times['prep_time'] ) ? '<span class="prep-time">' . sprintf( esc_html__( 'Prep time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['prep_time'], 'string' ) ) . '</span> ' : '';
+		$output .= ( '' !== $times['cook_time'] ) ? '<span class="cook-time">' . sprintf( esc_html__( 'Cooking Time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['cook_time'], 'string' ) ) . '</span> ' : '';
+		$output .= ( '' !== $times['total_time'] ) ? '<span class="total-time">' . sprintf( esc_html__( 'Total Time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['total_time'], 'string' ) ) . '</span>' : '';
+		$output .= '</p></div> <!-- .recipe-preparation-times -->';
+
+		return $output;
+	}
+
+	/**
 	 * Handles echoing the recipe meta (ingredients and recipe steps).
 	 * @param  mixed $post_id The post ID (optional).
 	 */
@@ -171,14 +223,16 @@ class RB_Public {
 		// Get the post ID.
 		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
 
+		// Get the cook times.
+		$cook_times = $this->render_cook_times( $post_id );
+
 		// Get the ingredients.
 		$ingredients = $this->render_ingredients( $post_id );
 
 		// Get the steps.
 		$steps = $this->render_steps( $post_id );
 
-		echo $ingredients; // WPCS: XSS ok. Already sanitized.
-		echo $steps; // WPCS: XSS ok. Already sanitized.
+		return $cook_times . $ingredients . $steps;
 	}
 
 	/**

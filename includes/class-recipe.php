@@ -65,7 +65,7 @@ class RB_Recipe {
 			),
 			array(
 				'supports'     => array( 'title' ),
-				// 'public'       => false, // Commented out for now so we can see this. This will be an internal-only cpt.
+				'public'       => false,
 				'show_in_rest' => true,
 				'rest_base'    => 'ingredients',
 			)
@@ -81,7 +81,7 @@ class RB_Recipe {
 		add_action( 'cmb2_init', array( $this, 'fields' ) );
 		add_action( 'init', array( $this, 'register_cpts' ), 9 );
 		add_action( 'save_post', array( $this, 'save_ingredient' ), 10, 3 );
-		// add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 9999 );
 	}
 
 
@@ -112,11 +112,11 @@ class RB_Recipe {
 		}
 
 		wp_enqueue_script( 'jquery-ui-autocomplete' );
-		wp_enqueue_script( 'recipes', wdscm()->url . 'assets/js/recipes' . $min . '.js', array( 'jquery' ), wdscm()->version, true );
-		wp_enqueue_style( 'recipes', wdscm()->url . 'assets/css/recipes' . $min . '.css', array(), wdscm()->version, 'screen' );
+		wp_enqueue_script( 'recipes', rb()->url . 'assets/js/recipes' . $min . '.js', array( 'jquery' ), rb()->version, true );
+		wp_enqueue_style( 'recipes', rb()->url . 'assets/css/recipes' . $min . '.css', array(), rb()->version, 'screen' );
 		wp_localize_script( 'recipes', 'recipes', array(
 			'autosuggest' => $this->autosuggest_terms(),
-			'wp_debug'    => ( defined( 'WP_DEBUG' ) && WP_DEBUG ),
+			'wp_debug'    => ( defined( 'WP_DEBUG' ) ) ? WP_DEBUG : false,
 		) );
 	}
 
@@ -152,8 +152,8 @@ class RB_Recipe {
 		$prefix = '_rb_';
 
 		$this->recipe_meta( $prefix );
-		$this->instructions( $prefix . 'instructions_' );
 		$this->ingredients( $prefix . 'ingredients_' );
+		$this->instructions( $prefix . 'instructions_' );
 	}
 
 
@@ -258,7 +258,7 @@ class RB_Recipe {
 			'title'        => __( 'Ingredients', 'recipe-box' ),
 			'object_types' => array( 'rb_recipe' ),
 			'show_names'   => true,
-			'classes'      => 'ingredients',
+			'classes'      => array( 'ingredients' ),
 		) );
 
 		$group_field_id = $cmb->add_field( array(
@@ -274,11 +274,18 @@ class RB_Recipe {
 		) );
 
 		$cmb->add_group_field( $group_field_id, array(
+			'name'        => __( 'Ingredient', 'recipe-box' ),
+			'id'          => $prefix . 'product',
+			'type'        => 'text',
+			'desc'        => __( 'Enter the ingredient name.', 'recipe-box' ),
+			'attributes'  => array( 'class' => 'ingredient' ),
+		) );
+
+		$cmb->add_group_field( $group_field_id, array(
 			'name'        => __( 'Quantity', 'recipe-box' ),
 			'description' => __( 'How many units of this ingredient?', 'recipe-box' ),
 			'id'          => $prefix . 'quantity',
 			'type'        => 'text_small',
-			'attributes'  => array( 'type' => 'number' ),
 		) );
 
 		$cmb->add_group_field( $group_field_id, array(
@@ -293,11 +300,11 @@ class RB_Recipe {
 		) );
 
 		$cmb->add_group_field( $group_field_id, array(
-			'name'        => __( 'Ingredient', 'recipe-box' ),
-			'id'          => $prefix . 'product',
+			'name'        => __( 'Notes', 'recipe-box' ),
+			'id'          => $prefix . 'notes',
 			'type'        => 'text',
-			'desc'        => __( 'Enter the ingredient name.', 'recipe-box' ),
-			'attributes'  => array( 'class' => 'ingredient' ),
+			'desc'        => __( 'Any notes about the ingredient (alternate ingredients, substitutions, "to taste", optional instructions etc.).', 'recipe-box' ),
+			'attributes'  => array( 'class' => 'notes' ),
 		) );
 	}
 
@@ -327,6 +334,7 @@ class RB_Recipe {
 			'hand'    => __( 'handful(s)', 'recipe-box' ),
 			'splash'  => __( 'splash(es)', 'recipe-box' ),
 			'pinch'   => __( 'pinch(es)', 'recipe-box' ),
+			'clove'   => __( 'clove(s)', 'recipe-box' ),
 		);
 	}
 
@@ -355,10 +363,19 @@ class RB_Recipe {
 	 * @return mixed                     Time in HH:MM (default) or whatever format was passed.
 	 */
 	public function calculate_hours_minutes( $time_in_minutes, $format = 'hh:mm' ) {
+
+		// If no time is saved, bail.
+		if ( ! $time_in_minutes ) {
+			return;
+		}
+
+		$hours   = intval( $time_in_minutes / 60 );
+		$minutes = $time_in_minutes - ( $hours * 60 );
+
 		// Store hours and minutes in an array.
 		$time = array(
-			'hours'   => intval( $time_in_minutes / 60 ),
-			'minutes' => $time_in_minutes - ( $hours * 60 ),
+			'hours'   => $hours,
+			'minutes' => $minutes,
 		);
 
 		// Check the format. If we want the time in HH:MM format, return that.
