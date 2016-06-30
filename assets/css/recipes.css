@@ -1,3 +1,113 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *::after, *::before {
+  box-sizing: inherit;
+}
+
+.post-type-rb_recipe h3.cmb-group-title.cmbhandle-title {
+    background: #fafafa;
+}
+
+.post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-row:not(:last-of-type) {
+  border: none;
+}
+
+.post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-th {
+  float: none;
+  margin-bottom: 0.75rem;
+  width: 100%;
+}
+
+.post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-th label {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-td {
+  float: none;
+  width: 100%;
+}
+
+.post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-td .cmb2-text-small,
+.post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-td .cmb2_select {
+  margin-bottom: 0.75rem;
+  width: 100%;
+}
+
+.post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-td .cmb2-product-search-button {
+  height: 2.25rem;
+  width: 2.25rem;
+}
+
+.post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-td .cmb2-metabox-description {
+  display: block;
+  margin: 0.75rem 0 0;
+  padding: 0;
+}
+
+.post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-remove-field-row:before {
+  content: 'Actions';
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  margin-left: 1.5rem;
+}
+
+.post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-remove-field-row .cmb-remove-row::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-remove-field-row .cmb-remove-row .cmb-shift-rows {
+  float: none;
+  padding: 0.125rem 0.25rem;
+}
+
+.post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-remove-field-row .cmb-remove-row .cmb-remove-group-row {
+  float: none;
+  padding: 0.125rem 0.25rem;
+}
+
+@media screen and (min-width: 64rem) {
+
+  .post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-row {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 23.23176%;
+  }
+
+  .post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-row:last-child {
+    margin-right: 0;
+  }
+
+  .post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .notes-parent {
+  	padding-top: 0;
+  	width: 100%;
+  }
+  .post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list input.notes {
+  	width: 100%;
+  }
+
+  .post-type-rb_recipe .cmb-remove-field-row {
+    text-align: left;
+    bottom: 303px;
+    position: relative;
+    left: 466px;
+    float: right;
+    margin-bottom: -303px;
+  }
+}
+
+
+/**
+ * Autocompletion styles
+ */
+
 ul.ui-autocomplete {
 	font-family: 'Opan Sans', sans-serif;
 	background: white;
