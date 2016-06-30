@@ -304,6 +304,7 @@ class RB_Recipe {
 			'id'          => $prefix . 'notes',
 			'type'        => 'text',
 			'desc'        => __( 'Any notes about the ingredient (alternate ingredients, substitutions, "to taste", optional instructions etc.).', 'recipe-box' ),
+			'attributes'  => array( 'class' => 'notes' ),
 		) );
 	}
 
