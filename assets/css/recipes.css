@@ -72,6 +72,35 @@ html {
   padding: 0.125rem 0.25rem;
 }
 
+/**
+ * Responsive Action Row
+ */
+@media screen and ( max-width: 1170px ) {
+	.post-type-rb_recipe .cmb-row.cmb-remove-field-row {
+		float: left!important;
+		margin: auto;
+	}
+	.post-type-rb_recipe .cmb-remove-field-row .cmb-remove-row {
+		margin-left: 0;
+	}
+	.post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-remove-field-row:before {
+		margin-left: 0;
+	}
+	a.button.cmb-shift-rows.alignleft {
+		height: 1.7rem;
+	}
+}
+
+@media screen and ( min-width: 1170px ) {
+	.post-type-rb_recipe .cmb-remove-field-row .cmb-remove-row{
+		margin-left: 1.5rem;
+	}
+  .post-type-rb_recipe .cmb-remove-field-row {
+    text-align: left;
+    float: right !important;
+  }
+}
+
 @media screen and (min-width: 64rem) {
 
   .post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-row {
@@ -94,12 +123,12 @@ html {
   }
 
   .post-type-rb_recipe .cmb-remove-field-row {
-    text-align: left;
-    bottom: 303px;
-    position: relative;
-    left: 466px;
-    float: right;
-    margin-bottom: -303px;
+    margin-top: -18.5rem;
+    margin-bottom: -18.5rem;
+  }
+
+  .post-type-rb_recipe .cmb-remove-field-row .cmb-remove-row {
+  	text-align: left;
   }
 }
 
