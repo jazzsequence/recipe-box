@@ -12,6 +12,7 @@ window.recipe_box = {};
 		that.$c.window.on( 'load', that.doTrashCan );
 		that.$c.window.on( 'load', that.doAutosuggest );
 		that.$c.window.on( 'load', that.addNotesParentClass );
+		that.$c.window.on( 'load', that.moveActions );
 	};
 
  	// Cache all the things.
@@ -24,6 +25,8 @@ window.recipe_box = {};
 			ingredient: '.cmb-repeatable-grouping input.ingredient',
 			recipesPage: $( 'body.post-type-rb_recipe' ),
 			removeGroupRowButton: $( '.ingredients .cmb-remove-row .cmb-remove-group-row' ),
+			removeRow: $( '.ingredients .cmb-remove-field-row' ),
+			ingredientsGroup: $( '.ingredients .cmb-repeatable-grouping' ),
 			notesInput: $( 'input.notes' ),
 		};
 	};
@@ -66,6 +69,14 @@ window.recipe_box = {};
 			} );
 		}
 	};
+
+	// Move the actions row to before the notes row.
+	that.moveActions = function() {
+		that.$c.ingredientsGroup.each( function(index) {
+			console.log( $(this).find(that.$c.removeRow) );
+			$(this).find(that.$c.removeRow).insertBefore($('.cmb2-id--rb-ingredients-group-' + index + '--rb-ingredients-notes'));
+		});
+	}
 
 	// Engage!
 	$( that.init );
