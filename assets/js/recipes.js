@@ -24,6 +24,8 @@ window.recipe_box = {};
 			ingredient: '.cmb-repeatable-grouping input.ingredient',
 			recipesPage: $( 'body.post-type-rb_recipe' ),
 			removeGroupRowButton: $( '.ingredients .cmb-remove-row .cmb-remove-group-row' ),
+			removeRow: $( '.ingredients .cmb-remove-field-row' ),
+			ingredientsGroup: $( '.ingredients .cmb-repeatable-grouping' ),
 			notesInput: $( 'input.notes' ),
 		};
 	};
