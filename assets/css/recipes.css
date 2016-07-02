@@ -78,6 +78,10 @@ html {
 	a.button.cmb-shift-rows.alignleft {
 		height: 1.7rem;
 	}
+
+	.post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-row.cmb-remove-field-row {
+		float: right;
+	}
 }
 
 @media screen and (min-width: 64rem) {
