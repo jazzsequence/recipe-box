@@ -53,7 +53,6 @@ html {
   display: block;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  margin-left: 1.5rem;
 }
 
 .post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-remove-field-row .cmb-remove-row::after {
