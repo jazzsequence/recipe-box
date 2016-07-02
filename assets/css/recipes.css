@@ -89,7 +89,9 @@ html {
     width: 23.23176%;
   }
 
-  .post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-row:last-child {
+  .post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-row:last-child,
+  .post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-remove-field-row
+   {
     margin-right: 0;
   }
 
