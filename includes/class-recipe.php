@@ -180,6 +180,28 @@ class RB_Recipe {
 			'default'    => '2',
 		) );
 
+		$group_field_id = $cmb->add_field( array(
+			'id'          => $prefix . 'preheat_group',
+			'type'        => 'group',
+			'repeatable'  => false,
+		) );
+
+		$cmb->add_group_field( $group_field_id, array(
+			'name'        => __( 'Preheat Temperature', 'recipe-box' ),
+			'id'          => $prefix . 'preheat_temp',
+			'type'        => 'text_small',
+		) );
+
+		$cmb->add_group_field( $group_field_id, array(
+			'name'        => __( 'Unit', 'recipe-box' ),
+			'id'          => $prefix . 'preheat_unit',
+			'type'        => 'select',
+			'options'     => [
+				'farenheit' => __( 'Farenheit', 'recipe-box' ),
+				'celcius'   => __( 'Celcius' ),
+			],
+		) );
+
 		$cmb->add_field( array(
 			'name'       => __( 'Preparation Time', 'recipe-box' ),
 			'id'         => $prefix . 'prep_time',
