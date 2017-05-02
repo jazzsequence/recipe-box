@@ -212,6 +212,10 @@ class RB_Recipe {
 			'name'        => __( 'Preheat Temperature', 'recipe-box' ),
 			'id'          => $prefix . 'preheat_temp',
 			'type'        => 'text_small',
+			'attributes'  => [
+				'type' => 'number',
+				'step' => '5',
+			]
 		) );
 
 		$cmb->add_group_field( $group_field_id, array(
