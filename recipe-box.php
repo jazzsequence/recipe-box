@@ -155,8 +155,6 @@ final class Recipe_Box {
 		$this->taxonomy = new RB_Taxonomies( $this );
 		$this->public   = new RB_Public( $this );
 
-		// Include TGM Plugin Activation.
-		require_once( $this->path . '/vendor/tgm-plugin-activation/class-tgm-plugin-activation.php' );
 	} // END OF PLUGIN CLASSES FUNCTION
 
 	/**
