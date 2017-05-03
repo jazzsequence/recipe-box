@@ -411,28 +411,30 @@ class RB_Recipe {
 
 		$ingredients = get_post_meta( $post_id, '_rb_ingredients_group', true );
 
-		foreach ( $ingredients as $ingredient ) {
-			// Get the name of the ingredient.
-			$item_slug = sanitize_title( $ingredient['_rb_ingredients_product'] );
-			$item_name = esc_html( $ingredient['_rb_ingredients_product'] );
+		if ( $ingredients ) {
+			foreach ( $ingredients as $ingredient ) {
+				// Get the name of the ingredient.
+				$item_slug = sanitize_title( $ingredient['_rb_ingredients_product'] );
+				$item_name = esc_html( $ingredient['_rb_ingredients_product'] );
 
-			// See if there's an existing ingredient CPT with this slug.
-			$match = new WP_Query( array(
-				'name'        => $item_slug,
-				'post_type'   => 'rb_ingredient',
-				'post_status' => 'publish',
-				'numberposts' => 1,
-				'fields'      => 'ids',
-			) );
-
-			// If nothing matches, we're going to add a new ingredient with this name.
-			if ( empty( $match->posts ) ) {
-				wp_insert_post( array(
-					'post_title'  => $item_name,
-					'post_name'   => $item_slug,
+				// See if there's an existing ingredient CPT with this slug.
+				$match = new WP_Query( array(
+					'name'        => $item_slug,
 					'post_type'   => 'rb_ingredient',
 					'post_status' => 'publish',
+					'numberposts' => 1,
+					'fields'      => 'ids',
 				) );
+
+				// If nothing matches, we're going to add a new ingredient with this name.
+				if ( empty( $match->posts ) ) {
+					wp_insert_post( array(
+						'post_title'  => $item_name,
+						'post_name'   => $item_slug,
+						'post_type'   => 'rb_ingredient',
+						'post_status' => 'publish',
+					) );
+				}
 			}
 		}
 	}
