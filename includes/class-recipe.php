@@ -135,6 +135,7 @@ class RB_Recipe {
 			$results = json_decode( $request['body'] );
 
 			// Build an array of ingredient names.
+			$ingredient_list = [];
 			foreach ( $results as $ingredient ) {
 				$ingredient_list[] = $ingredient->title->rendered;
 			}
