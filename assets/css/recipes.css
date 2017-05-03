@@ -72,6 +72,39 @@ html {
 }
 
 /**
+ * Preheat Temperature styles.
+ */
+@media screen and (min-width: 64rem) {
+  #_rb_preheat_group_repeat .cmb-row {
+      padding: 0;
+      margin: 0;
+      border: none;
+  }
+
+  #_rb_preheat_group_repeat .cmbhandle, #_rb_preheat_group_repeat .cmbhandle-title {
+      display: none;
+  }
+
+  #_rb_preheat_group_repeat .cmb-row.cmb-type-text-small.cmb2-id--rb-preheat-group-0--rb-preheat-temp.cmb-repeat-group-field {
+      width: 48%;
+      float: left;
+  }
+
+  .cmb-row.cmb-type-select.cmb2-id--rb-preheat-group-0--rb-preheat-unit.cmb-repeat-group-field {
+      width: 48%;
+      float: right;
+  }
+
+  .cmb2-id--rb-preheat-group-0--rb-preheat-temp.cmb-row .cmb-th {
+      width: 60%;
+  }
+
+  .cmb2-id--rb-preheat-group-0--rb-preheat-temp.cmb-row .cmb-td {
+      width: 40%;
+  }
+}
+
+/**
  * Responsive Action Row
  */
 @media screen and ( max-width: 1170px ) {
