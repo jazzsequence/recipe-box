@@ -2,7 +2,7 @@
 /**
  * Recipe CPT
  *
- * @since NEXT
+ * @since 0.1
  * @package Recipe Box
  */
 
@@ -13,14 +13,14 @@ require_once dirname( __FILE__ ) . '/../vendor/cmb2/init.php';
  * Recipe Box RB_Recipe post type class.
  *
  * @see https://github.com/WebDevStudios/CPT_Core
- * @since NEXT
+ * @since 0.1
  */
 class RB_Recipe {
 	/**
 	 * Parent plugin class
 	 *
 	 * @var class
-	 * @since  NEXT
+	 * @since  0.1
 	 */
 	protected $plugin = null;
 
@@ -28,7 +28,7 @@ class RB_Recipe {
 	 * Constructor
 	 * Register Custom Post Types. See documentation in CPT_Core, and in wp-includes/post.php
 	 *
-	 * @since  NEXT
+	 * @since  0.1
 	 * @param  object $plugin Main plugin object.
 	 */
 	public function __construct( $plugin ) {
@@ -39,7 +39,7 @@ class RB_Recipe {
 	/**
 	 * Register the CPTs, yo.
 	 *
-	 * @since NEXT
+	 * @since 0.1
 	 */
 	public function register_cpts() {
 		// Register Recipes.
@@ -76,7 +76,7 @@ class RB_Recipe {
 	/**
 	 * Initiate our hooks
 	 *
-	 * @since  NEXT
+	 * @since  0.1
 	 */
 	public function hooks() {
 		add_action( 'cmb2_init', array( $this, 'fields' ) );
@@ -89,8 +89,8 @@ class RB_Recipe {
 	/**
 	 * Enqueue admin javascript. Mostly for autocompletion.
 	 *
+	 * @since  0.1
 	 * @param  string $hook The current admin page.
-	 * @return void
 	 */
 	public function admin_enqueue_scripts( $hook ) {
 		global $post;
@@ -124,6 +124,7 @@ class RB_Recipe {
 	/**
 	 * Get an array of unique ingredient names using the WP-API.
 	 *
+	 * @since  0.1
 	 * @todo         This whole thing needs to be edited to use post meta instead of an ingredient cpt.
 	 * @return array An array of ingredient names (post titles).
 	 */
@@ -150,6 +151,8 @@ class RB_Recipe {
 
 	/**
 	 * Register the CMB2 fields and metaboxes.
+	 *
+	 * @since 0.1
 	 */
 	public function fields() {
 		$prefix = '_rb_';
@@ -163,6 +166,7 @@ class RB_Recipe {
 	/**
 	 * Handles the Recipe Information CMB2 box.
 	 *
+	 * @since  0.1
 	 * @param  string $prefix The meta prefix.
 	 */
 	private function recipe_meta( $prefix ) {
@@ -236,6 +240,7 @@ class RB_Recipe {
 	/**
 	 * Handles the recipe instructions metabox.
 	 *
+	 * @since  0.1
 	 * @param  string $prefix The post meta key prefix.
 	 */
 	private function instructions( $prefix ) {
@@ -282,6 +287,7 @@ class RB_Recipe {
 	/**
 	 * The ingredients list metabox.
 	 *
+	 * @since  0.1
 	 * @param  string $prefix The post metakey prefix.
 	 */
 	private function ingredients( $prefix ) {
@@ -344,6 +350,7 @@ class RB_Recipe {
 	/**
 	 * Return various units of measurement.
 	 *
+	 * @since  0.1
 	 * @return array Different units of measurement that could be used in a recipe.
 	 */
 	private function get_units() {
@@ -389,6 +396,7 @@ class RB_Recipe {
 	/**
 	 * Function to calculate time in HH:MM from time stored only in minutes.
 	 *
+	 * @since  0.1
 	 * @param  integer $time_in_minutes Time in minutes.
 	 * @param  string  $format          The desired format of the calculated time.
 	 *         Accepted possibilities are:
@@ -432,7 +440,7 @@ class RB_Recipe {
 	/**
 	 * Save ingredients as ingredient CPT posts when a recipe is saved.
 	 *
-	 * @since  NEXT
+	 * @since  0.1
 	 * @param  int    $post_id The post ID of the recipe being saved.
 	 * @param  object $post    The post object of the recipe.
 	 * @param  bool   $update  Whether or not the post was updated.
@@ -481,7 +489,7 @@ class RB_Recipe {
 	/**
 	 * Registers admin columns to display. Hooked in via CPT_Core.
 	 *
-	 * @since  NEXT
+	 * @since  0.1
 	 * @param  array $columns Array of registered column names/labels.
 	 * @return array          Modified array
 	 */
@@ -493,7 +501,7 @@ class RB_Recipe {
 	/**
 	 * Handles admin column display. Hooked in via CPT_Core.
 	 *
-	 * @since  NEXT
+	 * @since  0.1
 	 * @param array $column  Column currently being rendered.
 	 * @param int   $post_id ID of post to display column for.
 	 */
