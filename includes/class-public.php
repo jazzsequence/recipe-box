@@ -152,10 +152,10 @@ class RB_Public {
 				}
 
 				$output .= '</li>';
-			}
+			} // End foreach().
 
 			$output .= '</ul> <!-- .recipe-ingredients -->';
-		}
+		} // End if().
 
 		return $output;
 	}
@@ -221,9 +221,12 @@ class RB_Public {
 		$times = $this->get_cook_time( $post_id );
 
 		$output = '<div class="recipe-preparation-times"><p>';
-		$output .= ( '' !== $times['prep_time'] ) ? '<span class="prep-time">' . sprintf( esc_html__( 'Prep time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['prep_time'], 'string' ) ) . '</span> ' : '';
-		$output .= ( '' !== $times['cook_time'] ) ? '<span class="cook-time">' . sprintf( esc_html__( 'Cooking Time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['cook_time'], 'string' ) ) . '</span> ' : '';
-		$output .= ( '' !== $times['total_time'] ) ? '<span class="total-time">' . sprintf( esc_html__( 'Total Time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['total_time'], 'string' ) ) . '</span>' : '';
+		// Translators: %s is the preparation time value.
+		$output .= ( '' !== $times['prep_time'] ) ? '<div class="prep-time">' . sprintf( esc_html__( 'Prep time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['prep_time'], 'string' ) ) . '</div> ' : '';
+		// Translators: %s is the cooking time value.
+		$output .= ( '' !== $times['cook_time'] ) ? '<div class="cook-time">' . sprintf( esc_html__( 'Cooking Time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['cook_time'], 'string' ) ) . '</div> ' : '';
+		// Translators: %s is the total time it takes to cook the recipe.
+		$output .= ( '' !== $times['total_time'] ) ? '<div class="total-time">' . sprintf( esc_html__( 'Total Time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['total_time'], 'string' ) ) . '</div>' : '';
 		$output .= '</p></div> <!-- .recipe-preparation-times -->';
 
 		return $output;
