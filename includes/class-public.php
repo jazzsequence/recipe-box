@@ -112,8 +112,19 @@ class RB_Public {
 		// Get the post ID.
 		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
 
+		/**
+		 * Allow the instructions to be filtered.
+		 * This allows for instruction steps to be arbitrarily inserted inside recipes programmatically.
+		 *
+		 * @since 0.2
+		 * @param array $instructions The array of instruction groups (multidimensional CMB2 group array).
+		 * @param int   $post_id      The ID of the recipe post.
+		 * @var   array               Filtered instruction steps.
+		 */
+		$instructions = apply_filters( 'rb_filter_steps', get_post_meta( $post_id, '_rb_instructions_group', true ), $post_id );
+
 		// Return the preparation groups and steps.
-		return get_post_meta( $post_id, '_rb_instructions_group', true );
+		return $instructions;
 	}
 
 	/**
