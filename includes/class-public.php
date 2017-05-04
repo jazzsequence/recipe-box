@@ -138,8 +138,27 @@ class RB_Public {
 		// Get the post ID.
 		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
 
-		$prep_time  = get_post_meta( $post_id, '_rb_prep_time', true );
-		$cook_time  = get_post_meta( $post_id, '_rb_cook_time', true );
+		/**
+		 * Allow prep time to be filtered.
+		 *
+		 * @since 0.2
+		 * @param int $prep_time The recipe preparation time.
+		 * @param int $post_id   The recipe post ID.
+		 * @var   int            Filtered prep time.
+		 */
+		$prep_time  = apply_filters( 'rb_filter_prep_time', absint( get_post_meta( $post_id, '_rb_prep_time', true ) ), $post_id );
+
+		/**
+		 * Allow cook time to be filtered.
+		 *
+		 * @since 0.2
+		 * @param int $cook_time The recipe cooking time.
+		 * @param int $post_id   The recipe post ID.
+		 * @var   int            Filtered cook time.
+		 */
+		$cook_time  = apply_filters( 'rb_filter_cook_time', absint( get_post_meta( $post_id, '_rb_cook_time', true ) ), $post_id );
+
+		// Total time cannot be filtered.
 		$total_time = rb()->cpt->get_total_time( $post_id );
 
 		return array(
