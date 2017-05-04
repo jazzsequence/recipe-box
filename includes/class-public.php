@@ -467,16 +467,64 @@ class RB_Public {
 		// Get the cook times.
 		$times = $this->get_cook_time( $post_id );
 
+		/**
+		 * Before cook times action hook.
+		 *
+		 * @since 0.2
+		 * @param int $post_id The ID of the recipe post.
+		 */
+		do_action( 'rb_action_before_cook_times', $post_id );
+
 		$output = '<div class="recipe-preparation-times"><p>';
+
+		/**
+		 * Before prep time action hook.
+		 *
+		 * @since 0.2
+		 * @param int $post_id The ID of the recipe post.
+		 */
+		do_action( 'rb_action_before_prep__time', $post_id );
 		// Translators: %s is the preparation time value.
 		$output .= ( '' !== $times['prep_time'] ) ? '<div class="prep-time">' . sprintf( esc_html__( 'Prep time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['prep_time'], 'string' ) ) . '</div> ' : '';
+
+		/**
+		 * Before cook time action hook.
+		 *
+		 * @since 0.2
+		 * @param int $post_id The ID of the recipe post.
+		 */
+		do_action( 'rb_action_before_cook__time', $post_id );
 		// Translators: %s is the cooking time value.
 		$output .= ( '' !== $times['cook_time'] ) ? '<div class="cook-time">' . sprintf( esc_html__( 'Cooking Time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['cook_time'], 'string' ) ) . '</div> ' : '';
+
+		/**
+		 * Before tota time action hook.
+		 *
+		 * @since 0.2
+		 * @param int $post_id The ID of the recipe post.
+		 */
+		do_action( 'rb_action_before_total_time', $post_id );
 		// Translators: %s is the total time it takes to cook the recipe.
 		$output .= ( '' !== $times['total_time'] ) ? '<div class="total-time">' . sprintf( esc_html__( 'Total Time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['total_time'], 'string' ) ) . '</div>' : '';
 		$output .= '</p></div> <!-- .recipe-preparation-times -->';
 
-		return $output;
+		/**
+		 * After cook times action hook.
+		 *
+		 * @since 0.2
+		 * @param int $post_id The ID of the recipe post.
+		 */
+		do_action( 'rb_action_after_cook_times', $post_id );
+
+		/**
+		 * Allow the cook times display to be filtered.
+		 *
+		 * @since 0.2
+		 * @param string $output  The full HTML markup for cook times.
+		 * @param int    $post_id The ID of the recipe post.
+		 * @var   string          Filtered markup.
+		 */
+		return apply_filters( 'rb_filter_cook_times_display', $output, $post_id );
 	}
 
 	/**
