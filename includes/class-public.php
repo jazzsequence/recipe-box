@@ -54,9 +54,25 @@ class RB_Public {
 		// Get the post ID.
 		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
 
-		// Return the preheat temperature and units.
 		$preheat_temp = get_post_meta( $post_id, '_rb_preheat_group', true );
-		return ( $preheat_temp && isset( $preheat_temp[0] ) ) ? $preheat_temp[0] : false;
+
+		/**
+		 * Allow the preheat temp value to be filtered.
+		 * Data _must_ match post meta, e.g.
+		 * 	array[
+		 *  	'_rb_preheat_temp' => 200,
+		 *   	'_rb_preheat_unit' => celcius,
+		 *  ]
+		 *
+		 * @since 0.2
+		 * @param array $preheat_temp The post meta for preheat temperature in the above format.
+		 * @param int   $post_id      The ID of the recipe post.
+		 * @var   array               Filtered temperature information.
+		 */
+		$preheat_temp = ( $preheat_temp && isset( $preheat_temp[0] ) ) ? apply_filters( 'rb_filter_preheat_temp', $preheat_temp[0], $post_id ) : false;
+
+		// Return the preheat temperature and units.
+		return $preheat_temp;
 	}
 
 	/**
