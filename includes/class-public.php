@@ -383,9 +383,25 @@ class RB_Public {
 		$output = '';
 
 		if ( is_array( $instruction_groups ) && ! empty( $instruction_groups ) ) {
+			/**
+			 * Before instructions list action hook.
+			 *
+			 * @since 0.2
+			 * @param int $post_id The recipe post ID.
+			 */
+			do_action( 'rb_action_before_instructions_list', $post_id );
 
 			// Loop through each group.
 			foreach ( $instruction_groups as $instruction_group ) {
+
+				/**
+				 * Before single instructions group action hook.
+				 *
+				 * @since 0.2
+				 * @param int $post_id The recipe post ID.
+				 */
+				do_action( 'rb_action_before_instructions_group', $post_id );
+
 				$instructions_title = esc_html( $instruction_group['_rb_instructions_title'] );
 				$instruction_group_slug = sanitize_title( $instructions_title );
 
@@ -407,10 +423,34 @@ class RB_Public {
 				$output .= '</ol> <!-- .' . $instruction_group_slug . '-steps -->';
 				$output .= '</div> <!-- .recipe-instruction-group.' . $instruction_group_slug . ' -->';
 
-			}
-		}
+				/**
+				 * After single instructions group action hook.
+				 *
+				 * @since 0.2
+				 * @param int $post_id The recipe post ID.
+				 */
+				do_action( 'rb_action_after_instructions_group', $post_id );
+			} // End foreach().
 
-		return $output;
+
+			/**
+			 * After instructions list action hook.
+			 *
+			 * @since 0.2
+			 * @param int $post_id The recipe post ID.
+			 */
+			do_action( 'rb_action_after_recipe_instructions_list', $post_id );
+		} // End if().
+
+		/**
+		 * Allow the instructions display to be filtered.
+		 *
+		 * @since 0.2
+		 * @param string $output  The full HTML markup for the instructions list.
+		 * @param int    $post_id The ID of the recipe post.
+		 * @var   string          Filtered markup.
+		 */
+		return apply_filters( 'rb_filter_instructions_display', $output, $post_id );
 	}
 
 	/**
