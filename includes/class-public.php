@@ -190,13 +190,38 @@ class RB_Public {
 			// Do some sanitization of the data.
 			$temp = absint( $preheat_temp['_rb_preheat_temp'] );
 			$unit = ( in_array( $preheat_temp['_rb_preheat_unit'], [ 'farenheit', 'celcius' ], true ) ) ? ucfirst( $preheat_temp['_rb_preheat_unit'] ) : '';
+
+			/**
+			 * Before preheat temp action hook.
+			 *
+			 * @since 0.2
+			 * @param int $post_id The recipe post ID.
+			 */
+			do_action( 'rb_action_before_recipe_preheat_temp', $post_id );
+
 			$output .= '<div class="recipe-preheat-temp">';
 			$output .= '<h4 class="recipe-preheat-temp-heading">' . esc_html__( 'Preheat Temperature', 'recipe-box' ) . '</h4>';
 			$output .= sprintf( '<p>%d° %s</p>', $temp, $unit );
 			$output .= '</div> <!-- .recipe-preheat-temp -->';
+
+			/**
+			 * After preheat temp action hook.
+			 *
+			 * @since 0.2
+			 * @param int $post_id The recipe post ID.
+			 */
+			do_action( 'rb_action_after_recipe_preheat_temp', $post_id );
 		}
 
-		return $output;
+		/**
+		 * Allow the preheat temp display to be filtered.
+		 *
+		 * @since 0.2
+		 * @param string $output  The full HTML markup for the preheat temperature.
+		 * @param int    $post_id The ID of the recipe post.
+		 * @var   string          Filtered markup.
+		 */
+		return apply_filters( 'rb_filter_preheat_temp_display', $output, $post_id );
 	}
 
 	/**
