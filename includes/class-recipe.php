@@ -123,6 +123,7 @@ class RB_Recipe {
 
 	/**
 	 * Get an array of unique ingredient names using the WP-API.
+	 *
 	 * @todo         This whole thing needs to be edited to use post meta instead of an ingredient cpt.
 	 * @return array An array of ingredient names (post titles).
 	 */
@@ -161,6 +162,7 @@ class RB_Recipe {
 
 	/**
 	 * Handles the Recipe Information CMB2 box.
+	 *
 	 * @param  string $prefix The meta prefix.
 	 */
 	private function recipe_meta( $prefix ) {
@@ -202,11 +204,38 @@ class RB_Recipe {
 			'desc'       => __( 'minutes<br>The total time to prepare the recipe. (Defaults to Prep Time + Cook Time. Change if that is not accurate.)', 'recipe-box' ),
 			'default'    => ( $post_id ) ? $this->get_total_time( $post_id ) : '',
 		) );
+
+		$group_field_id = $cmb->add_field( array(
+			'id'          => $prefix . 'preheat_group',
+			'type'        => 'group',
+			'repeatable'  => false,
+		) );
+
+		$cmb->add_group_field( $group_field_id, array(
+			'name'        => __( 'Preheat Temperature', 'recipe-box' ),
+			'id'          => $prefix . 'preheat_temp',
+			'type'        => 'text_small',
+			'attributes'  => [
+				'type' => 'number',
+				'step' => '5',
+			]
+		) );
+
+		$cmb->add_group_field( $group_field_id, array(
+			'name'        => __( 'Unit', 'recipe-box' ),
+			'id'          => $prefix . 'preheat_unit',
+			'type'        => 'select',
+			'options'     => [
+				'farenheit' => __( 'Farenheit', 'recipe-box' ),
+				'celcius'   => __( 'Celcius' ),
+			],
+		) );
 	}
 
 
 	/**
 	 * Handles the recipe instructions metabox.
+	 *
 	 * @param  string $prefix The post meta key prefix.
 	 */
 	private function instructions( $prefix ) {
@@ -252,6 +281,7 @@ class RB_Recipe {
 
 	/**
 	 * The ingredients list metabox.
+	 *
 	 * @param  string $prefix The post metakey prefix.
 	 */
 	private function ingredients( $prefix ) {
@@ -313,6 +343,7 @@ class RB_Recipe {
 
 	/**
 	 * Return various units of measurement.
+	 *
 	 * @return array Different units of measurement that could be used in a recipe.
 	 */
 	private function get_units() {
@@ -342,13 +373,14 @@ class RB_Recipe {
 
 	/**
 	 * Helper function to calculate the total time based on prep time and cook time.
+	 *
 	 * @param  int $post_id The post ID.
 	 * @return int          The total time calculation.
 	 */
 	public function get_total_time( $post_id ) {
 		$total_time = get_post_meta( $post_id, '_rb_total_time', true );
 		if ( '' == $total_time || ! $total_time ) {
-			$total_time = get_post_meta( $post_id, '_rb_prep_time', true ) + get_post_meta( $post_id, '_rb_cook_time', true );
+			$total_time = absint( get_post_meta( $post_id, '_rb_prep_time', true ) ) + absint( get_post_meta( $post_id, '_rb_cook_time', true ) );
 		}
 
 		return $total_time;
@@ -356,6 +388,7 @@ class RB_Recipe {
 
 	/**
 	 * Function to calculate time in HH:MM from time stored only in minutes.
+	 *
 	 * @param  integer $time_in_minutes Time in minutes.
 	 * @param  string  $format          The desired format of the calculated time.
 	 *         Accepted possibilities are:
@@ -412,11 +445,16 @@ class RB_Recipe {
 
 		$ingredients = get_post_meta( $post_id, '_rb_ingredients_group', true );
 
+		$item_slug = '';
+		$item_name = '';
+
 		if ( $ingredients ) {
 			foreach ( $ingredients as $ingredient ) {
 				// Get the name of the ingredient.
-				$item_slug = sanitize_title( $ingredient['_rb_ingredients_product'] );
-				$item_name = esc_html( $ingredient['_rb_ingredients_product'] );
+				if ( isset( $ingredient['_rb_ingredients_product'] ) ) {
+					$item_slug = sanitize_title( $ingredient['_rb_ingredients_product'] );
+					$item_name = esc_html( $ingredient['_rb_ingredients_product'] );
+				}
 
 				// See if there's an existing ingredient CPT with this slug.
 				$match = new WP_Query( array(
