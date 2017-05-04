@@ -44,6 +44,21 @@ class RB_Public {
 	}
 
 	/**
+	 * Returns an array with preheat temperature and unit (farenheit or celcius).
+	 *
+	 * @param  mixed $post_id The post ID (optional).
+	 * @return array          The post meta.
+	 */
+	public function get_preheat_temp( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		// Return the preheat temperature and units.
+		$preheat_temp = get_post_meta( $post_id, '_rb_preheat_group', true );
+		return ( $preheat_temp && isset( $preheat_temp[0] ) ) ? $preheat_temp[0] : false;
+	}
+
+	/**
 	 * Returns an array of ingredients with units and type of units.
 	 *
 	 * @param  mixed $post_id The post ID (optional).
