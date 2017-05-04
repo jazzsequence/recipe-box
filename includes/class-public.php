@@ -298,7 +298,7 @@ class RB_Public {
 		// Get the steps.
 		$steps = $this->render_steps( $post_id );
 
-		return $cook_times . $ingredients . $steps;
+		return $cook_times . $preheat_temp . $ingredients . $steps;
 	}
 
 	/**
