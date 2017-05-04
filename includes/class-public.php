@@ -86,8 +86,19 @@ class RB_Public {
 		// Get the post ID.
 		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
 
+		/**
+		 * Allow the ingredients list to be filtered.
+		 * This allows for ingredients to be arbitrarily inserted inside recipes programmatically.
+		 *
+		 * @since 0.2
+		 * @param array $ingredients The array of recipe ingredients.
+		 * @param int   $post_id     The ID of the recipe post.
+		 * @var   array              Filtered recipe ingredients.
+		 */
+		$ingredients = apply_filters( 'rb_filter_ingredients', get_post_meta( $post_id, '_rb_ingredients_group', true ), $post_id );
+
 		// Return the ingredients.
-		return get_post_meta( $post_id, '_rb_ingredients_group', true );
+		return $ingredients;
 	}
 
 	/**
