@@ -445,11 +445,16 @@ class RB_Recipe {
 
 		$ingredients = get_post_meta( $post_id, '_rb_ingredients_group', true );
 
+		$item_slug = '';
+		$item_name = '';
+
 		if ( $ingredients ) {
 			foreach ( $ingredients as $ingredient ) {
 				// Get the name of the ingredient.
-				$item_slug = sanitize_title( $ingredient['_rb_ingredients_product'] );
-				$item_name = esc_html( $ingredient['_rb_ingredients_product'] );
+				if ( isset( $ingredient['_rb_ingredients_product'] ) ) {
+					$item_slug = sanitize_title( $ingredient['_rb_ingredients_product'] );
+					$item_name = esc_html( $ingredient['_rb_ingredients_product'] );
+				}
 
 				// See if there's an existing ingredient CPT with this slug.
 				$match = new WP_Query( array(
