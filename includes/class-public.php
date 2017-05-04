@@ -114,27 +114,35 @@ class RB_Public {
 
 			// Loop through the ingredients and display each one.
 			foreach ( $ingredients as $ingredient ) {
-				$item     = $ingredient['_rb_ingredients_product'];
-				$unit     = $ingredient['_rb_ingredients_unit'];
-				$quantity = $ingredient['_rb_ingredients_quantity'];
+
+				$quantity = isset( $ingredient['_rb_ingredients_quantity'] ) ? $ingredient['_rb_ingredients_quantity'] : false;
+				if ( $quantity ) {
+					$output .= sprintf(
+						'%s' . esc_html( $quantity ) . '%s',
+						'<li><span class="recipe-ingredient-quantity">',
+						'</span> '
+					);
+				}
+
+				$unit     = ( 'none' !== $ingredient['_rb_ingredients_unit'] ) ? $ingredient['_rb_ingredients_unit'] : false;
+				if ( $unit ) {
+					$output .= sprintf(
+						'%s' . esc_html( $unit ) . '%s',
+						'<span class="recipe-ingredient-unit">',
+						'</span> '
+					);
+				}
+
+				$item     = isset( $ingredient['_rb_ingredients_product'] ) ? $ingredient['_rb_ingredients_product'] : false;
+				if ( $item ) {
+					$output .= sprintf(
+						'%s' . esc_html( $item ) . '%s',
+						'<span class="recipe-ingredient-item">',
+						'</span>'
+					);
+				}
+
 				$notes    = isset( $ingredient['_rb_ingredients_notes'] ) ? $ingredient['_rb_ingredients_notes'] : false;
-
-				$output .= sprintf(
-					'%s' . esc_html( $quantity ) . '%s',
-					'<li><span class="recipe-ingredient-quantity">',
-					'</span> '
-				);
-				$output .= sprintf(
-					'%s' . esc_html( $unit ) . '%s',
-					'<span class="recipe-ingredient-unit">',
-					'</span> '
-				);
-				$output .= sprintf(
-					'%s' . esc_html( $item ) . '%s',
-					'<span class="recipe-ingredient-item">',
-					'</span>'
-				);
-
 				if ( $notes ) {
 					$output .= sprintf(
 						' %s' . esc_html( $notes ) . '%s',
