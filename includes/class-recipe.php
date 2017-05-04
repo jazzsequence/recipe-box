@@ -380,7 +380,7 @@ class RB_Recipe {
 	public function get_total_time( $post_id ) {
 		$total_time = get_post_meta( $post_id, '_rb_total_time', true );
 		if ( '' == $total_time || ! $total_time ) {
-			$total_time = get_post_meta( $post_id, '_rb_prep_time', true ) + get_post_meta( $post_id, '_rb_cook_time', true );
+			$total_time = absint( get_post_meta( $post_id, '_rb_prep_time', true ) ) + absint( get_post_meta( $post_id, '_rb_cook_time', true ) );
 		}
 
 		return $total_time;
