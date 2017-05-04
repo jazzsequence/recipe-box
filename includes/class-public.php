@@ -243,10 +243,34 @@ class RB_Public {
 
 		// Check to make sure we have ingredients.
 		if ( is_array( $ingredients ) && ! empty( $ingredients ) ) {
+			/**
+			 * Before ingredients list action hook.
+			 *
+			 * @since 0.2
+			 * @param int $post_id The recipe post ID.
+			 */
+			do_action( 'rb_action_before_ingredients_list', $post_id );
+
 			$output = '<ul class="recipe-ingredients">';
 
 			// Loop through the ingredients and display each one.
 			foreach ( $ingredients as $ingredient ) {
+
+				/**
+				 * Before single ingredient action hook.
+				 *
+				 * @since 0.2
+			 	 * @param int $post_id The recipe post ID.
+				 */
+				do_action( 'rb_action_before_ingredient', $post_id );
+
+				/**
+				 * Before ingredient quantity action hook
+				 *
+				 * @since 0.2
+			 	 * @param int $post_id The recipe post ID.
+				 */
+				do_action( 'rb_action_before_ingredient_quantity', $post_id );
 
 				$quantity = isset( $ingredient['_rb_ingredients_quantity'] ) ? $ingredient['_rb_ingredients_quantity'] : false;
 				if ( $quantity ) {
@@ -257,6 +281,14 @@ class RB_Public {
 					);
 				}
 
+				/**
+				 * Before ingredient unit action hook.
+				 *
+				 * @since 0.2
+			 	 * @param int $post_id The recipe post ID.
+				 */
+				do_action( 'rb_action_before_ingredient_unit', $post_id );
+
 				$unit     = ( 'none' !== $ingredient['_rb_ingredients_unit'] ) ? $ingredient['_rb_ingredients_unit'] : false;
 				if ( $unit ) {
 					$output .= sprintf(
@@ -266,6 +298,14 @@ class RB_Public {
 					);
 				}
 
+				/**
+				 * Before ingredient item action hook.
+				 *
+				 * @since 0.2
+			 	 * @param int $post_id The recipe post ID.
+				 */
+				do_action( 'rb_action_before_ingredient_item', $post_id );
+
 				$item     = isset( $ingredient['_rb_ingredients_product'] ) ? $ingredient['_rb_ingredients_product'] : false;
 				if ( $item ) {
 					$output .= sprintf(
@@ -274,6 +314,14 @@ class RB_Public {
 						'</span>'
 					);
 				}
+
+				/**
+				 * Before ingredient notes action hook.
+				 *
+				 * @since 0.2
+			 	 * @param int $post_id The recipe post ID.
+				 */
+				do_action( 'rb_action_before_ingredient_notes', $post_id );
 
 				$notes    = isset( $ingredient['_rb_ingredients_notes'] ) ? $ingredient['_rb_ingredients_notes'] : false;
 				if ( $notes ) {
@@ -285,12 +333,36 @@ class RB_Public {
 				}
 
 				$output .= '</li>';
+
+				/**
+				 * After single ingredient action hook.
+				 *
+				 * @since 0.2
+				 * @param int $post_id The recipe post ID.
+				 */
+				do_action( 'rb_action_after_recipe_ingredient', $post_id );
 			} // End foreach().
 
 			$output .= '</ul> <!-- .recipe-ingredients -->';
+
+			/**
+			 * After ingredients list action hook.
+			 *
+			 * @since 0.2
+			 * @param int $post_id The recipe post ID.
+			 */
+			do_action( 'rb_action_after_recipe_ingredients_list', $post_id );
 		} // End if().
 
-		return $output;
+		/**
+		 * Allow the ingredients display to be filtered.
+		 *
+		 * @since 0.2
+		 * @param string $output  The full HTML markup for the ingredients list.
+		 * @param int    $post_id The ID of the recipe post.
+		 * @var   string          Filtered markup.
+		 */
+		return apply_filters( 'rb_filter_ingredients_display', $output, $post_id );
 	}
 
 	/**
