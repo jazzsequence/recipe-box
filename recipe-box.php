@@ -43,9 +43,8 @@
 /**
  * Autoloads files with classes when needed
  *
- * @since  NEXT
+ * @since  0.1
  * @param  string $class_name Name of the class being requested.
- * @return void
  */
 function rb_autoload_classes( $class_name ) {
 	if ( 0 !== strpos( $class_name, 'RB_' ) ) {
@@ -64,7 +63,7 @@ spl_autoload_register( 'rb_autoload_classes' );
 /**
  * Main initiation class
  *
- * @since  NEXT
+ * @since  0.1
  */
 final class Recipe_Box {
 
@@ -72,7 +71,7 @@ final class Recipe_Box {
 	 * Current version
 	 *
 	 * @var  string
-	 * @since  NEXT
+	 * @since  0.1
 	 */
 	const VERSION = '0.1';
 
@@ -80,7 +79,7 @@ final class Recipe_Box {
 	 * URL of plugin directory
 	 *
 	 * @var string
-	 * @since  NEXT
+	 * @since  0.1
 	 */
 	protected $url = '';
 
@@ -88,7 +87,7 @@ final class Recipe_Box {
 	 * Path of plugin directory
 	 *
 	 * @var string
-	 * @since  NEXT
+	 * @since  0.1
 	 */
 	protected $path = '';
 
@@ -96,7 +95,7 @@ final class Recipe_Box {
 	 * Plugin basename
 	 *
 	 * @var string
-	 * @since  NEXT
+	 * @since  0.1
 	 */
 	protected $basename = '';
 
@@ -104,14 +103,14 @@ final class Recipe_Box {
 	 * Singleton instance of plugin
 	 *
 	 * @var Recipe_Box
-	 * @since  NEXT
+	 * @since  0.1
 	 */
 	protected static $single_instance = null;
 
 	/**
 	 * Instance of RB_Public
 	 *
-	 * @since NEXT
+	 * @since 0.1
 	 * @var RB_Public
 	 */
 	protected $public;
@@ -119,7 +118,7 @@ final class Recipe_Box {
 	/**
 	 * Creates or returns an instance of this class.
 	 *
-	 * @since  NEXT
+	 * @since  0.1
 	 * @return Recipe_Box A single instance of this class.
 	 */
 	public static function get_instance() {
@@ -133,7 +132,7 @@ final class Recipe_Box {
 	/**
 	 * Sets up our plugin
 	 *
-	 * @since  NEXT
+	 * @since  0.1
 	 */
 	protected function __construct() {
 		$this->basename = plugin_basename( __FILE__ );
@@ -146,8 +145,7 @@ final class Recipe_Box {
 	/**
 	 * Attach other plugin classes to the base plugin class.
 	 *
-	 * @since  NEXT
-	 * @return void
+	 * @since  0.1
 	 */
 	public function plugin_classes() {
 		// Attach other plugin classes to the base plugin class.
@@ -160,8 +158,7 @@ final class Recipe_Box {
 	/**
 	 * Add hooks and filters
 	 *
-	 * @since  NEXT
-	 * @return void
+	 * @since  0.1
 	 */
 	public function hooks() {
 		register_activation_hook( __FILE__, array( rb(), '_activate' ) );
@@ -173,8 +170,7 @@ final class Recipe_Box {
 	/**
 	 * Activate the plugin
 	 *
-	 * @since  NEXT
-	 * @return void
+	 * @since  0.1
 	 */
 	public function _activate() {
 		// Make sure any rewrite functionality has been loaded.
@@ -185,16 +181,14 @@ final class Recipe_Box {
 	 * Deactivate the plugin
 	 * Uninstall routines should be in uninstall.php
 	 *
-	 * @since  NEXT
-	 * @return void
+	 * @since  0.1
 	 */
 	public function _deactivate() {}
 
 	/**
 	 * Init hooks
 	 *
-	 * @since  NEXT
-	 * @return void
+	 * @since  0.1
 	 */
 	public function init() {
 		if ( $this->check_requirements() ) {
@@ -206,7 +200,7 @@ final class Recipe_Box {
 	 * Check if the plugin meets requirements and
 	 * disable it if they are not present.
 	 *
-	 * @since  NEXT
+	 * @since  0.1
 	 * @return boolean result of meets_requirements
 	 */
 	public function check_requirements() {
@@ -227,8 +221,7 @@ final class Recipe_Box {
 	/**
 	 * Deactivates this plugin, hook this function on admin_init.
 	 *
-	 * @since  NEXT
-	 * @return void
+	 * @since  0.1
 	 */
 	public function deactivate_me() {
 		deactivate_plugins( $this->basename );
@@ -237,7 +230,7 @@ final class Recipe_Box {
 	/**
 	 * Check that all plugin requirements are met
 	 *
-	 * @since  NEXT
+	 * @since  0.1
 	 * @return boolean True if requirements are met.
 	 */
 	public static function meets_requirements() {
@@ -250,8 +243,7 @@ final class Recipe_Box {
 	/**
 	 * Adds a notice to the dashboard if the plugin requirements are not met
 	 *
-	 * @since  NEXT
-	 * @return void
+	 * @since  0.1
 	 */
 	public function requirements_not_met_notice() {
 		// Output our error.
@@ -263,8 +255,8 @@ final class Recipe_Box {
 	/**
 	 * Magic getter for our object.
 	 *
-	 * @since  NEXT
-	 * @param string $field Field to get.
+	 * @since  0.1
+	 * @param  string $field Field to get.
 	 * @throws Exception Throws an exception if the field is invalid.
 	 * @return mixed
 	 */
@@ -285,7 +277,7 @@ final class Recipe_Box {
 	/**
 	 * Include a file from the includes directory
 	 *
-	 * @since  NEXT
+	 * @since  0.1
 	 * @param  string $filename Name of the file to be included.
 	 * @return bool   Result of include call.
 	 */
@@ -300,7 +292,7 @@ final class Recipe_Box {
 	/**
 	 * This plugin's directory
 	 *
-	 * @since  NEXT
+	 * @since  0.1
 	 * @param  string $path (optional) appended path.
 	 * @return string       Directory and path
 	 */
@@ -313,7 +305,7 @@ final class Recipe_Box {
 	/**
 	 * This plugin's url
 	 *
-	 * @since  NEXT
+	 * @since  0.1
 	 * @param  string $path (optional) appended path.
 	 * @return string       URL and path
 	 */
@@ -328,7 +320,7 @@ final class Recipe_Box {
  * Grab the Recipe_Box object and return it.
  * Wrapper for Recipe_Box::get_instance()
  *
- * @since  NEXT
+ * @since  0.1
  * @return Recipe_Box  Singleton instance of plugin class.
  */
 function rb() {

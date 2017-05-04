@@ -2,7 +2,7 @@
 /**
  * Recipe Taxonomies
  *
- * @since NEXT
+ * @since 0.1
  * @package Recipe Box
  */
 
@@ -12,21 +12,21 @@ require_once dirname( __FILE__ ) . '/../vendor/taxonomy-core/Taxonomy_Core.php';
  * Taxonomies class.
  *
  * @see https://github.com/WebDevStudios/Taxonomy_Core
- * @since NEXT
+ * @since 0.1
  */
 class RB_Taxonomies {
 	/**
 	 * Parent plugin class
 	 *
 	 * @var class
-	 * @since  NEXT
+	 * @since  0.1
 	 */
 	protected $plugin = null;
 
 	/**
 	 * Constructor
 	 *
-	 * @since NEXT
+	 * @since 0.1
 	 * @param  object $plugin Main plugin object.
 	 */
 	public function __construct( $plugin ) {
@@ -37,7 +37,7 @@ class RB_Taxonomies {
 	/**
 	 * Initiate our hooks
 	 *
-	 * @since NEXT
+	 * @since 0.1
 	 */
 	public function hooks() {
 		add_action( 'init', array( $this, 'register_taxonomies' ), 4 );
@@ -46,7 +46,7 @@ class RB_Taxonomies {
 	/**
 	 * Register Taxonomy. See documentation in Taxonomy_Core, and in wp-includes/taxonomy.php
 	 *
-	 * @since NEXT
+	 * @since 0.1
 	 */
 	public function register_taxonomies() {
 		// Recipe Category.

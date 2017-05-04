@@ -3,28 +3,28 @@
  * Recipe Box Public
  * Public-facing front-end display functions.
  *
- * @since NEXT
+ * @since 0.1
  * @package Recipe Box
  */
 
 /**
  * Recipe Box Public.
  *
- * @since NEXT
+ * @since 0.1
  */
 class RB_Public {
 	/**
 	 * Parent plugin class
 	 *
 	 * @var   class
-	 * @since NEXT
+	 * @since 0.1
 	 */
 	protected $plugin = null;
 
 	/**
 	 * Constructor
 	 *
-	 * @since  NEXT
+	 * @since  0.1
 	 * @param  object $plugin Main plugin object.
 	 * @return void
 	 */
@@ -36,7 +36,7 @@ class RB_Public {
 	/**
 	 * Initiate our hooks
 	 *
-	 * @since  NEXT
+	 * @since  0.1
 	 * @return void
 	 */
 	public function hooks() {
@@ -46,6 +46,7 @@ class RB_Public {
 	/**
 	 * Returns an array with preheat temperature and unit (farenheit or celcius).
 	 *
+	 * @since  0.2
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return array          The post meta.
 	 */
@@ -61,6 +62,7 @@ class RB_Public {
 	/**
 	 * Returns an array of ingredients with units and type of units.
 	 *
+	 * @since  0.1
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return array          The post meta.
 	 */
@@ -75,6 +77,7 @@ class RB_Public {
 	/**
 	 * Returns an array of instructions (and instruction groups).
 	 *
+	 * @since  0.1
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return array          The post meta.
 	 */
@@ -89,6 +92,7 @@ class RB_Public {
 	/**
 	 * Returns an array of cook times (prep, cook and total).
 	 *
+	 * @since  0.1
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return array          An array of times.
 	 */
@@ -110,6 +114,7 @@ class RB_Public {
 	/**
 	 * Handles the markup for the preheat temperature.
 	 *
+	 * @since  0.2
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return string         The markup for the preheat temp.
 	 */
@@ -140,6 +145,7 @@ class RB_Public {
 	/**
 	 * Handles the markup for the ingredients.
 	 *
+	 * @since  0.1
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return string         The markup for the recipe ingredients.
 	 */
@@ -208,6 +214,7 @@ class RB_Public {
 	/**
 	 * Handles the markup for recipe instructions.
 	 *
+	 * @since  0.1
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return string         The markup for the recipe steps.
 	 */
@@ -255,6 +262,7 @@ class RB_Public {
 	/**
 	 * Handles markup for cooking and preparation times.
 	 *
+	 * @since  0.1
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return string         The cook time markup.
 	 */
@@ -280,6 +288,7 @@ class RB_Public {
 	/**
 	 * Handles echoing the recipe meta (ingredients and recipe steps).
 	 *
+	 * @since  0.1
 	 * @param  mixed $post_id The post ID (optional).
 	 */
 	public function render_display( $post_id = false ) {
@@ -304,6 +313,7 @@ class RB_Public {
 	/**
 	 * Filter the_content to add recipe instructions to the bottom of recipe posts.
 	 *
+	 * @since  0.1
 	 * @param  string $content The post content.
 	 * @return string          The updated post content.
 	 */
