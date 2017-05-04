@@ -45,6 +45,7 @@ class RB_Public {
 
 	/**
 	 * Returns an array of ingredients with units and type of units.
+	 *
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return array          The post meta.
 	 */
@@ -58,6 +59,7 @@ class RB_Public {
 
 	/**
 	 * Returns an array of instructions (and instruction groups).
+	 *
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return array          The post meta.
 	 */
@@ -71,6 +73,7 @@ class RB_Public {
 
 	/**
 	 * Returns an array of cook times (prep, cook and total).
+	 *
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return array          An array of times.
 	 */
@@ -91,6 +94,7 @@ class RB_Public {
 
 	/**
 	 * Handles the markup for the ingredients.
+	 *
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return string         The markup for the recipe ingredients.
 	 */
@@ -150,6 +154,7 @@ class RB_Public {
 
 	/**
 	 * Handles the markup for recipe instructions.
+	 *
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return string         The markup for the recipe steps.
 	 */
@@ -196,6 +201,7 @@ class RB_Public {
 
 	/**
 	 * Handles markup for cooking and preparation times.
+	 *
 	 * @param  mixed $post_id The post ID (optional).
 	 * @return string         The cook time markup.
 	 */
@@ -217,11 +223,15 @@ class RB_Public {
 
 	/**
 	 * Handles echoing the recipe meta (ingredients and recipe steps).
+	 *
 	 * @param  mixed $post_id The post ID (optional).
 	 */
 	public function render_display( $post_id = false ) {
 		// Get the post ID.
 		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		// Get the preheat temperature.
+		$preheat_temp = $this->render_preheat_temp( $post_id );
 
 		// Get the cook times.
 		$cook_times = $this->render_cook_times( $post_id );
@@ -237,6 +247,7 @@ class RB_Public {
 
 	/**
 	 * Filter the_content to add recipe instructions to the bottom of recipe posts.
+	 *
 	 * @param  string $content The post content.
 	 * @return string          The updated post content.
 	 */
