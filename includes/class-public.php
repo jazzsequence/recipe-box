@@ -108,6 +108,36 @@ class RB_Public {
 	}
 
 	/**
+	 * Handles the markup for the preheat temperature.
+	 *
+	 * @param  mixed $post_id The post ID (optional).
+	 * @return string         The markup for the preheat temp.
+	 */
+	public function render_preheat_temp( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		// Initialize the $output with an empty string.
+		$output = '';
+
+		// Get the preheat temp.
+		$preheat_temp = $this->get_preheat_temp( $post_id );
+
+		// Check to make sure we have preheat temp info.
+		if ( $preheat_temp && isset( $preheat_temp['_rb_preheat_temp'] ) && isset( $preheat_temp['_rb_preheat_unit'] ) ) {
+			// Do some sanitization of the data.
+			$temp = absint( $preheat_temp['_rb_preheat_temp'] );
+			$unit = ( in_array( $preheat_temp['_rb_preheat_unit'], [ 'farenheit', 'celcius' ], true ) ) ? ucfirst( $preheat_temp['_rb_preheat_unit'] ) : '';
+			$output .= '<div class="recipe-preheat-temp">';
+			$output .= '<h4 class="recipe-preheat-temp-heading">' . esc_html__( 'Preheat Temperature', 'recipe-box' ) . '</h4>';
+			$output .= sprintf( '<p>%d° %s</p>', $temp, $unit );
+			$output .= '</div> <!-- .recipe-preheat-temp -->';
+		}
+
+		return $output;
+	}
+
+	/**
 	 * Handles the markup for the ingredients.
 	 *
 	 * @param  mixed $post_id The post ID (optional).
