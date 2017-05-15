@@ -98,4 +98,33 @@ class RB_Taxonomies {
 		return get_the_terms( $post, 'rb_recipe_category' );
 	}
 
+	public function recipe_terms( $post = false, $tax = 'rb_recipe_category', $separator = ', ' ) {
+		// Bail if no post was passed.
+		if ( ! $post ) {
+			return;
+		}
+
+		$terms = $this->get_the_recipe_terms( $post, 'rb_recipe_category' );
+
+		$i = 1;
+
+		$output = '';
+
+		if ( ! is_wp_error( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$separator = ( count( $terms > $i ) ) ? $separator : '';
+
+				$output .= sprintf( '<a href="%1$s">%2$s</a>',
+					get_term_link( $term, $tax ),
+					esc_html( $term->name )
+				);
+
+			}
+
+			// Translators: %s is a comma-separated list of categories.
+			$output = sprintf( __( 'Recipe Category: %s', 'recipe-box' ), $output );
+		}
+
+		return apply_filters( 'rb_filter_recipe_' . $tax . '_terms', $output, $terms );
+	}
 }
