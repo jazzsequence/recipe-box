@@ -462,6 +462,8 @@ class RB_Public {
 			 */
 			do_action( 'rb_action_before_instructions_list', $post_id );
 
+			$output .= '<div class="recipe-instructions" itemprop="recipeInstructions">';
+
 			// Loop through each group.
 			foreach ( $instruction_groups as $instruction_group ) {
 
@@ -503,6 +505,8 @@ class RB_Public {
 				do_action( 'rb_action_after_instructions_group', $post_id );
 			} // End foreach().
 
+
+			$output .= '</div>';
 
 			/**
 			 * After instructions list action hook.
