@@ -429,12 +429,12 @@ class RB_Recipe {
 		}
 
 		// ...but maybe we want to do something like "4 hours and 20 minutes", or manipulate the format manually. In that case we can just return the array of hours/minutes.
-		if ( 'array' == $format ) {
+		if ( 'array' === $format ) {
 			return $time;
 		}
 
 		// We can also use this array to return the time in plain text.
-		if ( 'string' == $format ) {
+		if ( 'string' === $format ) {
 			return ( $time['hours'] >= 1 ) ? sprintf( __( '%d hours and %d minutes', 'recipe-box' ), $time['hours'], $time['minutes'] ) : sprintf( __( '%d minutes', 'recipe-box' ), $time['minutes'] );
 		}
 	}
