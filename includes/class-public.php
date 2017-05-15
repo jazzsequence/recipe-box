@@ -560,7 +560,14 @@ class RB_Public {
 		 */
 		do_action( 'rb_action_before_prep__time', $post_id );
 		// Translators: %s is the preparation time value.
-		$output .= ( '' !== $times['prep_time'] ) ? '<div class="prep-time">' . sprintf( esc_html__( 'Prep time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['prep_time'], 'string' ) ) . '</div> ' : '';
+		$output .= ( '' !== $times['prep_time'] ) ? '<div class="prep-time">' . sprintf(
+			// Translators: %s is the preparation time hours and minutes.
+			esc_html__( 'Prep time: %s', 'recipe-box' ),
+			sprintf( '<meta itemprop="prepTime" content="%1$s">%2$s',
+				rb()->cpt->calculate_hours_minutes( $times['prep_time'], 'duration' ),
+				rb()->cpt->calculate_hours_minutes( $times['prep_time'], 'string' )
+			)
+		) . '</div> ' : '';
 
 		/**
 		 * Before cook time action hook.
@@ -570,7 +577,14 @@ class RB_Public {
 		 */
 		do_action( 'rb_action_before_cook__time', $post_id );
 		// Translators: %s is the cooking time value.
-		$output .= ( '' !== $times['cook_time'] ) ? '<div class="cook-time">' . sprintf( esc_html__( 'Cooking Time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['cook_time'], 'string' ) ) . '</div> ' : '';
+		$output .= ( '' !== $times['cook_time'] ) ? '<div class="cook-time">' . sprintf(
+			// Translators: %s is the cook time in hours and minutes.
+			esc_html__( 'Cooking Time: %s', 'recipe-box' ),
+			sprintf( '<meta itemprop="cookTime" content="%1$s">%2$s',
+				rb()->cpt->calculate_hours_minutes( $times['cook_time'], 'duration' ),
+				rb()->cpt->calculate_hours_minutes( $times['cook_time'], 'string' )
+			)
+		) . '</div> ' : '';
 
 		/**
 		 * Before tota time action hook.
