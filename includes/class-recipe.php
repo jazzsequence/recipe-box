@@ -375,6 +375,8 @@ class RB_Recipe {
 			'splash'  => __( 'splash(es)', 'recipe-box' ),
 			'pinch'   => __( 'pinch(es)', 'recipe-box' ),
 			'clove'   => __( 'clove(s)', 'recipe-box' ),
+			'whole'   => __( 'whole', 'recipe-box' ),
+			'some'    => __( 'some', 'recipe-box' ),
 		);
 	}
 
