@@ -616,6 +616,13 @@ class RB_Public {
 		return apply_filters( 'rb_filter_cook_times_display', $output, $post_id );
 	}
 
+	public function render_categories( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		return rb()->taxonomy->recipe_terms( $post_id );
+	}
+
 	/**
 	 * Handles echoing the recipe meta (ingredients and recipe steps).
 	 *
@@ -641,7 +648,10 @@ class RB_Public {
 		// Get the steps.
 		$steps = $this->render_steps( $post_id );
 
-		return $servings . $cook_times . $preheat_temp . $ingredients . $steps;
+		// Get the categories.
+		$categories = $this->render_categories( $post_id );
+
+		return $servings . $cook_times . $preheat_temp . $ingredients . $steps . $categories;
 	}
 
 	/**
