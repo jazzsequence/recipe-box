@@ -40,7 +40,7 @@ class RB_Public {
 	 * @return void
 	 */
 	public function hooks() {
-		add_filter( 'the_content', array( $this, 'append_to_the_content' ) );
+		add_filter( 'the_content',            [ $this, 'append_to_the_content' ] );
 		add_filter( 'rb_filter_content_wrap', [ $this, 'add_recipe_schema_org_type' ] );
 	}
 
