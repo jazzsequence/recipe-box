@@ -333,6 +333,8 @@ class RB_Public {
 				 */
 				do_action( 'rb_action_before_ingredient', $post_id );
 
+				$output .= '<li itemprop="recipeIngredient">';
+
 				/**
 				 * Before ingredient quantity action hook
 				 *
@@ -345,7 +347,7 @@ class RB_Public {
 				if ( $quantity ) {
 					$output .= sprintf(
 						'%s' . esc_html( $quantity ) . '%s',
-						'<li><span class="recipe-ingredient-quantity">',
+						'<span class="recipe-ingredient-quantity">',
 						'</span> '
 					);
 				}
