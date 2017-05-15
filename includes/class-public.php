@@ -626,6 +626,9 @@ class RB_Public {
 		// Get the post ID.
 		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
 
+		// Get the servings.
+		$servings = $this->render_servings( $post_id );
+
 		// Get the preheat temperature.
 		$preheat_temp = $this->render_preheat_temp( $post_id );
 
@@ -638,7 +641,7 @@ class RB_Public {
 		// Get the steps.
 		$steps = $this->render_steps( $post_id );
 
-		return $cook_times . $preheat_temp . $ingredients . $steps;
+		return $servings . $cook_times . $preheat_temp . $ingredients . $steps;
 	}
 
 	/**
