@@ -437,6 +437,9 @@ class RB_Recipe {
 		if ( 'string' === $format ) {
 			return ( $time['hours'] >= 1 ) ? sprintf( __( '%d hours and %d minutes', 'recipe-box' ), $time['hours'], $time['minutes'] ) : sprintf( __( '%d minutes', 'recipe-box' ), $time['minutes'] );
 		}
+
+		// If we got here and we haven't returned anything, just return what we got in the beginning.
+		return $time_in_minutes;
 	}
 
 	/**
