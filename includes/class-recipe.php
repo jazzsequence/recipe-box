@@ -59,8 +59,8 @@ class RB_Recipe {
 		// Register ingredients CPT.
 		register_via_cpt_core(
 			array(
-				__( 'Ingredient', 'centralmarket' ),  // Singular.
-				__( 'Ingredients', 'centralmarket' ), // Plural.
+				__( 'Ingredient', 'recipe-box' ),  // Singular.
+				__( 'Ingredients', 'recipe-box' ), // Plural.
 				'rb_ingredient',                      // Post type name.
 			),
 			array(
@@ -375,6 +375,8 @@ class RB_Recipe {
 			'splash'  => __( 'splash(es)', 'recipe-box' ),
 			'pinch'   => __( 'pinch(es)', 'recipe-box' ),
 			'clove'   => __( 'clove(s)', 'recipe-box' ),
+			'whole'   => __( 'whole', 'recipe-box' ),
+			'some'    => __( 'some', 'recipe-box' ),
 		);
 	}
 
