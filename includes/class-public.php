@@ -250,6 +250,50 @@ class RB_Public {
 	}
 
 	/**
+	 * Handles the markup for the servings.
+	 *
+	 * @since  0.2
+	 * @param  mixed $post_id The post ID (optional).
+	 * @return string         The markup for the preheat temp.
+	 */
+	public function render_servings( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		$servings = $this->get_servings( $post_id );
+
+		// If there are no servings saved, bail with an empty string.
+		if ( ! $servings ) {
+			return '';
+		}
+
+		$output = '';
+
+		/**
+		 * Before servings action hook.
+		 *
+		 * @since 0.2
+		 * @param int $post_id The recipe post ID.
+		 */
+		do_action( 'rb_action_before_recipe_servings', $post_id );
+
+		$output .= '<div class="recipe-servings">';
+		$output .= '<h5 class="recipe-servings-heading">' . esc_html__( 'Servings', 'recipe-box' ) . '</h5>';
+		$output .= sprintf( '<p itemprop="recipeYield">%s</p>', $servings );
+		$output .= '</div> <!-- .recipe-servings -->';
+
+		/**
+		 * After servings action hook.
+		 *
+		 * @since 0.2
+		 * @param int $post_id The recipe post ID.
+		 */
+		do_action( 'rb_action_after_recipe_servings', $post_id );
+
+		return $output;
+	}
+
+	/**
 	 * Handles the markup for the ingredients.
 	 *
 	 * @since  0.1
