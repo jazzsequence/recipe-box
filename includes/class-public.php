@@ -103,6 +103,30 @@ class RB_Public {
 	}
 
 	/**
+	 * Returns the servings.
+	 *
+	 * @since  0.2
+	 * @param  mixed $post_id The post ID (optional).
+	 * @return string         The post meta.
+	 */
+	public function get_servings( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		/**
+		 * Allow the serving size to be filtered.
+		 *
+		 * @since 0.2
+		 * @param string $servings The number of servings from the post meta.
+		 * @param int    $post_id  The ID of the recipe post.
+		 * @var   string
+		 */
+		$servings = apply_filters( 'rb_filter_servings', get_post_meta( $post_id, '_rb_servings', true ), $post_id );
+
+		return $servings;
+	}
+
+	/**
 	 * Returns an array of instructions (and instruction groups).
 	 *
 	 * @since  0.1
