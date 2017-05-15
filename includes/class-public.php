@@ -103,6 +103,30 @@ class RB_Public {
 	}
 
 	/**
+	 * Returns the servings.
+	 *
+	 * @since  0.2
+	 * @param  mixed $post_id The post ID (optional).
+	 * @return string         The post meta.
+	 */
+	public function get_servings( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		/**
+		 * Allow the serving size to be filtered.
+		 *
+		 * @since 0.2
+		 * @param string $servings The number of servings from the post meta.
+		 * @param int    $post_id  The ID of the recipe post.
+		 * @var   string
+		 */
+		$servings = apply_filters( 'rb_filter_servings', get_post_meta( $post_id, '_rb_servings', true ), $post_id );
+
+		return $servings;
+	}
+
+	/**
 	 * Returns an array of instructions (and instruction groups).
 	 *
 	 * @since  0.1
@@ -226,6 +250,50 @@ class RB_Public {
 	}
 
 	/**
+	 * Handles the markup for the servings.
+	 *
+	 * @since  0.2
+	 * @param  mixed $post_id The post ID (optional).
+	 * @return string         The markup for the preheat temp.
+	 */
+	public function render_servings( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		$servings = $this->get_servings( $post_id );
+
+		// If there are no servings saved, bail with an empty string.
+		if ( ! $servings ) {
+			return '';
+		}
+
+		$output = '';
+
+		/**
+		 * Before servings action hook.
+		 *
+		 * @since 0.2
+		 * @param int $post_id The recipe post ID.
+		 */
+		do_action( 'rb_action_before_recipe_servings', $post_id );
+
+		$output .= '<div class="recipe-servings">';
+		$output .= '<h5 class="recipe-servings-heading">' . esc_html__( 'Servings', 'recipe-box' ) . '</h5>';
+		$output .= sprintf( '<p itemprop="recipeYield">%s</p>', $servings );
+		$output .= '</div> <!-- .recipe-servings -->';
+
+		/**
+		 * After servings action hook.
+		 *
+		 * @since 0.2
+		 * @param int $post_id The recipe post ID.
+		 */
+		do_action( 'rb_action_after_recipe_servings', $post_id );
+
+		return $output;
+	}
+
+	/**
 	 * Handles the markup for the ingredients.
 	 *
 	 * @since  0.1
@@ -265,6 +333,8 @@ class RB_Public {
 				 */
 				do_action( 'rb_action_before_ingredient', $post_id );
 
+				$output .= '<li itemprop="recipeIngredient">';
+
 				/**
 				 * Before ingredient quantity action hook
 				 *
@@ -277,7 +347,7 @@ class RB_Public {
 				if ( $quantity ) {
 					$output .= sprintf(
 						'%s' . esc_html( $quantity ) . '%s',
-						'<li><span class="recipe-ingredient-quantity">',
+						'<span class="recipe-ingredient-quantity">',
 						'</span> '
 					);
 				}
@@ -392,6 +462,8 @@ class RB_Public {
 			 */
 			do_action( 'rb_action_before_instructions_list', $post_id );
 
+			$output .= '<div class="recipe-instructions" itemprop="recipeInstructions">';
+
 			// Loop through each group.
 			foreach ( $instruction_groups as $instruction_group ) {
 
@@ -433,6 +505,8 @@ class RB_Public {
 				do_action( 'rb_action_after_instructions_group', $post_id );
 			} // End foreach().
 
+
+			$output .= '</div>';
 
 			/**
 			 * After instructions list action hook.
@@ -486,7 +560,14 @@ class RB_Public {
 		 */
 		do_action( 'rb_action_before_prep__time', $post_id );
 		// Translators: %s is the preparation time value.
-		$output .= ( '' !== $times['prep_time'] ) ? '<div class="prep-time">' . sprintf( esc_html__( 'Prep time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['prep_time'], 'string' ) ) . '</div> ' : '';
+		$output .= ( '' !== $times['prep_time'] ) ? '<div class="prep-time">' . sprintf(
+			// Translators: %s is the preparation time hours and minutes.
+			esc_html__( 'Prep time: %s', 'recipe-box' ),
+			sprintf( '<meta itemprop="prepTime" content="%1$s">%2$s',
+				rb()->cpt->calculate_hours_minutes( $times['prep_time'], 'duration' ),
+				rb()->cpt->calculate_hours_minutes( $times['prep_time'], 'string' )
+			)
+		) . '</div> ' : '';
 
 		/**
 		 * Before cook time action hook.
@@ -496,7 +577,14 @@ class RB_Public {
 		 */
 		do_action( 'rb_action_before_cook__time', $post_id );
 		// Translators: %s is the cooking time value.
-		$output .= ( '' !== $times['cook_time'] ) ? '<div class="cook-time">' . sprintf( esc_html__( 'Cooking Time: %s', 'recipe-box' ), rb()->cpt->calculate_hours_minutes( $times['cook_time'], 'string' ) ) . '</div> ' : '';
+		$output .= ( '' !== $times['cook_time'] ) ? '<div class="cook-time">' . sprintf(
+			// Translators: %s is the cook time in hours and minutes.
+			esc_html__( 'Cooking Time: %s', 'recipe-box' ),
+			sprintf( '<meta itemprop="cookTime" content="%1$s">%2$s',
+				rb()->cpt->calculate_hours_minutes( $times['cook_time'], 'duration' ),
+				rb()->cpt->calculate_hours_minutes( $times['cook_time'], 'string' )
+			)
+		) . '</div> ' : '';
 
 		/**
 		 * Before tota time action hook.
@@ -538,6 +626,9 @@ class RB_Public {
 		// Get the post ID.
 		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
 
+		// Get the servings.
+		$servings = $this->render_servings( $post_id );
+
 		// Get the preheat temperature.
 		$preheat_temp = $this->render_preheat_temp( $post_id );
 
@@ -550,7 +641,7 @@ class RB_Public {
 		// Get the steps.
 		$steps = $this->render_steps( $post_id );
 
-		return $cook_times . $preheat_temp . $ingredients . $steps;
+		return $servings . $cook_times . $preheat_temp . $ingredients . $steps;
 	}
 
 	/**

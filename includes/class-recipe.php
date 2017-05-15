@@ -405,6 +405,7 @@ class RB_Recipe {
 	 *         'hh:mm' or 'HH:MM'        Time in hours and minutes, e.g. 4:30.
 	 *         'array'                   Returns an array of hours and minutes.
 	 *         'string'                  Returns the time in plain english.
+	 *         'duration'                Returns the time in ISO 8601 duration format.
 	 * @return mixed                     Time in HH:MM (default) or whatever format was passed.
 	 */
 	public function calculate_hours_minutes( $time_in_minutes, $format = 'hh:mm' ) {
@@ -429,14 +430,30 @@ class RB_Recipe {
 		}
 
 		// ...but maybe we want to do something like "4 hours and 20 minutes", or manipulate the format manually. In that case we can just return the array of hours/minutes.
-		if ( 'array' == $format ) {
+		if ( 'array' === $format ) {
 			return $time;
 		}
 
+		// If we need a ISO 8601 time format (e.g. for schema.org).
+		if ( 'duration' === $format ) {
+			$duration = 'PT';
+
+			if ( $time['hours'] >= 1 ) {
+				$duration .= sprintf( 'H%d', absint( $time['hours'] ) );
+			}
+
+			$duration .= absint( $time['minutes'] );
+
+			return $duration;
+		}
+
 		// We can also use this array to return the time in plain text.
-		if ( 'string' == $format ) {
+		if ( 'string' === $format ) {
 			return ( $time['hours'] >= 1 ) ? sprintf( __( '%d hours and %d minutes', 'recipe-box' ), $time['hours'], $time['minutes'] ) : sprintf( __( '%d minutes', 'recipe-box' ), $time['minutes'] );
 		}
+
+		// If we got here and we haven't returned anything, just return what we got in the beginning.
+		return $time_in_minutes;
 	}
 
 	/**
