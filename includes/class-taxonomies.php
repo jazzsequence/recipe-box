@@ -79,4 +79,23 @@ class RB_Taxonomies {
 			array( 'rb_recipe' ) // Array of post types.
 		);
 	}
+
+	public function get_the_recipe_terms( $post = false, $tax = 'recipe_category' ) {
+		// Check for an error.
+		if ( is_wp_error( $post ) ) {
+			return ( $post instanceof WP_Error );
+		}
+
+		// Get the post ID.
+		if ( $post && is_int( $post ) ) {
+			$post_id = absint( $post );
+		} elseif ( $post && is_object( $post ) ) {
+			$post_id = $post->ID;
+		} else {
+			$post_id = get_the_ID();
+		}
+
+		return get_the_terms( $post, 'rb_recipe_category' );
+	}
+
 }
