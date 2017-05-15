@@ -553,6 +553,28 @@ class RB_Public {
 	}
 
 	/**
+	 * Wrap the content in a schema.org Recipe itemtpye.
+	 *
+	 * @since 0.2
+	 * @param string $content The original content.
+	 * @param string $before  Optional before markup.
+	 * @param string $after   Optional after markup.
+	 */
+	public function add_recipe_schema_org_type( $content, $before = '', $after = '' ) {
+		if ( '' === $before ) {
+			$before = '<div itemscope itemtype="http://schema.org/Recipe">';
+		}
+
+		if ( '' === $after ) {
+			$after = '</div><!-- schema.org Recipe -->';
+		}
+
+		$content = $before . $content . $after;
+
+		return $content;
+	}
+
+	/**
 	 * Filter the_content to add recipe instructions to the bottom of recipe posts.
 	 *
 	 * @since  0.1
@@ -561,7 +583,7 @@ class RB_Public {
 	 */
 	public function append_to_the_content( $content ) {
 		if ( is_singular( 'rb_recipe' ) ) {
-			$content = $content . $this->render_display( get_the_ID() );
+			$content = apply_filters( 'rb_filter_content_wrap', $content . $this->render_display( get_the_ID() ) );
 		}
 
 		return $content;
