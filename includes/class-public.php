@@ -665,7 +665,11 @@ class RB_Public {
 		// Get the categories.
 		$categories = $this->render_categories( $post_id );
 
-		return $servings . $cook_times . $preheat_temp . $ingredients . $steps . $categories;
+		$meal_types = $this->render_meal_types( $post_id );
+
+		$cuisines = $this->render_cuisines( $post_id );
+
+		return $servings . $cook_times . $preheat_temp . $ingredients . $steps . $categories . $meal_types . $cuisines;
 	}
 
 	/**
