@@ -620,7 +620,21 @@ class RB_Public {
 		// Get the post ID.
 		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
 
-		return rb()->taxonomy->recipe_terms( $post_id );
+		return '<div class="recipe-categories">' . rb()->taxonomy->recipe_terms( $post_id ) . '</div>';
+	}
+
+	public function render_meal_types( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		return '<div class="recipe-meal-types">' . rb()->taxonomy->recipe_terms( $post_id, 'rb_meal_type' ) . '</div>';
+	}
+
+	public function render_cuisines( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		return '<div class="recipe-cuisines">' . rb()->taxonomy->recipe_terms( $post_id, 'rb_recipe_cuisine' ) . '</div>';
 	}
 
 	/**
