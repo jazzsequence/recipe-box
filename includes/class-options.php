@@ -98,9 +98,10 @@ class RB_Options {
 	 * @since  0.2
 	 */
 	public function add_options_page() {
-		$this->options_page = add_menu_page(
+		$this->options_page = add_submenu_page(
+			'edit.php?post_type=rb_recipe',
 			$this->title,
-			$this->title,
+			__( 'Options', 'recipe-box' ),
 			'manage_options',
 			$this->key,
 			array( $this, 'admin_page_display' )
