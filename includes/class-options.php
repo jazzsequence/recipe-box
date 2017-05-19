@@ -161,4 +161,24 @@ class RB_Options {
 		) );
 
 	}
+
+	/**
+	 * Helper function to determine if we should display recipes in the main blog feed.
+	 *
+	 * @since  0.2
+	 * @return boolean True/false depending on whether the setting was checked.
+	 */
+	public function display_in_blog_feed() {
+		if ( function_exists( 'cmb2_get_option' ) ) {
+			return ( 'on' === cmb2_get_option( $this->key, 'recipes_with_blog', '' ) );
+		}
+
+		$opts = get_option( $this->key );
+
+		if ( array_key_exists( 'recipes_with_blog', $opts ) ) {
+			return ( 'on' === $opts['recipes_with_blog'] );
+		}
+
+		return false;
+	}
 }
