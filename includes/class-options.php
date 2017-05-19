@@ -80,7 +80,7 @@ class RB_Options {
 		add_action( 'admin_menu', [ $this, 'add_options_page' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_css' ] );
 		add_action( 'cmb2_admin_init', [ $this, 'add_options_page_metabox' ] );
-
+		add_action( 'pre_get_posts', [ $this, 'add_recipes_to_blog' ] );
 	}
 
 	/**
@@ -180,5 +180,20 @@ class RB_Options {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Adds the recipe post type to the main blog feed if the option has been selected.
+	 *
+	 * @since  0.2
+	 * @param  object $query The WP_Query object.
+	 * @return object       The filtered query object.
+	 */
+	public function add_recipes_to_blog( $query ) {
+		if ( is_home() && $query->is_main_query() && $this->display_in_blog_feed() ) {
+			$query->set( 'post_type', [ 'post', 'rb_recipe' ] );
+		}
+
+		return $query;
 	}
 }
