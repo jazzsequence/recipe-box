@@ -79,4 +79,73 @@ class RB_Taxonomies {
 			array( 'rb_recipe' ) // Array of post types.
 		);
 	}
+
+	/**
+	 * Return the term objects for the recipe taxonomy passed.
+	 *
+	 * @since  0.2
+	 * @param  mixed  $post If passed, can take an int or a WP_Post object. Otherwise attempts to find the post ID using get_the_ID.
+	 * @param  string $tax  The recipe taxonomy. Defaults to Recipe Category.
+	 * @return array        An array of WP_Term objects.
+	 */
+	public function get_the_recipe_terms( $post = false, $tax = 'rb_recipe_category' ) {
+		// Check for an error.
+		if ( is_wp_error( $post ) ) {
+			return ( $post instanceof WP_Error );
+		}
+
+		// Get the post ID.
+		if ( $post && is_int( $post ) ) {
+			$post_id = absint( $post );
+		} elseif ( $post && is_object( $post ) ) {
+			$post_id = $post->ID;
+		} else {
+			$post_id = get_the_ID();
+		}
+
+		return get_the_terms( $post, $tax );
+	}
+
+	/**
+	 * Returns the recipe terms HTML markup for the taxonomy given.
+	 *
+	 * @since  0.2
+	 * @param  mixed  $post      If passed, can take an int or a WP_Post object. Otherwise attempts to find the post ID using get_the_ID.
+	 * @param  string $tax       The recipe taxonomy. Defaults to Recipe Category.
+	 * @param  string $separator The separator between terms. Defaults to ", ".
+	 * @return string             The HTML markup for the list of recipe terms of the given taxonomy.
+	 */
+	public function recipe_terms( $post = false, $tax = 'rb_recipe_category', $separator = ', ' ) {
+		// Bail if no post was passed.
+		if ( ! $post ) {
+			return;
+		}
+
+		$terms = $this->get_the_recipe_terms( $post, $tax );
+		$taxonomy = get_taxonomy( $tax );
+
+		$i = 1;
+
+		$output = '';
+
+		if ( ! is_wp_error( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$separator = ( count( $terms ) > $i ) ? $separator : '';
+
+				$output .= sprintf( '<a class="recipe-%3$s %4$s" href="%1$s">%2$s</a>',
+					get_term_link( $term, $tax ),
+					esc_html( $term->name ),
+					sanitize_title( strtolower( $taxonomy->labels->singular_name ) ),
+					$term->slug
+				);
+				$output .= $separator;
+
+				$i++;
+			}
+
+			$output = sprintf( '%1$s: %2$s', $taxonomy->labels->name, $output );
+		}
+
+		return apply_filters( 'rb_filter_recipe_' . $tax . '_terms', $output, $terms );
+	}
 }

@@ -617,6 +617,48 @@ class RB_Public {
 	}
 
 	/**
+	 * Display the recipe categories.
+	 *
+	 * @since  0.2
+	 * @param  mixed $post_id The post ID (optional).
+	 * @return string         The HTML markup for the recipe category terms.
+	 */
+	public function render_categories( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		return '<div class="recipe-categories">' . rb()->taxonomy->recipe_terms( $post_id ) . '</div>';
+	}
+
+	/**
+	 * Display the recipe meal types.
+	 *
+	 * @since  0.2
+	 * @param  mixed $post_id The post ID (optional).
+	 * @return string         The HTML markup for the recipe meal type terms.
+	 */
+	public function render_meal_types( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		return '<div class="recipe-meal-types">' . rb()->taxonomy->recipe_terms( $post_id, 'rb_meal_type' ) . '</div>';
+	}
+
+	/**
+	 * Display the recipe cuisines.
+	 *
+	 * @since  0.2
+	 * @param  mixed $post_id The post ID (optional).
+	 * @return string         The HTML markup for the recipe cuisine terms.
+	 */
+	public function render_cuisines( $post_id = false ) {
+		// Get the post ID.
+		$post_id = ( $post_id && is_int( $post_id ) ) ? absint( $post_id ) : get_the_ID();
+
+		return '<div class="recipe-cuisines">' . rb()->taxonomy->recipe_terms( $post_id, 'rb_recipe_cuisine' ) . '</div>';
+	}
+
+	/**
 	 * Handles echoing the recipe meta (ingredients and recipe steps).
 	 *
 	 * @since  0.1
@@ -641,7 +683,16 @@ class RB_Public {
 		// Get the steps.
 		$steps = $this->render_steps( $post_id );
 
-		return $servings . $cook_times . $preheat_temp . $ingredients . $steps;
+		// Get the categories.
+		$categories = $this->render_categories( $post_id );
+
+		// Get the meal types.
+		$meal_types = $this->render_meal_types( $post_id );
+
+		// Get the cuisines.
+		$cuisines = $this->render_cuisines( $post_id );
+
+		return $servings . $cook_times . $preheat_temp . $ingredients . $steps . $categories . $meal_types . $cuisines;
 	}
 
 	/**
