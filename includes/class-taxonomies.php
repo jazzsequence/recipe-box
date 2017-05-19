@@ -105,6 +105,7 @@ class RB_Taxonomies {
 		}
 
 		$terms = $this->get_the_recipe_terms( $post, $tax );
+		$taxonomy = get_taxonomy( $tax );
 
 		$i = 1;
 
