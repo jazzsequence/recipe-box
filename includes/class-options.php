@@ -92,6 +92,14 @@ class RB_Options {
 		register_setting( $this->key, $this->key );
 	}
 
+	public function enqueue_css( $hook ) {
+		// Bail if we aren't on the recipe box options page.
+		if ( 'rb_recipe_page_recipe_box_options' !== $hook ) {
+			return;
+		}
+		wp_enqueue_style( 'recipes', rb()->url . 'assets/css/recipes.css', array(), rb()->version, 'screen' );
+	}
+
 	/**
 	 * Add menu options page.
 	 *
