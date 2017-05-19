@@ -113,13 +113,14 @@ class RB_Taxonomies {
 
 		if ( ! is_wp_error( $terms ) ) {
 			foreach ( $terms as $term ) {
-				$separator = ( count( $terms > $i ) ) ? $separator : '';
+				$separator = ( count( $terms ) > $i ) ? $separator : '';
 
 				$output .= sprintf( '<a href="%1$s">%2$s</a>',
 					get_term_link( $term, $tax ),
 					esc_html( $term->name )
 				);
 
+				$i++;
 			}
 
 			// Translators: %s is a comma-separated list of categories.
