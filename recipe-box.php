@@ -73,7 +73,7 @@ final class Recipe_Box {
 	 * @var  string
 	 * @since  0.1
 	 */
-	const VERSION = '0.1';
+	const VERSION = '0.2';
 
 	/**
 	 * URL of plugin directory
@@ -116,6 +116,14 @@ final class Recipe_Box {
 	protected $public;
 
 	/**
+	 * Instance of RB_Options
+	 *
+	 * @since0.1
+	 * @var RB_Options
+	 */
+	protected $options;
+
+	/**
 	 * Creates or returns an instance of this class.
 	 *
 	 * @since  0.1
@@ -152,7 +160,7 @@ final class Recipe_Box {
 		$this->cpt      = new RB_Recipe( $this );
 		$this->taxonomy = new RB_Taxonomies( $this );
 		$this->public   = new RB_Public( $this );
-
+		$this->options  = new RB_Options( $this );
 	} // END OF PLUGIN CLASSES FUNCTION
 
 	/**
@@ -268,6 +276,7 @@ final class Recipe_Box {
 			case 'url':
 			case 'path':
 			case 'public':
+			case 'options':
 				return $this->$field;
 			default:
 				throw new Exception( 'Invalid '. __CLASS__ .' property: ' . $field );
