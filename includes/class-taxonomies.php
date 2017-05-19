@@ -143,8 +143,7 @@ class RB_Taxonomies {
 				$i++;
 			}
 
-			// Translators: %s is a comma-separated list of categories.
-			$output = sprintf( __( 'Recipe Category: %s', 'recipe-box' ), $output );
+			$output = sprintf( '%1$s: %2$s', $taxonomy->labels->name, $output );
 		}
 
 		return apply_filters( 'rb_filter_recipe_' . $tax . '_terms', $output, $terms );
