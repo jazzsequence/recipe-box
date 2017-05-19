@@ -115,7 +115,7 @@ class RB_Taxonomies {
 			foreach ( $terms as $term ) {
 				$separator = ( count( $terms ) > $i ) ? $separator : '';
 
-				$output .= sprintf( '<a href="%1$s">%2$s</a>',
+				$output .= sprintf( '<a class="recipe-%3$s %4$s" href="%1$s">%2$s</a>',
 					get_term_link( $term, $tax ),
 					esc_html( $term->name )
 				);
