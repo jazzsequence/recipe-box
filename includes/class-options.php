@@ -146,11 +146,10 @@ class RB_Options {
 
 		// Add your fields here.
 		$cmb->add_field( array(
-			'name'    => __( 'Test Text', 'recipe-box' ),
-			'desc'    => __( 'field description (optional)', 'recipe-box' ),
-			'id'      => 'test_text', // No prefix needed.
-			'type'    => 'text',
-			'default' => __( 'Default Text', 'recipe-box' ),
+			'name' => __( 'Recipes with blog posts', 'recipe-box' ),
+			'desc' => __( 'Check this box if you want recipes to display in line with other blog posts or otherwise display on the home page automagically.', 'recipe-box' ),
+			'id'   => 'recipes_with_blog', // No prefix needed.
+			'type' => 'checkbox',
 		) );
 
 	}
