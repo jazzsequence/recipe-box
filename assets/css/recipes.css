@@ -72,6 +72,13 @@ html {
 }
 
 /**
+ * Options page.
+ */
+.rb_recipe_page_recipe_box_options #recipe_box_options_metabox .cmb2-id-recipes-with-blog .cmb-td {
+  width: 75%;
+}
+
+/**
  * Preheat Temperature styles.
  */
 @media screen and (min-width: 64rem) {
@@ -144,7 +151,6 @@ html {
   	text-align: left;
   }
 }
-
 
 /**
  * Autocompletion styles
