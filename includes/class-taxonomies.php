@@ -95,7 +95,7 @@ class RB_Taxonomies {
 			$post_id = get_the_ID();
 		}
 
-		return get_the_terms( $post, 'rb_recipe_category' );
+		return get_the_terms( $post, $tax );
 	}
 
 	public function recipe_terms( $post = false, $tax = 'rb_recipe_category', $separator = ', ' ) {
@@ -104,7 +104,7 @@ class RB_Taxonomies {
 			return;
 		}
 
-		$terms = $this->get_the_recipe_terms( $post, 'rb_recipe_category' );
+		$terms = $this->get_the_recipe_terms( $post, $tax );
 
 		$i = 1;
 
