@@ -117,8 +117,11 @@ class RB_Taxonomies {
 
 				$output .= sprintf( '<a class="recipe-%3$s %4$s" href="%1$s">%2$s</a>',
 					get_term_link( $term, $tax ),
-					esc_html( $term->name )
+					esc_html( $term->name ),
+					sanitize_title( strtolower( $taxonomy->labels->singular_name ) ),
+					$term->slug
 				);
+				$output .= $separator;
 
 				$i++;
 			}
