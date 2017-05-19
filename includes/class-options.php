@@ -92,6 +92,12 @@ class RB_Options {
 		register_setting( $this->key, $this->key );
 	}
 
+	/**
+	 * Enqueue the css.
+	 *
+	 * @since  0.2
+	 * @param  string $hook The page hook for the page we're on.
+	 */
 	public function enqueue_css( $hook ) {
 		// Bail if we aren't on the recipe box options page.
 		if ( 'rb_recipe_page_recipe_box_options' !== $hook ) {
