@@ -80,7 +80,15 @@ class RB_Taxonomies {
 		);
 	}
 
-	public function get_the_recipe_terms( $post = false, $tax = 'recipe_category' ) {
+	/**
+	 * Return the term objects for the recipe taxonomy passed.
+	 *
+	 * @since  0.2
+	 * @param  mixed  $post If passed, can take an int or a WP_Post object. Otherwise attempts to find the post ID using get_the_ID.
+	 * @param  string $tax  The recipe taxonomy. Defaults to Recipe Category.
+	 * @return array        An array of WP_Term objects.
+	 */
+	public function get_the_recipe_terms( $post = false, $tax = 'rb_recipe_category' ) {
 		// Check for an error.
 		if ( is_wp_error( $post ) ) {
 			return ( $post instanceof WP_Error );
@@ -98,6 +106,15 @@ class RB_Taxonomies {
 		return get_the_terms( $post, $tax );
 	}
 
+	/**
+	 * Returns the recipe terms HTML markup for the taxonomy given.
+	 *
+	 * @since  0.2
+	 * @param  mixed  $post      If passed, can take an int or a WP_Post object. Otherwise attempts to find the post ID using get_the_ID.
+	 * @param  string $tax       The recipe taxonomy. Defaults to Recipe Category.
+	 * @param  string $separator The separator between terms. Defaults to ", ".
+	 * @return string             The HTML markup for the list of recipe terms of the given taxonomy.
+	 */
 	public function recipe_terms( $post = false, $tax = 'rb_recipe_category', $separator = ', ' ) {
 		// Bail if no post was passed.
 		if ( ! $post ) {
