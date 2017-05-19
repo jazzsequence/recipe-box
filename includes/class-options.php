@@ -2,7 +2,7 @@
 /**
  * Recipe Box Options.
  *
- * @since   0.1
+ * @since   0.2
  * @package Recipe_Box
  */
 
@@ -11,14 +11,14 @@ require_once dirname( __FILE__ ) . '/../vendor/cmb2/init.php';
 /**
  * Recipe Box Options class.
  *
- * @since 0.1
+ * @since 0.2
  */
 class RB_Options {
 	/**
 	 * Parent plugin class.
 	 *
 	 * @var    Recipe_Box
-	 * @since  0.1
+	 * @since  0.2
 	 */
 	protected $plugin = null;
 
@@ -26,7 +26,7 @@ class RB_Options {
 	 * Option key, and option page slug.
 	 *
 	 * @var    string
-	 * @since  0.1
+	 * @since  0.2
 	 */
 	protected $key = 'recipe_box_options';
 
@@ -34,7 +34,7 @@ class RB_Options {
 	 * Options page metabox ID.
 	 *
 	 * @var    string
-	 * @since  0.1
+	 * @since  0.2
 	 */
 	protected $metabox_id = 'recipe_box_options_metabox';
 
@@ -42,7 +42,7 @@ class RB_Options {
 	 * Options Page title.
 	 *
 	 * @var    string
-	 * @since  0.1
+	 * @since  0.2
 	 */
 	protected $title = '';
 
@@ -56,7 +56,7 @@ class RB_Options {
 	/**
 	 * Constructor.
 	 *
-	 * @since  0.1
+	 * @since  0.2
 	 *
 	 * @param  Recipe_Box $plugin Main plugin object.
 	 */
@@ -71,22 +71,22 @@ class RB_Options {
 	/**
 	 * Initiate our hooks.
 	 *
-	 * @since  0.1
+	 * @since  0.2
 	 */
 	public function hooks() {
 
 		// Hook in our actions to the admin.
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_action( 'admin_menu', array( $this, 'add_options_page' ) );
-		
+
 		add_action( 'cmb2_admin_init', array( $this, 'add_options_page_metabox' ) );
-		
+
 	}
 
 	/**
 	 * Register our setting to WP.
 	 *
-	 * @since  0.1
+	 * @since  0.2
 	 */
 	public function admin_init() {
 		register_setting( $this->key, $this->key );
@@ -95,7 +95,7 @@ class RB_Options {
 	/**
 	 * Add menu options page.
 	 *
-	 * @since  0.1
+	 * @since  0.2
 	 */
 	public function add_options_page() {
 		$this->options_page = add_menu_page(
@@ -113,7 +113,7 @@ class RB_Options {
 	/**
 	 * Admin page markup. Mostly handled by CMB2.
 	 *
-	 * @since  0.1
+	 * @since  0.2
 	 */
 	public function admin_page_display() {
 		?>
@@ -127,7 +127,7 @@ class RB_Options {
 	/**
 	 * Add custom fields to the options page.
 	 *
-	 * @since  0.1
+	 * @since  0.2
 	 */
 	public function add_options_page_metabox() {
 
