@@ -77,10 +77,11 @@ class RB_Import {
 
 		// A better way to figure out the .min thing...
 		// First we build an array of scripts. The first parameter is the script name and the second is the path to the script, excluding the .min.js or whatever.
-		$script = array(
+		$scripts = [
 			'name' => 'import',
-			'path' => rb()->url . 'assets/js/recipe-import',
-		);
+			'js'   => rb()->url . 'assets/js/recipe-import',
+			'css'  => rb()->url . 'assets/js/recipe-import',
+		];
 
 		// Check if debug is turned on. If it is, we set $min to an empty string. We won't minify if debugging is active.
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
@@ -88,15 +89,21 @@ class RB_Import {
 		}
 
 		// Set a default path that excludes $min entirely.
-		$src = $script['path'] . '.js';
+		$js_src  = $scripts['js'] . '.js';
+		$css_src = $scripts['css'] . '.css';
 
 		// Check if a minified version exists and set the $src to that if it does. If that file doesn't exist, we just use the default (unminified) version regardless of WP_DEBUG status.
-		if ( file_exists( $script['path'] . $min . '.js' ) ) {
-			$src = $script['path'] . $min . '.js';
+		if ( file_exists( $scripts['js'] . $min . '.js' ) ) {
+			$js_src = $scripts['js'] . $min . '.js';
 		}
 
-		// Now enqueue the script.
-		wp_enqueue_script( $script['name'], $src, array( 'jquery' ), rb()->version, true );
+		if ( file_exists( $scripts['css'] . $min . '.css' ) ) {
+			$css_src = $scripts['css'] . $min . '.css';
+		}
+
+		// Now enqueue the scripts.
+		wp_enqueue_script( $scripts['name'], $js_src, [ 'jquery' ], rb()->version, true );
+		wp_enqueue_style( $scripts['name'], $css_src, [], rb()->version );
 	}
 
 	/**
