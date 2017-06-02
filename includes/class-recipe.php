@@ -81,10 +81,11 @@ class RB_Recipe {
 	 * @since  0.1
 	 */
 	public function hooks() {
-		add_action( 'cmb2_init', array( $this, 'fields' ) );
-		add_action( 'init', array( $this, 'register_cpts' ), 9 );
-		add_action( 'save_post', array( $this, 'save_ingredient' ), 10, 3 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 9999 );
+		add_action( 'cmb2_init',              [ $this, 'fields' ] );
+		add_action( 'init',                   [ $this, 'register_cpts' ], 9 );
+		add_action( 'save_post',              [ $this, 'save_ingredient' ], 10, 3 );
+		add_action( 'admin_enqueue_scripts',  [ $this, 'admin_enqueue_scripts' ], 9999 );
+		add_filter( 'rest_prepare_rb_recipe', [ $this, 'filter_recipes_json' ], 10, 2 );
 	}
 
 
