@@ -73,7 +73,7 @@ final class Recipe_Box {
 	 * @var  string
 	 * @since  0.1
 	 */
-	const VERSION = '0.2';
+	const VERSION = '0.3';
 
 	/**
 	 * URL of plugin directory
