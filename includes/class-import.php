@@ -87,9 +87,9 @@ class RB_Import {
 	 */
 	public function import_page_display() {
 		?>
-		<div class="wrap recipe-box-import-page">
+		<div class="wrap recipe-box-import">
 			<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
-			(Stuff goes here.)
+			<?php cmb2_metabox_form( $this->metabox_id, $this->key, $args ); ?>
 		</div>
 		<?php
 	}
