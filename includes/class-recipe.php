@@ -509,6 +509,30 @@ class RB_Recipe {
 	}
 
 	/**
+	 * Add recipe postmeta to the recipe API objects.
+	 *
+	 * @since  0.3
+	 * @param  object $data The REST API object.
+	 * @param  object $post The WP_Post object.
+	 * @return object       Updated REST API object with recipe meta included.
+	 */
+	public function filter_recipes_json( $data, $post ) {
+		$fields = [
+			'preheat_temp' => rb()->public->get_preheat_temp( $post->ID ),
+			'ingredients'  => rb()->public->get_ingredients( $post->ID ),
+			'servings'     => rb()->public->get_servings( $post->ID ),
+			'steps'        => rb()->public->get_steps( $post->ID ),
+			'cook_times'   => rb()->public->get_cook_time( $post->ID ),
+		];
+
+		foreach ( $fields as $key => $value ) {
+			$data->data[ $key ] = $value;
+		}
+
+		return $data;
+	}
+
+	/**
 	 * Registers admin columns to display. Hooked in via CPT_Core.
 	 *
 	 * @since  0.1
