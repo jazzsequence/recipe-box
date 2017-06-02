@@ -8,6 +8,9 @@
  * @package Recipe_Box
  */
 
+// We use CMB2 for the forms but we're not actually submitting anything.
+require_once dirname( __FILE__ ) . '/../vendor/cmb2/init.php';
+
 /**
  * Recipe Box Import.
  *
