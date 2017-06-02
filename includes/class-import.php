@@ -60,8 +60,10 @@ class RB_Import {
 	 * @since  0.3
 	 */
 	public function hooks() {
-		add_action( 'admin_menu',      [ $this, 'add_import_page' ] );
-		add_action( 'cmb2_admin_init', [ $this, 'add_import_metabox' ] );
+		add_action( 'admin_menu',        [ $this, 'add_import_page' ] );
+		add_action( 'cmb2_admin_init',   [ $this, 'add_import_metabox' ] );
+
+		add_filter( 'json_prepare_post', [ $this, 'trim_data' ], 12, 3 );
 	}
 
 	/**
@@ -120,5 +122,19 @@ class RB_Import {
 				'placeholder' => 'e.g. http://myrecipebox.com',
 			],
 		) );
+	}
+
+	public function trim_data( $data, $post, $context ) {
+		// We only want to modify the 'view' context, for reading posts
+		if ( $context !== 'view' || is_wp_error( $data ) ) {
+			return $data;
+		}
+
+		// Here, we unset any data we don't want to see on the front end:
+		unset( $data['author'] );
+		unset( $data['status'] );
+		// continue unsetting whatever other fields you want
+
+		return $data;
 	}
 }
