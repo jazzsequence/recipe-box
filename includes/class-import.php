@@ -4,20 +4,20 @@
  *
  * Class for syndicating/importing recipes from a remote Recipe Box site.
  *
- * @since   0.2
+ * @since   0.3
  * @package Recipe_Box
  */
 
 /**
  * Recipe Box Import.
  *
- * @since 0.2
+ * @since 0.3
  */
 class RB_Import {
 	/**
 	 * Parent plugin class.
 	 *
-	 * @since 0.2
+	 * @since 0.3
 	 *
 	 * @var   Recipe_Box
 	 */
@@ -26,7 +26,7 @@ class RB_Import {
 	/**
 	 * Constructor.
 	 *
-	 * @since  0.2
+	 * @since  0.3
 	 *
 	 * @param  Recipe_Box $plugin Main plugin object.
 	 */
@@ -38,7 +38,7 @@ class RB_Import {
 	/**
 	 * Initiate our hooks.
 	 *
-	 * @since  0.2
+	 * @since  0.3
 	 */
 	public function hooks() {
 		add_action( 'admin_menu', [ $this, 'add_import_page' ] );
@@ -47,7 +47,7 @@ class RB_Import {
 	/**
 	 * Add the import admin page.
 	 *
-	 * @since 0.2
+	 * @since 0.3
 	 */
 	public function add_import_page() {
 		$this->options_page = add_submenu_page(
@@ -61,9 +61,9 @@ class RB_Import {
 	}
 
 	/**
-	 * Admin page markup.
+	 * Display the Import page. Handled by CMB2 and AJAX-y goodness.
 	 *
-	 * @since  0.2
+	 * @since 0.3
 	 */
 	public function import_page_display() {
 		?>

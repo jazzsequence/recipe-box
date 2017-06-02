@@ -1,7 +1,7 @@
 {
 	"name": "recipe-box",
 	"title": "Recipe Box",
-	"version": "0.2",
+	"version": "0.3",
 	"description": "Easily store and publish recipes in WordPress.",
 	"author": {
 		"name": "Chris Reynolds",
