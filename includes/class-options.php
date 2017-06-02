@@ -76,11 +76,11 @@ class RB_Options {
 	public function hooks() {
 
 		// Hook in our actions to the admin.
-		add_action( 'admin_init', [ $this, 'admin_init' ] );
-		add_action( 'admin_menu', [ $this, 'add_options_page' ] );
+		add_action( 'admin_init',            [ $this, 'admin_init' ] );
+		add_action( 'admin_menu',            [ $this, 'add_options_page' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_css' ] );
-		add_action( 'cmb2_admin_init', [ $this, 'add_options_page_metabox' ] );
-		add_action( 'pre_get_posts', [ $this, 'add_recipes_to_blog' ] );
+		add_action( 'cmb2_admin_init',       [ $this, 'add_options_page_metabox' ] );
+		add_action( 'pre_get_posts',         [ $this, 'add_recipes_to_blog' ] );
 	}
 
 	/**
