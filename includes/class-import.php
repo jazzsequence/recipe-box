@@ -86,6 +86,11 @@ class RB_Import {
 	 * @since 0.3
 	 */
 	public function import_page_display() {
+		// Override the default form and submit button.
+		$args = [
+			'form_format' => '',
+			'save_button' => '',
+		];
 		?>
 		<div class="wrap recipe-box-import">
 			<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
