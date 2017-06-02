@@ -14,7 +14,7 @@
  * @link https://jazzsequence.com
  *
  * @package Recipe Box
- * @version 0.2
+ * @version 0.3
  */
 
 /**
