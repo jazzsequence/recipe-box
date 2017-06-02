@@ -169,7 +169,7 @@ class RB_Import {
 			'name'       => __( 'Recipe Box URL', 'recipe-box' ),
 			'id'         => 'api_url',
 			'type'       => 'text',
-			'desc'       => '<a href="#" data-action="api-fetch">' . __( 'Fetch recipes', 'recipe-box' ) . '</a>',
+			'desc'       => '<a href="#" id="recipe-api-fetch" data-action="api-fetch">' . __( 'Fetch recipes', 'recipe-box' ) . '</a>',
 			'attributes' => [
 				'placeholder' => 'e.g. http://myrecipebox.com',
 			],
