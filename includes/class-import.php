@@ -27,6 +27,22 @@ class RB_Import {
 	protected $plugin = null;
 
 	/**
+	 * CMB2 key.
+	 *
+	 * @var    string
+	 * @since  0.3
+	 */
+	protected $key = 'recipe_box_import';
+
+	/**
+	 * CMB2 metabox ID.
+	 *
+	 * @var    string
+	 * @since  0.3
+	 */
+	protected $metabox_id = 'recipe_box_import_metabox';
+
+	/**
 	 * Constructor.
 	 *
 	 * @since  0.3
