@@ -50,9 +50,11 @@ class RB_Recipe {
 				'rb_recipe',                   // Post type name.
 			),
 			array(
-				'supports'  => array( 'title', 'editor', 'thumbnail' ),
-				'menu_icon' => 'dashicons-carrot',
-				'rewrite'   => array( 'slug' => 'recipe' ),
+				'supports'     => [ 'title', 'editor', 'thumbnail' ],
+				'menu_icon'    => 'dashicons-carrot',
+				'rewrite'      => [ 'slug' => 'recipe' ],
+				'show_in_rest' => true,
+				'rest_base'    => 'recipes',
 			)
 		);
 
