@@ -2,6 +2,8 @@
 /**
  * Recipe Box Import.
  *
+ * Class for syndicating/importing recipes from a remote Recipe Box site.
+ *
  * @since   0.2
  * @package Recipe_Box
  */
