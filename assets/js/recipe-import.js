@@ -33,7 +33,14 @@ window.RecipeImport = {};
 
 	// Some function.
 	plugin.fetchRecipes = function( event ) {
-		let apiUrl = $( 'input#api_url' ).val();
+		let apiUrl = $( 'input#api_url' ).val(),
+		    messagesWrap = $( '.recipe-box-import-messages' ),
+		    messagesP = $( 'p.rb-messages-inner' ),
+		    fetchingRecipes = $( '.recipe-box-import-header p.fetching-recipes-message' ),
+		    recipeList = $( '.recipe-box-import-recipe-list ul.recipe-list' ),
+		    moreWrap = $( '.recipe-box-import-footer p.recipe-box-more' ),
+		    moreLink = $( 'a#recipe-api-fetch-more' ),
+		    morePage = moreLink.data( 'page' );
 
 		event.preventDefault();
 
