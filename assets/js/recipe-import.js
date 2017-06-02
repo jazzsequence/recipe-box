@@ -54,6 +54,17 @@ window.RecipeImport = {};
 		$.ajax({
 			url: apiUrl + '/wp-json/wp/v2/recipes?filter[posts_per_page]=10',
 			success: function( data ) {
+				if ( messagesWrap.hasClass( 'error' ) ) {
+					messagesWrap.removeClass( 'error' );
+				}
+
+				messagesWrap.show().addClass( 'updated' );
+				messagesP.text( recipe_import_messages.success );
+
+				cmb2form.hide();
+				fetchingRecipes.find( '#api-url-fetched' ).text( apiUrl );
+				fetchingRecipes.show();
+
 				console.log( data )
 			},
 			cache: false
