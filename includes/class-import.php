@@ -107,6 +107,13 @@ class RB_Import {
 		// Now enqueue the scripts.
 		wp_enqueue_script( $scripts['name'], $js_src, [ 'jquery' ], $version, true );
 		wp_enqueue_style( $scripts['name'], $css_src, [], $version );
+
+		wp_localize_script( $scripts['name'], 'recipe_import_messages', [
+			'error_no_url'      => esc_html__( 'No URL entered.', 'recipe-box' ),
+			'error_invalid_url' => esc_html__( 'Attempted to fetch recipes but the URL you entered was invalid.', 'recipe-box' ),
+			'success'           => esc_html__( 'Recipes found!', 'recipe-box' ),
+			'no_more_recipes'   => esc_html__( 'That\'s all the recipes!', 'recipe-box' ),
+		] );
 	}
 
 	/**
