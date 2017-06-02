@@ -79,7 +79,7 @@ final class Recipe_Box {
 	 * URL of plugin directory
 	 *
 	 * @var string
-	 * @since  0.1
+	 * @since 0.1
 	 */
 	protected $url = '';
 
@@ -87,7 +87,7 @@ final class Recipe_Box {
 	 * Path of plugin directory
 	 *
 	 * @var string
-	 * @since  0.1
+	 * @since 0.1
 	 */
 	protected $path = '';
 
@@ -95,7 +95,7 @@ final class Recipe_Box {
 	 * Plugin basename
 	 *
 	 * @var string
-	 * @since  0.1
+	 * @since 0.1
 	 */
 	protected $basename = '';
 
@@ -103,7 +103,7 @@ final class Recipe_Box {
 	 * Singleton instance of plugin
 	 *
 	 * @var Recipe_Box
-	 * @since  0.1
+	 * @since 0.1
 	 */
 	protected static $single_instance = null;
 
@@ -118,7 +118,7 @@ final class Recipe_Box {
 	/**
 	 * Instance of RB_Options
 	 *
-	 * @since0.1
+	 * @since 0.1
 	 * @var RB_Options
 	 */
 	protected $options;
@@ -126,7 +126,7 @@ final class Recipe_Box {
 	/**
 	 * Instance of RB_Import
 	 *
-	 * @since0.2
+	 * @since 0.2
 	 * @var RB_Import
 	 */
 	protected $import;
@@ -169,7 +169,7 @@ final class Recipe_Box {
 		$this->taxonomy = new RB_Taxonomies( $this );
 		$this->public   = new RB_Public( $this );
 		$this->options  = new RB_Options( $this );
-		$this->import = new RB_Import( $this );
+		$this->import   = new RB_Import( $this );
 	} // END OF PLUGIN CLASSES FUNCTION
 
 	/**
