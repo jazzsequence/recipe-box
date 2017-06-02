@@ -124,6 +124,14 @@ final class Recipe_Box {
 	protected $options;
 
 	/**
+	 * Instance of RB_Import
+	 *
+	 * @since0.2
+	 * @var RB_Import
+	 */
+	protected $import;
+
+	/**
 	 * Creates or returns an instance of this class.
 	 *
 	 * @since  0.1
@@ -161,6 +169,7 @@ final class Recipe_Box {
 		$this->taxonomy = new RB_Taxonomies( $this );
 		$this->public   = new RB_Public( $this );
 		$this->options  = new RB_Options( $this );
+		$this->import = new RB_Import( $this );
 	} // END OF PLUGIN CLASSES FUNCTION
 
 	/**
@@ -277,6 +286,7 @@ final class Recipe_Box {
 			case 'path':
 			case 'public':
 			case 'options':
+			case 'import':
 				return $this->$field;
 			default:
 				throw new Exception( 'Invalid '. __CLASS__ .' property: ' . $field );
