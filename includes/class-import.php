@@ -146,10 +146,10 @@ class RB_Import {
 		?>
 		<div class="wrap recipe-box-import">
 			<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
-			<?php cmb2_metabox_form( $this->metabox_id, $this->key, $args ); ?>
 			<div class="recipe-box-import-messages">
 				<p class="rb-messages-inner"></p>
 			</div>
+			<?php cmb2_metabox_form( $this->metabox_id, $this->key, $args ); ?>
 			<div class="recipe-box-import-header">
 				<p class="fetching-recipes-message">
 					<?php // Translators: %s is an API URL based on the Recipe Box site entered. ?>
