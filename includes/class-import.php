@@ -143,6 +143,12 @@ class RB_Import {
 			<div class="recipe-box-import-messages">
 				<p class="rb-messages-inner"></p>
 			</div>
+			<div class="recipe-box-import-header">
+				<p class="fetching-recipes-message">
+					<?php // Translators: %s is an API URL based on the Recipe Box site entered. ?>
+					<?php echo wp_kses_post( sprintf( __( 'Fetching recipes from %s', 'recipe-box' ), '<span id="api-url-fetched"></span>' ) ); ?>
+				</p>
+			</div>
 			<div class="recipe-box-import-recipe-list">
 				<ul class="recipe-list">
 				</ul>
