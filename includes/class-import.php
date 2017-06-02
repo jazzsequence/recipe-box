@@ -124,16 +124,35 @@ class RB_Import {
 		) );
 	}
 
+	/**
+	 * Trim the data we're fetching to only include the stuff we actually want.
+	 *
+	 * @since  0.3
+	 * @param  object $data    The WP-REST API data object.
+	 * @param  object $post    The WP_Post object (not used).
+	 * @param  string $context The context in which we are looking at this data.
+	 * @return object          The updated REST API data object.
+	 */
 	public function trim_data( $data, $post, $context ) {
-		// We only want to modify the 'view' context, for reading posts
-		if ( $context !== 'view' || is_wp_error( $data ) ) {
+		// We only want to modify the 'view' context, for reading posts.
+		if ( 'view' !== $context || is_wp_error( $data ) ) {
 			return $data;
 		}
 
-		// Here, we unset any data we don't want to see on the front end:
-		unset( $data['author'] );
-		unset( $data['status'] );
-		// continue unsetting whatever other fields you want
+		// Remove all the things we don't care about.
+		$properties_to_remove = [
+			'guid',
+			'modified',
+			'modified_gmt',
+			'status',
+			'type',
+			'template',
+			'_links',
+		];
+
+		foreach ( $properties_to_remove as $field ) {
+			unset( $data[ $field ] );
+		}
 
 		return $data;
 	}
