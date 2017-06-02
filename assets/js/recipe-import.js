@@ -45,8 +45,8 @@ window.RecipeImport = {};
 		event.preventDefault();
 
 		if ( "" == apiUrl ) {
-			return;
-			// display some message here.
+			messagesWrap.show().addClass( 'error' );
+			messagesP.text( recipe_import_messages.error_no_url );
 		}
 
 		$.ajax({
