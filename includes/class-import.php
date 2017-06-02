@@ -80,7 +80,7 @@ class RB_Import {
 		$scripts = [
 			'name' => 'import',
 			'js'   => rb()->url . 'assets/js/recipe-import',
-			'css'  => rb()->url . 'assets/js/recipe-import',
+			'css'  => rb()->url . 'assets/css/recipe-import',
 		];
 
 		// Check if debug is turned on. If it is, we set $min to an empty string. We won't minify if debugging is active.
