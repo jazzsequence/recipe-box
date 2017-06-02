@@ -60,7 +60,8 @@ class RB_Import {
 	 * @since  0.3
 	 */
 	public function hooks() {
-		add_action( 'admin_menu', [ $this, 'add_import_page' ] );
+		add_action( 'admin_menu',      [ $this, 'add_import_page' ] );
+		add_action( 'cmb2_admin_init', [ $this, 'add_import_metabox' ] );
 	}
 
 	/**
@@ -91,5 +92,28 @@ class RB_Import {
 			(Stuff goes here.)
 		</div>
 		<?php
+	}
+
+	public function add_import_metabox() {
+		$cmb = new_cmb2_box( array(
+			'id'         => $this->metabox_id,
+			'hookup'     => false,
+			'cmb_styles' => false,
+			'show_on'    => array(
+				// These are important, don't remove.
+				'key'   => 'options-page',
+				'value' => array( $this->key ),
+			),
+		) );
+
+		$cmb->add_field( array(
+			'name'       => __( 'Recipe Box URL', 'recipe-box' ),
+			'id'         => 'api_url',
+			'type'       => 'text',
+			'desc'       => '<a href="#" data-action="api-fetch">' . __( 'Fetch recipes', 'recipe-box' ) . '</a>',
+			'attributes' => [
+				'placeholder' => 'e.g. http://myrecipebox.com',
+			],
+		) );
 	}
 }
