@@ -60,10 +60,43 @@ class RB_Import {
 	 * @since  0.3
 	 */
 	public function hooks() {
-		add_action( 'admin_menu',        [ $this, 'add_import_page' ] );
-		add_action( 'cmb2_admin_init',   [ $this, 'add_import_metabox' ] );
+		add_action( 'admin_menu',            [ $this, 'add_import_page' ] );
+		add_action( 'cmb2_admin_init',       [ $this, 'add_import_metabox' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_js' ] );
 
-		add_filter( 'json_prepare_post', [ $this, 'trim_data' ], 12, 3 );
+		add_filter( 'json_prepare_post',     [ $this, 'trim_data' ], 12, 3 );
+	}
+
+	public function enqueue_admin_js( $hook ) {
+		// Only load these scripts in the admin.
+		if ( ! is_admin() || 'rb_recipe_page_recipe_box_import' !== $hook ) {
+			return;
+		}
+
+		$min = '.min';
+
+		// A better way to figure out the .min thing...
+		// First we build an array of scripts. The first parameter is the script name and the second is the path to the script, excluding the .min.js or whatever.
+		$script = array(
+			'name' => 'import',
+			'path' => rb()->url . 'assets/js/recipe-import',
+		);
+
+		// Check if debug is turned on. If it is, we set $min to an empty string. We won't minify if debugging is active.
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			$min = '';
+		}
+
+		// Set a default path that excludes $min entirely.
+		$src = $script['path'] . '.js';
+
+		// Check if a minified version exists and set the $src to that if it does. If that file doesn't exist, we just use the default (unminified) version regardless of WP_DEBUG status.
+		if ( file_exists( $script['path'] . $min . '.js' ) ) {
+			$src = $script['path'] . $min . '.js';
+		}
+
+		// Now enqueue the script.
+		wp_enqueue_script( $script['name'], $src, array( 'jquery' ), rb()->version, true );
 	}
 
 	/**
