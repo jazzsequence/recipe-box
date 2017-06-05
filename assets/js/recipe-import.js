@@ -54,6 +54,8 @@ window.RecipeImport = {};
 			return;
 		}
 
+		apiUrl = plugin.checkProtocol( apiUrl );
+
 		$.ajax({
 			url: apiUrl + '/wp-json/wp/v2/recipes?filter[posts_per_page]=10',
 			success: function( data ) {
@@ -88,6 +90,23 @@ window.RecipeImport = {};
 
 		fetchingRecipes.find( '#api-url-fetched' ).text( apiUrl );
 		fetchingRecipes.show();
+	};
+
+	/**
+	 * Check if the API URL contains http/https. If it doesn't, prepend the URL with the protocol.
+	 * @param  {string} apiUrl The API url passed to the form.
+	 * @return {string}        The final API URL with a protocol.
+	 */
+	plugin.checkProtocol = function( apiUrl ) {
+		if ( ! apiUrl.includes( urlHttp ) && ! apiUrl.includes( urlHttps ) ) {
+			return urlHttp + apiUrl;
+		}
+
+		return apiUrl;
+	};
+
+	plugin.displayRecipeList = function( data ) {
+		console.log( data );
 	};
 
 	// Fetch recipes.
