@@ -38,8 +38,6 @@ window.RecipeImport = {};
 	 */
 	plugin.fetchRecipes = function( event ) {
 		let apiUrl     = $( 'input#api_url' ).val(),
-		    urlHttp    = 'http://',
-		    urlHttps   = 'https://',
 		    cmb2form   = $( '.recipe-box-import .cmb2-wrap' ),
 		    recipeList = $( '.recipe-box-import-recipe-list ul.recipe-list' ),
 		    moreWrap   = $( '.recipe-box-import-footer p.recipe-box-more' ),
@@ -98,7 +96,17 @@ window.RecipeImport = {};
 	 * @return {string}        The final API URL with a protocol.
 	 */
 	plugin.checkProtocol = function( apiUrl ) {
+		let noProtocol = '://',
+		    urlHttp    = 'http://',
+		    urlHttps   = 'https://';
+
 		if ( ! apiUrl.includes( urlHttp ) && ! apiUrl.includes( urlHttps ) ) {
+
+			// If the URL was passed like ://domain.com return http://domain.com.
+			if ( apiUrl.includes( noProtocol ) ) {
+				return apiUrl.replace( noProtocol, urlHttp );
+			}
+
 			return urlHttp + apiUrl;
 		}
 
