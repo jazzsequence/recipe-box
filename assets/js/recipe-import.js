@@ -31,7 +31,11 @@ window.RecipeImport = {};
 		return plugin.$c.wrapper.length;
 	};
 
-	// Some function.
+	/**
+	 * Look for recipes and display a list if we found them.
+	 * @param  {event} event The click event that triggered the function.
+	 * @return {void}
+	 */
 	plugin.fetchRecipes = function( event ) {
 		let apiUrl = $( 'input#api_url' ).val(),
 		    cmb2form = $( '.recipe-box-import .cmb2-wrap' ),
