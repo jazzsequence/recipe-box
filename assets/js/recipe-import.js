@@ -37,15 +37,14 @@ window.RecipeImport = {};
 	 * @return {void}
 	 */
 	plugin.fetchRecipes = function( event ) {
-		let apiUrl = $( 'input#api_url' ).val(),
-		    cmb2form = $( '.recipe-box-import .cmb2-wrap' ),
-		    messagesWrap = $( '.recipe-box-import-messages' ),
-		    messagesP = $( 'p.rb-messages-inner' ),
-		    fetchingRecipes = $( '.recipe-box-import-header' ),
+		let apiUrl     = $( 'input#api_url' ).val(),
+		    urlHttp    = 'http://',
+		    urlHttps   = 'https://',
+		    cmb2form   = $( '.recipe-box-import .cmb2-wrap' ),
 		    recipeList = $( '.recipe-box-import-recipe-list ul.recipe-list' ),
-		    moreWrap = $( '.recipe-box-import-footer p.recipe-box-more' ),
-		    moreLink = $( 'a#recipe-api-fetch-more' ),
-		    morePage = moreLink.data( 'page' );
+		    moreWrap   = $( '.recipe-box-import-footer p.recipe-box-more' ),
+		    moreLink   = $( 'a#recipe-api-fetch-more' ),
+		    morePage   = moreLink.data( 'page' );
 
 		event.preventDefault();
 
@@ -58,21 +57,37 @@ window.RecipeImport = {};
 		$.ajax({
 			url: apiUrl + '/wp-json/wp/v2/recipes?filter[posts_per_page]=10',
 			success: function( data ) {
-				if ( messagesWrap.hasClass( 'error' ) ) {
-					messagesWrap.removeClass( 'error' );
-				}
-
-				messagesWrap.show().addClass( 'updated' );
-				messagesP.text( recipe_import_messages.success );
-
+				// Hide the CMB2 input form.
 				cmb2form.hide();
-				fetchingRecipes.find( '#api-url-fetched' ).text( apiUrl );
-				fetchingRecipes.show();
+
+				// Display messages.
+				plugin.messagesSuccess( apiUrl );
+
 
 				console.log( data )
 			},
 			cache: false
 		});
+	};
+
+	/**
+	 * Handle the messages if recipes were found.
+	 * @param {string} apiUrl The API URL passed from the CMB2 form.
+	 */
+	plugin.messagesSuccess = function( apiUrl ) {
+		let messagesWrap = $( '.recipe-box-import-messages' ),
+		    messagesP = $( 'p.rb-messages-inner' ),
+		    fetchingRecipes = $( '.recipe-box-import-header' );
+
+		if ( messagesWrap.hasClass( 'error' ) ) {
+			messagesWrap.removeClass( 'error' );
+		}
+
+		messagesWrap.show().addClass( 'updated' );
+		messagesP.text( recipe_import_messages.success );
+
+		fetchingRecipes.find( '#api-url-fetched' ).text( apiUrl );
+		fetchingRecipes.show();
 	};
 
 	// Fetch recipes.
