@@ -102,7 +102,7 @@ class RB_Import {
 		}
 
 		// If debug is on, bust the cache by appending a timestamp to the end of the version.
-		$version = ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? rb()->version . '-' . date( 'YmdHis' ) : rb()->version;
+		$version = ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? rb()->version . '-' . rand() : rb()->version;
 
 		// Now enqueue the scripts.
 		wp_enqueue_script( $scripts['name'], $js_src, [ 'jquery' ], $version, true );
