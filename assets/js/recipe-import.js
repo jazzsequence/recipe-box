@@ -63,8 +63,9 @@ window.RecipeImport = {};
 				// Display messages.
 				plugin.messagesSuccess( apiUrl );
 
+				// Render list of recipes.
+				plugin.displayRecipeList( data );
 
-				console.log( data )
 			},
 			cache: false
 		});
