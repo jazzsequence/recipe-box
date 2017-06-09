@@ -67,6 +67,12 @@ class RB_Import {
 		add_filter( 'json_prepare_post',     [ $this, 'trim_data' ], 12, 3 );
 	}
 
+	/**
+	 * Enqueue admin javascript for importing recipes.
+	 *
+	 * @since 0.3
+	 * @param string $hook The current screen.
+	 */
 	public function enqueue_admin_js( $hook ) {
 		// Only load these scripts in the admin.
 		if ( ! is_admin() || 'rb_recipe_page_recipe_box_import' !== $hook ) {
@@ -172,6 +178,11 @@ class RB_Import {
 		<?php
 	}
 
+	/**
+	 * Add the CMB2 metabox for the API URL.
+	 *
+	 * @since 0.3
+	 */
 	public function add_import_metabox() {
 		$cmb = new_cmb2_box( array(
 			'id'         => $this->metabox_id,

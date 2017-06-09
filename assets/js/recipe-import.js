@@ -23,7 +23,11 @@ window.RecipeImport = {};
 
 	// Combine all events.
 	plugin.bindEvents = function() {
-		plugin.fetchRecipes( event );
+		// Fetch recipes.
+		$( 'a#recipe-api-fetch' ).on( 'click', plugin.fetchRecipes( event ) );
+
+		// Fetch _moar_ recipes.
+		$( 'a#recipe-api-fetch-more' ).on( 'click', plugin.fetchMore( event ) );
 	};
 
 	// Do we meet the requirements?
@@ -68,6 +72,19 @@ window.RecipeImport = {};
 	};
 
 	/**
+	 * Handle fetching more recipes from remote API.
+	 * @param  {object} event The triggering click event.
+	 */
+	plugin.fetchMore = function( event ) {
+		let page = $( 'a#recipe-api-fetch-more' ).data( 'page' ),
+		    apiUrl     = $( 'input#api_url' ).val() + '/wp-json/wp/v2/recipes?filter[posts_per_page]=10&page=',
+		    moreWrap   = $( '.recipe-box-import-footer p.recipe-box-more' ),
+		    moreLink   = $( 'a#recipe-api-fetch-more' );
+
+		event.preventDefault();
+	}
+
+	/**
 	 * Handle the messages if recipes were found.
 	 * @param {string} apiUrl The API URL passed from the CMB2 form.
 	 */
@@ -110,6 +127,11 @@ window.RecipeImport = {};
 		return apiUrl;
 	};
 
+	/**
+	 * Display the list of recipes.
+	 * @param  {array} recipes Array of recipe objects fetched from the API URL.
+	 * @param  {string} apiUrl  The API base URL used to fetch the recipes.
+	 */
 	plugin.displayRecipeList = function( recipes, apiUrl ) {
 		let recipeList = $( '.recipe-box-import-recipe-list ul.recipe-list' ),
 		    recipeWrap = $( '.recipe-box-import-recipe-list' ),
@@ -123,21 +145,21 @@ window.RecipeImport = {};
 			recipeList.append( '<li><input id="recipe-' + recipe.id + '" type="checkbox" data-value="' + recipe.id + '"> ' + recipe.title.rendered + '</li>' );
 		}
 
-		// Maybe fetch more recipes.
-		plugin.fetchMore( apiUrl );
+		// Show the list footer.
+		plugin.displayFooter( apiUrl );
 	};
 
-	plugin.fetchMore = function( apiUrl ) {
-		let footer     = $( '.recipe-box-import-footer' ),
-		    moreWrap   = $( '.recipe-box-import-footer p.recipe-box-more' ),
-		    moreLink   = $( 'a#recipe-api-fetch-more' ),
-		    morePage   = moreLink.data( 'page' )
-		    apiUrl     = apiUrl + '/wp-json/wp/v2/recipes?filter[posts_per_page]=10&page=';
+	/**
+	 * Display the footer and handle the fetching of more recipes.
+	 * @param  {string} apiUrl The API base URL used to fetch the recipes.
+	 */
+	plugin.displayFooter = function( apiUrl ) {
+		let footer     = $( '.recipe-box-import-footer' );
 
 		footer.show();
 	}
 
-	// Fetch recipes.
-	$( 'a#recipe-api-fetch' ).on( 'click', plugin.init );
+	// Kick it off.
+	$(window).on( 'load', plugin.init );
 
 })( window, jQuery, window.RecipeImport );
