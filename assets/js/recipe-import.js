@@ -64,7 +64,7 @@ window.RecipeImport = {};
 				plugin.messagesSuccess( apiUrl );
 
 				// Render list of recipes.
-				plugin.displayRecipeList( data );
+				plugin.displayRecipeList( data, apiUrl );
 
 			},
 			cache: false
@@ -114,8 +114,7 @@ window.RecipeImport = {};
 		return apiUrl;
 	};
 
-	plugin.displayRecipeList = function( data ) {
-		console.log( data );
+	plugin.displayRecipeList = function( recipes, apiUrl ) {
 	};
 
 	plugin.fetchMore = function( apiUrl ) {
