@@ -118,6 +118,16 @@ window.RecipeImport = {};
 		console.log( data );
 	};
 
+	plugin.fetchMore = function( apiUrl ) {
+		let footer     = $( '.recipe-box-import-footer' ),
+		    moreWrap   = $( '.recipe-box-import-footer p.recipe-box-more' ),
+		    moreLink   = $( 'a#recipe-api-fetch-more' ),
+		    morePage   = moreLink.data( 'page' )
+		    apiUrl     = apiUrl + '/wp-json/wp/v2/recipes?filter[posts_per_page]=10&page=';
+
+		footer.show();
+	}
+
 	// Fetch recipes.
 	$( 'a#recipe-api-fetch' ).on( 'click', plugin.init );
 
