@@ -115,6 +115,20 @@ window.RecipeImport = {};
 	};
 
 	plugin.displayRecipeList = function( recipes, apiUrl ) {
+		let recipeList = $( '.recipe-box-import-recipe-list ul.recipe-list' ),
+		    recipeWrap = $( '.recipe-box-import-recipe-list' ),
+		    recipe;
+
+		recipeWrap.show();
+
+		for ( var i = 0, length = recipes.length; i < length; i++ ) {
+			recipe = recipes[ i ];
+			// console.log(recipe);
+			recipeList.append( '<li><input id="recipe-' + recipe.id + '" type="checkbox" data-value="' + recipe.id + '"> ' + recipe.title.rendered + '</li>' );
+		}
+
+		// Maybe fetch more recipes.
+		plugin.fetchMore( apiUrl );
 	};
 
 	plugin.fetchMore = function( apiUrl ) {
