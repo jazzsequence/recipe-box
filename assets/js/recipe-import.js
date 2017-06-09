@@ -38,11 +38,7 @@ window.RecipeImport = {};
 	 */
 	plugin.fetchRecipes = function( event ) {
 		let apiUrl     = $( 'input#api_url' ).val(),
-		    cmb2form   = $( '.recipe-box-import .cmb2-wrap' ),
-		    recipeList = $( '.recipe-box-import-recipe-list ul.recipe-list' ),
-		    moreWrap   = $( '.recipe-box-import-footer p.recipe-box-more' ),
-		    moreLink   = $( 'a#recipe-api-fetch-more' ),
-		    morePage   = moreLink.data( 'page' );
+		    cmb2form   = $( '.recipe-box-import .cmb2-wrap' );
 
 		event.preventDefault();
 
