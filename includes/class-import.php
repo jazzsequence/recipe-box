@@ -164,6 +164,9 @@ class RB_Import {
 				<p class="recipe-box-more">
 					<a href="#" id="recipe-api-fetch-more" data-page="0"><?php esc_html_e( 'Fetch more recipes', 'recipe-box' ); ?></a>
 				</p>
+				<p class="recipe-box-import-submit">
+					<button class="recipe-box-fetch button button-primary"><?php esc_html_e( 'Import selected recipes', 'recipe-box' ); ?></button>
+				</p>
 			</div>
 		</div>
 		<?php
