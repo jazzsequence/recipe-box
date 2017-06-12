@@ -85,6 +85,28 @@ window.RecipeImport = {};
 		    apiUrl     = $( 'input#api_url' ).val() + plugin.$c.wpapi + '&page=',
 		    moreWrap   = $( '.recipe-box-import-footer p.recipe-box-more' ),
 		    moreLink   = $( 'a#recipe-api-fetch-more' );
+
+		// Increment the page to fetch.
+		page++;
+
+		// Make sure our URL is still properly formatted.
+		apiUrl = plugin.checkProtocol( apiUrl );
+
+		$.ajax({
+			url: apiUrl + page,
+			success: function( data ) {
+				// Update the page data attribute.
+				plugin.$c.fetchMore.data( 'page', page );
+
+				// Render list of recipes.
+				plugin.displayRecipeList( data );
+
+			},
+			error: function() {
+				plugin.messagesDone();
+			},
+			cache: false
+		});
 	}
 
 	/**
