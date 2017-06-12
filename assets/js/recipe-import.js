@@ -136,6 +136,13 @@ window.RecipeImport = {};
 		plugin.$c.messagesP.text( recipe_import_messages.error_invalid_url );
 	}
 
+	plugin.messagesDone = function() {
+		plugin.$c.messagesWrap.removeClass( 'updated success' );
+		plugin.$c.messagesWrap.addClass( 'notice notice-info' );
+		plugin.$c.fetchMore.hide();
+		plugin.$c.messagesP.text( recipe_import_messages.no_more_recipes );
+	}
+
 	/**
 	 * Check if the API URL contains http/https. If it doesn't, prepend the URL with the protocol.
 	 * @param  {string} apiUrl The API url passed to the form.
