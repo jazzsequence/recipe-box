@@ -153,8 +153,7 @@ window.RecipeImport = {};
 	 * @param  {string} apiUrl The API base URL used to fetch the recipes.
 	 */
 	plugin.displayFooter = function( apiUrl ) {
-		let footer     = $( '.recipe-box-import-footer' );
-
+		let footer = $( '.recipe-box-import-footer' );
 		footer.show();
 	}
 
