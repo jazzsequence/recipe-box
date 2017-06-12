@@ -136,6 +136,9 @@ window.RecipeImport = {};
 		plugin.$c.messagesP.text( recipe_import_messages.error_invalid_url );
 	}
 
+	/**
+	 * Display a message saying we're all done when we've run out of recipes.
+	 */
 	plugin.messagesDone = function() {
 		plugin.$c.messagesWrap.removeClass( 'updated success' );
 		plugin.$c.messagesWrap.addClass( 'notice notice-info' );
