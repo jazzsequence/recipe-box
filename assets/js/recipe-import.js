@@ -22,6 +22,7 @@ window.RecipeImport = {};
 			fetchMore:    $( 'a#recipe-api-fetch-more' ),
 			messagesWrap: $( '.recipe-box-import-messages' ),
 			messagesP:    $( 'p.rb-messages-inner' ),
+			import:       $( '.recipe-box-fetch.button' ),
 			wpapi:        '/wp-json/wp/v2/recipes?filter[posts_per_page]=10',
 		};
 	};
@@ -33,6 +34,9 @@ window.RecipeImport = {};
 
 		// Fetch _moar_ recipes.
 		plugin.$c.fetchMore.on( 'click', plugin.fetchMore );
+
+		// Import selected recipes.
+		plugin.$c.import.on( 'click', plugin.importRecipes );
 	};
 
 	// Do we meet the requirements?
@@ -198,6 +202,16 @@ window.RecipeImport = {};
 	plugin.displayFooter = function() {
 		let footer = $( '.recipe-box-import-footer' );
 		footer.show();
+	}
+
+	plugin.importRecipes = function() {
+		let apiUrl    = plugin.checkProtocol( $( 'input#api_url' ).val() ),
+		    recipeIds = $( 'ul.recipe-list input:checkbox:checked' ).map( function() {
+		    	return $( this ).val();
+		    }).get();
+
+		window.location = recipe_import_messages.import_url + '&importIds=' + recipeIds + '&importUrl=' + apiUrl;
+		// console.log( recipeIds );
 	}
 
 	// Kick it off.
