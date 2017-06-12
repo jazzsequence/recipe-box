@@ -81,7 +81,7 @@ window.RecipeImport = {};
 	 * Handle fetching more recipes from remote API.
 	 */
 	plugin.fetchMore = function() {
-		let page = $( 'a#recipe-api-fetch-more' ).data( 'page' ),
+		let page       = plugin.$c.fetchMore.data( 'page' ),
 		    apiUrl     = $( 'input#api_url' ).val() + plugin.$c.wpapi + '&page=',
 		    moreWrap   = $( '.recipe-box-import-footer p.recipe-box-more' ),
 		    moreLink   = $( 'a#recipe-api-fetch-more' );
