@@ -186,6 +186,75 @@ class RB_Import {
 	}
 
 	/**
+	 * Import preheat temperature from the recipe.
+	 *
+	 * @since 0.3
+	 * @param int   $post_id      The post ID of the imported recipe.
+	 * @param mixed $preheat_temp False or array of temperature values.
+	 */
+	private function import_preheat_temp( $post_id, $preheat_temp = false ) {
+		if ( $preheat_temp ) {
+			add_post_meta( $post_id, '_rb_preheat_temp', $preheat_temp->_rb_preheat_temp );
+			add_post_meta( $post_id, '_rb_preheat_unit', $preheat_temp->_rb_preheat_unit );
+		}
+	}
+
+	/**
+	 * Import recipe instructions.
+	 *
+	 * @since 0.3
+	 * @param int   $post_id The post ID of the imported recipe.
+	 * @param mixed $steps   False or array of recipe instructions.
+	 */
+	private function import_steps( $post_id, $steps = false ) {
+		if ( is_array( $steps ) ) {
+			$instructions = [];
+			$i = 0;
+			foreach ( $steps as $group ) {
+				$instructions[ $i ] = [
+					'_rb_instructions_title' => $steps[ $i ]->_rb_instructions_title,
+					'content'                => $steps[ $i ]->content,
+				];
+			}
+			add_post_meta( $post_id, '_rb_instructions_group', $instructions );
+		}
+	}
+
+	/**
+	 * Import recipe ingredients.
+	 *
+	 * @since 0.3
+	 * @param int   $post_id     The post ID of the imported recipe.
+	 * @param mixed $ingredients False or array of recipe ingredients.
+	 */
+	private function import_ingredients( $post_id, $ingredients = false ) {
+		if ( is_array( $ingredients ) ) {
+			$ingredients = [];
+			$i = 0;
+			foreach ( $ingredients as $ingredient ) {
+				$ingredients[ $i ] = [
+					'_rb_ingredients_product'  => $ingredient->_rb_ingredients_product,
+					'_rb_ingredients_quantity' => $ingredient->_rb_ingredients_quantity,
+					'_rb_ingredients_unit'     => $ingredient->_rb_ingredients_unit,
+					'_rb_ingredients_notes'    => $ingredient->_rb_ingredients_notes,
+				];
+
+				// Add the ingredient so it can be autosuggested in future recipes.
+				$ingredient_id = post_exists( $ingredient->_rb_ingredients_product );
+				if ( ! $ingredient_id ) {
+					$ingredient_id = wp_insert_post( [
+						'post_title'  => $ingredient->_rb_ingredients_product,
+						'post_status' => 'publish',
+						'post_type'   => 'rb_ingredient',
+					] );
+				}
+			}
+
+			add_post_meta( $post_id, '_rb_ingredients_group', $ingredients );
+		}
+	}
+
+	/**
 	 * Add the CMB2 metabox for the API URL.
 	 *
 	 * @since 0.3
