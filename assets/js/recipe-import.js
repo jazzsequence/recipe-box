@@ -41,8 +41,10 @@ window.RecipeImport = {};
 	 * @return {void}
 	 */
 	plugin.fetchRecipes = function( event ) {
-		let apiUrl     = $( 'input#api_url' ).val(),
-		    cmb2form   = $( '.recipe-box-import .cmb2-wrap' );
+		let apiUrl       = $( 'input#api_url' ).val(),
+		    cmb2form     = $( '.recipe-box-import .cmb2-wrap' ),
+		    messagesWrap = $( '.recipe-box-import-messages' ),
+		    messagesP    = $( 'p.rb-messages-inner' );
 
 		event.preventDefault();
 
