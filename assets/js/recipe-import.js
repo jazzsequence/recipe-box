@@ -18,6 +18,8 @@ window.RecipeImport = {};
 		plugin.$c = {
 			window: $(window),
 			wrapper: $( '.recipe-box-import' ),
+			fetch: $( 'a#recipe-api-fetch' ),
+			fetchMore: $( 'a#recipe-api-fetch-more' )
 		};
 	};
 
