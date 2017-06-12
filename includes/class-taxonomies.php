@@ -106,10 +106,17 @@ class RB_Taxonomies {
 
 		$terms = get_the_terms( $post, $tax );
 
+		// Bail if there are no terms.
+		if ( ! $terms ) {
+			return [];
+		}
+
+		// If we aren't returning the simplified output, return the full term data.
 		if ( ! $simple ) {
 			return $terms;
 		}
 
+		// Handle the simplified term output used by the API.
 		$the_terms = [];
 		foreach ( $terms as $term ) {
 			$the_terms[] = [
