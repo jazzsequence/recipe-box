@@ -188,7 +188,7 @@ window.RecipeImport = {};
 		for ( var i = 0, length = recipes.length; i < length; i++ ) {
 			recipe = recipes[ i ];
 			// console.log(recipe);
-			recipeList.append( '<li><input id="recipe-' + recipe.id + '" type="checkbox" data-value="' + recipe.id + '"> ' + recipe.title.rendered + '</li>' );
+			recipeList.append( '<li><input id="recipe-' + recipe.id + '" type="checkbox" value="' + recipe.id + '"> ' + recipe.title.rendered + '</li>' );
 		}
 
 		// Show the list footer.
