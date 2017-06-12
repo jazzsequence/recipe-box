@@ -145,6 +145,12 @@ class RB_Import {
 	 * @since 0.3
 	 */
 	public function import_page_display() {
+		// If we're here because we're importing recipes, handle that stuff and don't display this form.
+		if ( isset( $_GET['importIds'] ) ) {
+			$this->import_recipes();
+			return;
+		}
+
 		// Override the default form and submit button.
 		$args = [
 			'form_format' => '',
