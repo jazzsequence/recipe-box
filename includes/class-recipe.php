@@ -518,11 +518,14 @@ class RB_Recipe {
 	 */
 	public function filter_recipes_json( $data, $post ) {
 		$fields = [
-			'preheat_temp' => rb()->public->get_preheat_temp( $post->ID ),
-			'ingredients'  => rb()->public->get_ingredients( $post->ID ),
-			'servings'     => rb()->public->get_servings( $post->ID ),
-			'steps'        => rb()->public->get_steps( $post->ID ),
-			'cook_times'   => rb()->public->get_cook_time( $post->ID ),
+			'preheat_temp'      => rb()->public->get_preheat_temp( $post->ID ),
+			'ingredients'       => rb()->public->get_ingredients( $post->ID ),
+			'servings'          => rb()->public->get_servings( $post->ID ),
+			'steps'             => rb()->public->get_steps( $post->ID ),
+			'cook_times'        => rb()->public->get_cook_time( $post->ID ),
+			'recipe_categories' => rb()->taxonomy->get_the_recipe_terms( $post->ID, 'rb_recipe_category', true ),
+			'meal_type'         => rb()->taxonomy->get_the_recipe_terms( $post->ID, 'rb_meal_type', true ),
+			'cuisine'           => rb()->taxonomy->get_the_recipe_terms( $post->ID, 'rb_recipe_cuisine', true ),
 		];
 
 		foreach ( $fields as $key => $value ) {
