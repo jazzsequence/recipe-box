@@ -67,7 +67,7 @@ window.RecipeImport = {};
 				plugin.messagesSuccess( apiUrl );
 
 				// Render list of recipes.
-				plugin.displayRecipeList( data, apiUrl );
+				plugin.displayRecipeList( data );
 
 			},
 			error: function() {
@@ -142,7 +142,7 @@ window.RecipeImport = {};
 	 * @param  {array} recipes Array of recipe objects fetched from the API URL.
 	 * @param  {string} apiUrl  The API base URL used to fetch the recipes.
 	 */
-	plugin.displayRecipeList = function( recipes, apiUrl ) {
+	plugin.displayRecipeList = function( recipes ) {
 		let recipeList = $( '.recipe-box-import-recipe-list ul.recipe-list' ),
 		    recipeWrap = $( '.recipe-box-import-recipe-list' ),
 		    recipe;
@@ -156,14 +156,14 @@ window.RecipeImport = {};
 		}
 
 		// Show the list footer.
-		plugin.displayFooter( apiUrl );
+		plugin.displayFooter();
 	};
 
 	/**
 	 * Display the footer and handle the fetching of more recipes.
 	 * @param  {string} apiUrl The API base URL used to fetch the recipes.
 	 */
-	plugin.displayFooter = function( apiUrl ) {
+	plugin.displayFooter = function() {
 		let footer = $( '.recipe-box-import-footer' );
 		footer.show();
 	}
