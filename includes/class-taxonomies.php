@@ -84,11 +84,12 @@ class RB_Taxonomies {
 	 * Return the term objects for the recipe taxonomy passed.
 	 *
 	 * @since  0.2
-	 * @param  mixed  $post If passed, can take an int or a WP_Post object. Otherwise attempts to find the post ID using get_the_ID.
-	 * @param  string $tax  The recipe taxonomy. Defaults to Recipe Category.
-	 * @return array        An array of WP_Term objects.
+	 * @param  mixed  $post   If passed, can take an int or a WP_Post object. Otherwise attempts to find the post ID using get_the_ID.
+	 * @param  string $tax    The recipe taxonomy. Defaults to Recipe Category.
+	 * @param  bool   $simple Optional. If true, will return a simplified array of each term.
+	 * @return array          An array of WP_Term objects.
 	 */
-	public function get_the_recipe_terms( $post = false, $tax = 'rb_recipe_category' ) {
+	public function get_the_recipe_terms( $post = false, $tax = 'rb_recipe_category', $simple = false ) {
 		// Check for an error.
 		if ( is_wp_error( $post ) ) {
 			return ( $post instanceof WP_Error );
@@ -103,7 +104,22 @@ class RB_Taxonomies {
 			$post_id = get_the_ID();
 		}
 
-		return get_the_terms( $post, $tax );
+		$terms = get_the_terms( $post, $tax );
+
+		if ( ! $simple ) {
+			return $terms;
+		}
+
+		$the_terms = [];
+		foreach ( $terms as $term ) {
+			$the_terms[] = [
+				'name' => $term->name,
+				'slug' => $term->slug,
+				'desc' => $term->description,
+			];
+		}
+
+		return $the_terms;
 	}
 
 	/**
