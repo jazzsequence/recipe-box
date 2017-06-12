@@ -186,6 +186,38 @@ class RB_Import {
 	}
 
 	/**
+	 * Import a recipe using the WordPress API data.
+	 *
+	 * @since  0.3
+	 * @param  object $recipe An API object of fetched recipe data.
+	 * @return mixed          Either the post ID of a successfully imported recipe or false if unsuccessful.
+	 */
+	private function import_single_recipe( $recipe ) {
+		$post_id = wp_insert_post( [
+			'post_title'   => $recipe->title->rendered,
+			'post_content' => $recipe->content->rendered,
+			'post_type'    => 'rb_recipe',
+			'post_status'  => 'publish',
+		] );
+
+		if ( ! is_wp_error( $post_id ) ) {
+			add_post_meta( $post_id, 'orig_recipe_id', $recipe->id );
+			add_post_meta( $post_id, '_rb_servings', $recipe->servings );
+			add_post_meta( $post_id, '_rb_prep_time', $recipe->cook_times->prep_time );
+			add_post_meta( $post_id, '_rb_cook_time', $recipe->cook_times->cook_time );
+			add_post_meta( $post_id, '_rb_total_time', $recipe->cook_times->total_time );
+
+			$this->import_preheat_temp( $post_id, $recipe->preheat_temp );
+			$this->import_steps( $post_id, $recipe->steps );
+			$this->import_ingredients( $post_id, $recipe->ingredients );
+
+			return $post_id;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Import preheat temperature from the recipe.
 	 *
 	 * @since 0.3
