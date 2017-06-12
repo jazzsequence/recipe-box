@@ -587,7 +587,7 @@ class RB_Public {
 		) . '</div> ' : '';
 
 		/**
-		 * Before tota time action hook.
+		 * Before total time action hook.
 		 *
 		 * @since 0.2
 		 * @param int $post_id The ID of the recipe post.
