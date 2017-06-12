@@ -21,6 +21,8 @@ window.RecipeImport = {};
 			fetch: $( 'a#recipe-api-fetch' ),
 			fetchMore: $( 'a#recipe-api-fetch-more' ),
 			wpapi: '/wp-json/wp/v2/recipes?filter[posts_per_page]=10',
+			messagesWrap: $( '.recipe-box-import-messages' ),
+			messagesP: $( 'p.rb-messages-inner' )
 		};
 	};
 
@@ -45,13 +47,11 @@ window.RecipeImport = {};
 	plugin.fetchRecipes = function() {
 
 		let apiUrl       = $( 'input#api_url' ).val(),
-		    cmb2form     = $( '.recipe-box-import .cmb2-wrap' ),
-		    messagesWrap = $( '.recipe-box-import-messages' ),
-		    messagesP    = $( 'p.rb-messages-inner' );
+		    cmb2form     = $( '.recipe-box-import .cmb2-wrap' );
 
 		if ( "" == apiUrl ) {
-			messagesWrap.show().addClass( 'error' );
-			messagesP.text( recipe_import_messages.error_no_url );
+			plugin.$c.messagesWrap.show().addClass( 'error' );
+			plugin.$c.messagesP.text( recipe_import_messages.error_no_url );
 			return;
 		}
 
@@ -92,16 +92,14 @@ window.RecipeImport = {};
 	 * @param {string} apiUrl The API URL passed from the CMB2 form.
 	 */
 	plugin.messagesSuccess = function( apiUrl ) {
-		let messagesWrap = $( '.recipe-box-import-messages' ),
-		    messagesP = $( 'p.rb-messages-inner' ),
-		    fetchingRecipes = $( '.recipe-box-import-header' );
+		let fetchingRecipes = $( '.recipe-box-import-header' );
 
-		if ( messagesWrap.hasClass( 'error' ) ) {
-			messagesWrap.removeClass( 'error' );
+		if ( plugin.$c.messagesWrap.hasClass( 'error' ) ) {
+			plugin.$c.messagesWrap.removeClass( 'error' );
 		}
 
-		messagesWrap.show().addClass( 'updated' );
-		messagesP.text( recipe_import_messages.success );
+		plugin.$c.messagesWrap.show().addClass( 'updated' );
+		plugin.$c.messagesP.text( recipe_import_messages.success );
 
 		fetchingRecipes.find( '#api-url-fetched' ).text( apiUrl );
 		fetchingRecipes.show();
@@ -111,12 +109,9 @@ window.RecipeImport = {};
 	 * Display an error message if the URL was invalid.
 	 */
 	plugin.messagesError = function() {
-		let messagesWrap = $( '.recipe-box-import-messages' ),
-		    messagesP = $( 'p.rb-messages-inner' );
-
-		messagesWrap.addClass( 'error' );
-		messagesWrap.show();
-		messagesP.text( recipe_import_messages.error_invalid_url );
+		plugin.$c.messagesWrap.addClass( 'error' );
+		plugin.$c.messagesWrap.show();
+		plugin.$c.messagesP.text( recipe_import_messages.error_invalid_url );
 	}
 
 	/**
