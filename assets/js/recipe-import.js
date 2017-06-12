@@ -69,6 +69,9 @@ window.RecipeImport = {};
 				plugin.displayRecipeList( data, apiUrl );
 
 			},
+			error: function() {
+				plugin.messagesError();
+			},
 			cache: false
 		});
 	};
@@ -102,6 +105,15 @@ window.RecipeImport = {};
 		fetchingRecipes.find( '#api-url-fetched' ).text( apiUrl );
 		fetchingRecipes.show();
 	};
+
+	plugin.messagesError = function() {
+		let messagesWrap = $( '.recipe-box-import-messages' ),
+		    messagesP = $( 'p.rb-messages-inner' );
+
+		messagesWrap.addClass( 'error' );
+		messagesWrap.show();
+		messagesP.text( recipe_import_messages.error_invalid_url );
+	}
 
 	/**
 	 * Check if the API URL contains http/https. If it doesn't, prepend the URL with the protocol.
