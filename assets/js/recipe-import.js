@@ -26,10 +26,10 @@ window.RecipeImport = {};
 	// Combine all events.
 	plugin.bindEvents = function() {
 		// Fetch recipes.
-		$( 'a#recipe-api-fetch' ).on( 'click', plugin.fetchRecipes( event ) );
+		plugin.$c.fetch.on( 'click', plugin.fetchRecipes );
 
 		// Fetch _moar_ recipes.
-		$( 'a#recipe-api-fetch-more' ).on( 'click', plugin.fetchMore( event ) );
+		plugin.$c.fetchMore.on( 'click', plugin.fetchMore );
 	};
 
 	// Do we meet the requirements?
@@ -39,16 +39,14 @@ window.RecipeImport = {};
 
 	/**
 	 * Look for recipes and display a list if we found them.
-	 * @param  {event} event The click event that triggered the function.
 	 * @return {void}
 	 */
-	plugin.fetchRecipes = function( event ) {
+	plugin.fetchRecipes = function() {
+
 		let apiUrl       = $( 'input#api_url' ).val(),
 		    cmb2form     = $( '.recipe-box-import .cmb2-wrap' ),
 		    messagesWrap = $( '.recipe-box-import-messages' ),
 		    messagesP    = $( 'p.rb-messages-inner' );
-
-		event.preventDefault();
 
 		if ( "" == apiUrl ) {
 			messagesWrap.show().addClass( 'error' );
@@ -77,15 +75,12 @@ window.RecipeImport = {};
 
 	/**
 	 * Handle fetching more recipes from remote API.
-	 * @param  {object} event The triggering click event.
 	 */
-	plugin.fetchMore = function( event ) {
+	plugin.fetchMore = function() {
 		let page = $( 'a#recipe-api-fetch-more' ).data( 'page' ),
 		    apiUrl     = $( 'input#api_url' ).val() + '/wp-json/wp/v2/recipes?filter[posts_per_page]=10&page=',
 		    moreWrap   = $( '.recipe-box-import-footer p.recipe-box-more' ),
 		    moreLink   = $( 'a#recipe-api-fetch-more' );
-
-		event.preventDefault();
 	}
 
 	/**
