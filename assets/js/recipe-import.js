@@ -16,13 +16,14 @@ window.RecipeImport = {};
 	// Cache all the things.
 	plugin.cache = function() {
 		plugin.$c = {
-			window: $(window),
-			wrapper: $( '.recipe-box-import' ),
-			fetch: $( 'a#recipe-api-fetch' ),
-			fetchMore: $( 'a#recipe-api-fetch-more' ),
-			wpapi: '/wp-json/wp/v2/recipes?filter[posts_per_page]=10',
+			window:       $(window),
+			wrapper:      $( '.recipe-box-import' ),
+			fetch:        $( 'a#recipe-api-fetch' ),
+			fetchMore:    $( 'a#recipe-api-fetch-more' ),
 			messagesWrap: $( '.recipe-box-import-messages' ),
-			messagesP: $( 'p.rb-messages-inner' )
+			messagesP:    $( 'p.rb-messages-inner' ),
+			fetchLink:    $( 'a#recipe-api-fetch-more' ),
+			wpapi:        '/wp-json/wp/v2/recipes?filter[posts_per_page]=10',
 		};
 	};
 
