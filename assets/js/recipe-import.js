@@ -19,7 +19,8 @@ window.RecipeImport = {};
 			window: $(window),
 			wrapper: $( '.recipe-box-import' ),
 			fetch: $( 'a#recipe-api-fetch' ),
-			fetchMore: $( 'a#recipe-api-fetch-more' )
+			fetchMore: $( 'a#recipe-api-fetch-more' ),
+			wpapi: '/wp-json/wp/v2/recipes?filter[posts_per_page]=10',
 		};
 	};
 
@@ -57,7 +58,7 @@ window.RecipeImport = {};
 		apiUrl = plugin.checkProtocol( apiUrl );
 
 		$.ajax({
-			url: apiUrl + '/wp-json/wp/v2/recipes?filter[posts_per_page]=10',
+			url: apiUrl + plugin.$c.wpapi,
 			success: function( data ) {
 				// Hide the CMB2 input form.
 				cmb2form.hide();
@@ -81,7 +82,7 @@ window.RecipeImport = {};
 	 */
 	plugin.fetchMore = function() {
 		let page = $( 'a#recipe-api-fetch-more' ).data( 'page' ),
-		    apiUrl     = $( 'input#api_url' ).val() + '/wp-json/wp/v2/recipes?filter[posts_per_page]=10&page=',
+		    apiUrl     = $( 'input#api_url' ).val() + plugin.$c.wpapi + '&page=',
 		    moreWrap   = $( '.recipe-box-import-footer p.recipe-box-more' ),
 		    moreLink   = $( 'a#recipe-api-fetch-more' );
 	}
