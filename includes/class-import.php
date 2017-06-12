@@ -186,6 +186,62 @@ class RB_Import {
 	}
 
 	/**
+	 * Import recipes from remote Recipe Box.
+	 *
+	 * @since 0.3
+	 */
+	private function import_recipes() {
+		$recipe_ids = ( isset( $_GET['importIds'] ) ) ? explode( ',', sanitize_text_field( wp_unslash( $_GET['importIds'] ) ) ) : [];
+		$api_url    = ( isset( $_GET['importUrl'] ) ) ? esc_url( sanitize_text_field( wp_unslash( $_GET['importUrl'] ) ) ) : '';
+
+		$imported_recipes = [];
+
+		foreach ( $recipe_ids as $recipe_id ) {
+			$url = $api_url . '/wp-json/wp/v2/recipes/' . $recipe_id;
+			$response = wp_remote_get( $url );
+			if ( is_array( $response ) && 200 === wp_remote_retrieve_response_code( $response ) ) {
+				$recipe      = json_decode( wp_remote_retrieve_body( $response ) );
+				$recipe_name = $recipe->title->rendered;
+
+				if ( ! post_exists( $recipe_name ) ) {
+					$post_id = $this->import_single_recipe( $recipe );
+
+					if ( $post_id ) {
+						$imported_recipes[] = [
+							'ID'   => $post_id,
+							'name' => $recipe_name,
+						];
+					}
+				}
+			}
+		}
+
+		?>
+		<div class="wrap recipe-box-import">
+			<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
+		</div>
+		<?php
+		if ( ! empty( $imported_recipes ) ) : ?>
+			<div class="imported-recipes">
+				<ul class="imported-recipes-list">
+				<?php
+				foreach ( $imported_recipes as $imported_recipe ) {
+					echo '<li class="recipe-' . $imported_recipe['ID'] . '">' . esc_html( $imported_recipe['name'] ) . '</li>'; // WPCS: XSS ok, sanitized.
+				}
+				?>
+				</ul>
+			</div>
+		<?php
+		else : ?>
+			<div class="recipes-not-imported">
+				<p><?php esc_html_e( 'Recipes not imported. Either there was a problem or were no new recipes to import.', 'recipe-box' ); ?></p>
+			</div>
+		<?php
+		endif;
+
+	}
+
+	/**
 	 * Import a recipe using the WordPress API data.
 	 *
 	 * @since  0.3
