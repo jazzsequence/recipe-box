@@ -106,6 +106,9 @@ window.RecipeImport = {};
 		fetchingRecipes.show();
 	};
 
+	/**
+	 * Display an error message if the URL was invalid.
+	 */
 	plugin.messagesError = function() {
 		let messagesWrap = $( '.recipe-box-import-messages' ),
 		    messagesP = $( 'p.rb-messages-inner' );
