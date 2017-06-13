@@ -266,6 +266,9 @@ class RB_Import {
 			$this->import_preheat_temp( $post_id, $recipe->preheat_temp );
 			$this->import_steps( $post_id, $recipe->steps );
 			$this->import_ingredients( $post_id, $recipe->ingredients );
+			$this->import_taxonomy_terms( $post_id, 'rb_recipe_category', $recipe->recipe_categories );
+			$this->import_taxonomy_terms( $post_id, 'rb_meal_type', $recipe->meal_type );
+			$this->import_taxonomy_terms( $post_id, 'rb_recipe_cuisine', $recipe->cuisine );
 
 			return $post_id;
 		}
