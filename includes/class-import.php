@@ -285,8 +285,13 @@ class RB_Import {
 	 */
 	private function import_preheat_temp( $post_id, $preheat_temp = false ) {
 		if ( $preheat_temp ) {
-			add_post_meta( $post_id, '_rb_preheat_temp', $preheat_temp->_rb_preheat_temp );
-			add_post_meta( $post_id, '_rb_preheat_unit', $preheat_temp->_rb_preheat_unit );
+			if ( isset( $preheat_temp->_rb_preheat_temp ) ) {
+				add_post_meta( $post_id, '_rb_preheat_temp', $preheat_temp->_rb_preheat_temp );
+			}
+
+			if ( isset( $preheat_temp->_rb_preheat_unit ) ) {
+				add_post_meta( $post_id, '_rb_preheat_unit', $preheat_temp->_rb_preheat_unit );
+			}
 		}
 	}
 
@@ -303,8 +308,8 @@ class RB_Import {
 			$i = 0;
 			foreach ( $steps as $group ) {
 				$instructions[ $i ] = [
-					'_rb_instructions_title' => $steps[ $i ]->_rb_instructions_title,
-					'content'                => $steps[ $i ]->content,
+					'_rb_instructions_title' => isset( $steps[ $i ]->_rb_instructions_title ) ? $steps[ $i ]->_rb_instructions_title : '',
+					'content'                => isset( $steps[ $i ]->content ) ? $steps[ $i ]->content : '',
 				];
 			}
 			add_post_meta( $post_id, '_rb_instructions_group', $instructions );
