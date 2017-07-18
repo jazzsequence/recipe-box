@@ -362,14 +362,14 @@ class RB_Import {
 		$terms_to_insert = [];
 
 		foreach ( $terms as $term ) {
-			if ( ! term_exists( $term['name'], $taxonomy ) ) {
-				$the_term = wp_insert_term( $term['name'], $taxonomy, [
-					'slug'        => $term['slug'],
-					'description' => $term['desc'],
+			if ( ! term_exists( $term->name, $taxonomy ) ) {
+				$the_term = wp_insert_term( $term->name, $taxonomy, [
+					'slug'        => $term->slug,
+					'description' => $term->desc,
 				] );
 				$term_id = $the_term['term_id'];
 			} else {
-				$the_term = get_term_by( 'slug', $term['slug'], $taxonomy );
+				$the_term = get_term_by( 'slug', $term->slug, $taxonomy );
 				$term_id  = $the_term->term_id;
 			}
 
