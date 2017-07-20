@@ -345,8 +345,8 @@ class RB_Import {
 						'post_type'   => 'rb_ingredient',
 					] );
 				}
+				$i++;
 			}
-
 			add_post_meta( $post_id, '_rb_ingredients_group', $ingredients );
 		}
 	}
