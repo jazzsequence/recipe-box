@@ -174,7 +174,7 @@ class RB_Recipe {
 	 */
 	private function recipe_meta( $prefix ) {
 
-		$post_id = isset( $_GET['post'] ) && ! is_array( $_GET['post'] ) ? absint( esc_attr( $_GET['post'] ) ) : false;
+		$post_id = isset( $_GET['post'] ) && ! is_array( $_GET['post'] ) ? absint( sanitize_text_field( wp_unslash( $_GET['post'] ) ) ) : false;
 
 		$cmb = new_cmb2_box( array(
 			'id'           => $prefix . 'info_metabox',
