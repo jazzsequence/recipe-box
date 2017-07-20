@@ -321,14 +321,14 @@ class RB_Import {
 	 * Import recipe ingredients.
 	 *
 	 * @since 0.3
-	 * @param int   $post_id     The post ID of the imported recipe.
-	 * @param mixed $ingredients False or array of recipe ingredients.
+	 * @param int   $post_id     		The post ID of the imported recipe.
+	 * @param mixed $ingredient_entries False or array of recipe ingredients.
 	 */
-	private function import_ingredients( $post_id, $ingredients = false ) {
-		if ( is_array( $ingredients ) ) {
+	private function import_ingredients( $post_id, $ingredient_entries = false ) {
+		if ( is_array( $ingredient_entries ) ) {
 			$ingredients = [];
 			$i = 0;
-			foreach ( $ingredients as $ingredient ) {
+			foreach ( $ingredient_entries as $ingredient ) {
 				$ingredients[ $i ] = [
 					'_rb_ingredients_product'  => $ingredient->_rb_ingredients_product,
 					'_rb_ingredients_quantity' => $ingredient->_rb_ingredients_quantity,
