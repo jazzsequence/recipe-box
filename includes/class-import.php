@@ -311,6 +311,7 @@ class RB_Import {
 					'_rb_instructions_title' => isset( $steps[ $i ]->_rb_instructions_title ) ? $steps[ $i ]->_rb_instructions_title : '',
 					'content'                => isset( $steps[ $i ]->content ) ? $steps[ $i ]->content : '',
 				];
+				$i++;
 			}
 			add_post_meta( $post_id, '_rb_instructions_group', $instructions );
 		}
