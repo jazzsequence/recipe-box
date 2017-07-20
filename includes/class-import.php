@@ -329,19 +329,23 @@ class RB_Import {
 			$ingredients = [];
 			$i = 0;
 			foreach ( $ingredient_entries as $ingredient ) {
+				$name     = isset( $ingredient->_rb_ingredients_product ) ? esc_html( $ingredient->_rb_ingredients_product ) : '';
+				$quantity = isset( $ingredient->_rb_ingredients_quantity ) ? sanitize_text_field( $ingredient->_rb_ingredients_quantity ) : '';
+				$unit     = isset( $ingredient->_rb_ingredients_unit ) ? sanitize_text_field( $ingredient->_rb_ingredients_unit ) : '';
+				$notes    = isset( $ingredient->_rb_ingredients_notes ) ? sanitize_text_field( $ingredient->_rb_ingredients_notes ) : '';
+
 				$ingredients[ $i ] = [
-					// The product/ingredient is required, so we don't need to check if it exists.
-					'_rb_ingredients_product'  => $ingredient->_rb_ingredients_product,
-					'_rb_ingredients_quantity' => isset( $ingredient->_rb_ingredients_quantity ) ? $ingredient->_rb_ingredients_quantity : '',
-					'_rb_ingredients_unit'     => isset( $ingredient->_rb_ingredients_unit ) ? $ingredient->_rb_ingredients_unit : '',
-					'_rb_ingredients_notes'    => isset( $ingredient->_rb_ingredients_notes ) ? $ingredient->_rb_ingredients_notes : '',
+					'_rb_ingredients_product'  => $name,
+					'_rb_ingredients_quantity' => $quantity,
+					'_rb_ingredients_unit'     => $unit,
+					'_rb_ingredients_notes'    => $notes,
 				];
 
 				// Add the ingredient so it can be autosuggested in future recipes.
-				$ingredient_id = post_exists( $ingredient->_rb_ingredients_product );
+				$ingredient_id = post_exists( $name );
 				if ( ! $ingredient_id ) {
 					$ingredient_id = wp_insert_post( [
-						'post_title'  => $ingredient->_rb_ingredients_product,
+						'post_title'  => $name,
 						'post_status' => 'publish',
 						'post_type'   => 'rb_ingredient',
 					] );
