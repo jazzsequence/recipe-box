@@ -330,10 +330,11 @@ class RB_Import {
 			$i = 0;
 			foreach ( $ingredient_entries as $ingredient ) {
 				$ingredients[ $i ] = [
+					// The product/ingredient is required, so we don't need to check if it exists.
 					'_rb_ingredients_product'  => $ingredient->_rb_ingredients_product,
-					'_rb_ingredients_quantity' => $ingredient->_rb_ingredients_quantity,
-					'_rb_ingredients_unit'     => $ingredient->_rb_ingredients_unit,
-					'_rb_ingredients_notes'    => $ingredient->_rb_ingredients_notes,
+					'_rb_ingredients_quantity' => isset( $ingredient->_rb_ingredients_quantity ) ? $ingredient->_rb_ingredients_quantity : '',
+					'_rb_ingredients_unit'     => isset( $ingredient->_rb_ingredients_unit ) ? $ingredient->_rb_ingredients_unit : '',
+					'_rb_ingredients_notes'    => isset( $ingredient->_rb_ingredients_notes ) ? $ingredient->_rb_ingredients_notes : '',
 				];
 
 				// Add the ingredient so it can be autosuggested in future recipes.
