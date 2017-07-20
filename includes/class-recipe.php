@@ -50,9 +50,11 @@ class RB_Recipe {
 				'rb_recipe',                   // Post type name.
 			),
 			array(
-				'supports'  => array( 'title', 'editor', 'thumbnail' ),
-				'menu_icon' => 'dashicons-carrot',
-				'rewrite'   => array( 'slug' => 'recipe' ),
+				'supports'     => [ 'title', 'editor', 'thumbnail' ],
+				'menu_icon'    => 'dashicons-carrot',
+				'rewrite'      => [ 'slug' => 'recipe' ],
+				'show_in_rest' => true,
+				'rest_base'    => 'recipes',
 			)
 		);
 
@@ -79,10 +81,11 @@ class RB_Recipe {
 	 * @since  0.1
 	 */
 	public function hooks() {
-		add_action( 'cmb2_init', array( $this, 'fields' ) );
-		add_action( 'init', array( $this, 'register_cpts' ), 9 );
-		add_action( 'save_post', array( $this, 'save_ingredient' ), 10, 3 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 9999 );
+		add_action( 'cmb2_init',              [ $this, 'fields' ] );
+		add_action( 'init',                   [ $this, 'register_cpts' ], 9 );
+		add_action( 'save_post',              [ $this, 'save_ingredient' ], 10, 3 );
+		add_action( 'admin_enqueue_scripts',  [ $this, 'admin_enqueue_scripts' ], 9999 );
+		add_filter( 'rest_prepare_rb_recipe', [ $this, 'filter_recipes_json' ], 10, 2 );
 	}
 
 
@@ -171,7 +174,7 @@ class RB_Recipe {
 	 */
 	private function recipe_meta( $prefix ) {
 
-		$post_id = isset( $_GET['post'] ) ? absint( esc_attr( $_GET['post'] ) ) : false;
+		$post_id = isset( $_GET['post'] ) && ! is_array( $_GET['post'] ) ? absint( sanitize_text_field( wp_unslash( $_GET['post'] ) ) ) : false;
 
 		$cmb = new_cmb2_box( array(
 			'id'           => $prefix . 'info_metabox',
@@ -503,6 +506,33 @@ class RB_Recipe {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Add recipe postmeta to the recipe API objects.
+	 *
+	 * @since  0.3
+	 * @param  object $data The REST API object.
+	 * @param  object $post The WP_Post object.
+	 * @return object       Updated REST API object with recipe meta included.
+	 */
+	public function filter_recipes_json( $data, $post ) {
+		$fields = [
+			'preheat_temp'      => rb()->public->get_preheat_temp( $post->ID ),
+			'ingredients'       => rb()->public->get_ingredients( $post->ID ),
+			'servings'          => rb()->public->get_servings( $post->ID ),
+			'steps'             => rb()->public->get_steps( $post->ID ),
+			'cook_times'        => rb()->public->get_cook_time( $post->ID ),
+			'recipe_categories' => rb()->taxonomy->get_the_recipe_terms( $post->ID, 'rb_recipe_category', true ),
+			'meal_type'         => rb()->taxonomy->get_the_recipe_terms( $post->ID, 'rb_meal_type', true ),
+			'cuisine'           => rb()->taxonomy->get_the_recipe_terms( $post->ID, 'rb_recipe_cuisine', true ),
+		];
+
+		foreach ( $fields as $key => $value ) {
+			$data->data[ $key ] = $value;
+		}
+
+		return $data;
 	}
 
 	/**
