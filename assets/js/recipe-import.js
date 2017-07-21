@@ -196,6 +196,61 @@ window.RecipeImport = {};
 	};
 
 	/**
+
+	/**
+	 * Match meta of new recipe (from remote Recipe Box) to old recipe (from current Recipe Box) to determine if they are the same recipe.
+	 * @param  {object}  newRecipe The new recipe from the remote site.
+	 * @param  {object}  oldRecipe The old recipe from the current site.
+	 * @return {Boolean}           Whether the new recipe is identical (or near enough) to the old recipe.
+	 */
+	plugin.isDuplicateRecipe = function( newRecipe, oldRecipe ) {
+		let recipeIngredients = false,
+			recipeSteps = false,
+			recipeSlug = false,
+			recipeServings = false;
+
+		// Check if the ingredients list is undefined.
+		if ( typeof oldRecipe.ingredients !== 'undefined' ) {
+			recipeIngredients = oldRecipe.ingredients.length === newRecipe.ingredients.length;
+		}
+
+		if ( typeof newRecipe.ingredients === 'undefined' ) {
+			recipeIngredients = true;
+		}
+
+		// Check if the steps are undefined.
+		if ( typeof oldRecipe.steps !== 'undefined' ) {
+			recipeSteps = oldRecipe.steps.length === newRecipe.steps.length;
+		}
+
+		if ( typeof newRecipe.steps === 'undefined' ) {
+			recipeSteps = true;
+		}
+
+		// Check if the servings are undefined.
+		if ( typeof oldRecipe.servings !== 'undefined' ) {
+			recipeServings = oldRecipe.servings === newRecipe.servings;
+		}
+
+		if ( typeof newRecipe.servings === 'undefined' ) {
+			recipeServings = true;
+		}
+
+		// The recipe will always have a slug, so we just set the value to whether the old slug matches the new slug.
+		recipeSlug = oldRecipe.slug === newRecipe.slug;
+
+		// Check to see if the meta matches.
+		if (
+			recipeIngredients &&
+			recipeSteps &&
+			recipeSlug &&
+			recipeServings
+		) {
+			return true;
+		}
+
+		return false;
+	}
 	 * Display the footer and handle the fetching of more recipes.
 	 * @param  {string} apiUrl The API base URL used to fetch the recipes.
 	 */
