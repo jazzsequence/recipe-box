@@ -119,7 +119,10 @@ class RB_Import {
 			'error_invalid_url' => esc_html__( 'Attempted to fetch recipes but the URL you entered was invalid.', 'recipe-box' ),
 			'success'           => esc_html__( 'Recipes found!', 'recipe-box' ),
 			'no_more_recipes'   => esc_html__( 'That\'s all the recipes!', 'recipe-box' ),
+			'duplicate_recipe'  => esc_html__( 'This recipe is a duplicate of one you have already.', 'recipe-box' ),
+			'similar_recipe'    => esc_html__( 'This recipe seems similar to one you have already.', 'recipe-box' ),
 			'import_url'        => get_admin_url( get_current_blog_id(), 'edit.php?post_type=rb_recipe&page=recipe_box_import' ),
+			'this_recipe_box'   => get_home_url( get_current_blog_id() ),
 		] );
 	}
 

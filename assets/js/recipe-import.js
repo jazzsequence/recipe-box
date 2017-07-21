@@ -23,7 +23,7 @@ window.RecipeImport = {};
 			messagesWrap: $( '.recipe-box-import-messages' ),
 			messagesP:    $( 'p.rb-messages-inner' ),
 			import:       $( '.recipe-box-fetch.button' ),
-			wpapi:        '/wp-json/wp/v2/recipes?filter[posts_per_page]=10',
+			wpapi:        '/wp-json/wp/v2/recipes',
 		};
 	};
 
@@ -62,7 +62,7 @@ window.RecipeImport = {};
 		apiUrl = plugin.checkProtocol( apiUrl );
 
 		$.ajax({
-			url: apiUrl + plugin.$c.wpapi,
+			url: apiUrl + plugin.$c.wpapi + '?filter[posts_per_page]=10',
 			success: function( data ) {
 				// Hide the CMB2 input form.
 				cmb2form.hide();
@@ -86,7 +86,7 @@ window.RecipeImport = {};
 	 */
 	plugin.fetchMore = function() {
 		let page       = plugin.$c.fetchMore.data( 'page' ),
-		    apiUrl     = $( 'input#api_url' ).val() + plugin.$c.wpapi + '&page=',
+		    apiUrl     = $( 'input#api_url' ).val() + plugin.$c.wpapi + '?filter[posts_per_page]=10&page=',
 		    moreWrap   = $( '.recipe-box-import-footer p.recipe-box-more' ),
 		    moreLink   = $( 'a#recipe-api-fetch-more' );
 
@@ -188,12 +188,127 @@ window.RecipeImport = {};
 		for ( var i = 0, length = recipes.length; i < length; i++ ) {
 			recipe = recipes[ i ];
 			// console.log(recipe);
-			recipeList.append( '<li><input id="recipe-' + recipe.id + '" type="checkbox" value="' + recipe.id + '"> ' + recipe.title.rendered + '</li>' );
+			plugin.maybeDuplicateRecipe( recipe );
+			recipeList.append( '<li class="' + recipe.slug + '"><input id="recipe-' + recipe.id + '" type="checkbox" value="' + recipe.id + '"> ' + recipe.title.rendered + '<span class="recipe-message" id="recipe-' + recipe.id + '-message"></span></li>' );
 		}
 
 		// Show the list footer.
 		plugin.displayFooter();
 	};
+
+	/**
+	 * Check for duplicate or similar recipes.
+	 * @param  {object} newRecipe The API object of the recipe we want to import.
+	 * @return {mixed}            Either no return or false if there was an error fetching the old recipe.
+	 */
+	plugin.maybeDuplicateRecipe = function( newRecipe ) {
+		let apiUrl = recipe_import_messages.this_recipe_box + plugin.$c.wpapi + '?search=' + newRecipe.title.rendered;
+
+		$.ajax({
+			url: apiUrl,
+			success: function( oldRecipe ) {
+				// Bail if nothing was matched.
+				if ( ! oldRecipe.length ) {
+					return false;
+				}
+
+				// Grab the first result.
+				oldRecipe = oldRecipe[0];
+
+				// Check if the new recipe is identical to the old recipe based on several pieces of meta information.
+				if ( plugin.isDuplicateRecipe( newRecipe, oldRecipe ) ) {
+					// Return something here that says it's a duplicate.
+					$( 'li.' + newRecipe.slug ).addClass( 'duplicate-recipe' );
+					$( 'input#recipe-' + newRecipe.id ).attr( 'disabled', 'disabled' );
+					$( 'span#recipe-' + newRecipe.id + '-message' ).text( recipe_import_messages.duplicate_recipe );
+				}
+
+				// Return something here that says it's similar.
+				if ( ! plugin.isDuplicateRecipe( newRecipe, oldRecipe ) && plugin.isSimilarRecipe( newRecipe, oldRecipe ) ) {
+					// Return something here that says it's similar.
+					$( 'li.' + newRecipe.slug ).addClass( 'similar-recipe' );
+					$( 'span#recipe-' + newRecipe.id + '-message' ).text( recipe_import_messages.similar_recipe );
+				}
+			},
+			error: function() {
+				return false;
+			},
+			cache: false
+		});
+	}
+
+	/**
+	 * Match meta of new recipe (from remote Recipe Box) to old recipe (from current Recipe Box) to determine if they are the same recipe.
+	 * @param  {object}  newRecipe The new recipe from the remote site.
+	 * @param  {object}  oldRecipe The old recipe from the current site.
+	 * @return {Boolean}           Whether the new recipe is identical (or near enough) to the old recipe.
+	 */
+	plugin.isDuplicateRecipe = function( newRecipe, oldRecipe ) {
+		let recipeIngredients = false,
+			recipeSteps = false,
+			recipeSlug = false,
+			recipeServings = false;
+
+		// Check if the ingredients list is undefined.
+		if ( typeof oldRecipe.ingredients !== 'undefined' ) {
+			recipeIngredients = oldRecipe.ingredients.length === newRecipe.ingredients.length;
+		}
+
+		if ( typeof newRecipe.ingredients === 'undefined' ) {
+			recipeIngredients = true;
+		}
+
+		// Check if the steps are undefined.
+		if ( typeof oldRecipe.steps !== 'undefined' ) {
+			recipeSteps = oldRecipe.steps.length === newRecipe.steps.length;
+		}
+
+		if ( typeof newRecipe.steps === 'undefined' ) {
+			recipeSteps = true;
+		}
+
+		// Check if the servings are undefined.
+		if ( typeof oldRecipe.servings !== 'undefined' ) {
+			recipeServings = oldRecipe.servings === newRecipe.servings;
+		}
+
+		if ( typeof newRecipe.servings === 'undefined' ) {
+			recipeServings = true;
+		}
+
+		// The recipe will always have a slug, so we just set the value to whether the old slug matches the new slug.
+		recipeSlug = oldRecipe.slug === newRecipe.slug;
+
+		// Check to see if the meta matches.
+		if (
+			recipeIngredients &&
+			recipeSteps &&
+			recipeSlug &&
+			recipeServings
+		) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if a new recipe is similar (has the same title) as an existing recipe.
+	 * @param  {object}  newRecipe The new recipe API object.
+	 * @param  {object}  oldRecipe The API object of the existing recipe.
+	 * @return {Boolean}           Whether the new recipe is similar.
+	 */
+	plugin.isSimilarRecipe = function( newRecipe, oldRecipe ) {
+
+		// Make sure both recipes have a title.
+		if ( typeof newRecipe.title.rendered !== 'undefined' && typeof oldRecipe.title.rendered !== 'undefined' ) {
+			if ( newRecipe.title.rendered === oldRecipe.title.rendered ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 	/**
 	 * Display the footer and handle the fetching of more recipes.
