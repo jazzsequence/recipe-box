@@ -120,6 +120,7 @@ class RB_Import {
 			'success'           => esc_html__( 'Recipes found!', 'recipe-box' ),
 			'no_more_recipes'   => esc_html__( 'That\'s all the recipes!', 'recipe-box' ),
 			'import_url'        => get_admin_url( get_current_blog_id(), 'edit.php?post_type=rb_recipe&page=recipe_box_import' ),
+			'this_recipe_box'   => get_home_url( get_current_blog_id() ),
 		] );
 	}
 
