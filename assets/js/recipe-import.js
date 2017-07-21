@@ -196,6 +196,45 @@ window.RecipeImport = {};
 	};
 
 	/**
+	 * Check for duplicate or similar recipes.
+	 * @param  {object} newRecipe The API object of the recipe we want to import.
+	 * @return {mixed}            Either no return or false if there was an error fetching the old recipe.
+	 */
+	plugin.maybeDuplicateRecipe = function( newRecipe ) {
+		let apiUrl = recipe_import_messages.this_recipe_box + plugin.$c.wpapi + '?search=' + newRecipe.title.rendered;
+
+		$.ajax({
+			url: apiUrl,
+			success: function( oldRecipe ) {
+				// Bail if nothing was matched.
+				if ( ! oldRecipe.length ) {
+					return false;
+				}
+
+				// Grab the first result.
+				oldRecipe = oldRecipe[0];
+
+				// Check if the new recipe is identical to the old recipe based on several pieces of meta information.
+				if ( plugin.isDuplicateRecipe( newRecipe, oldRecipe ) ) {
+					// Return something here that says it's a duplicate.
+					$( 'li.' + newRecipe.slug ).addClass( 'duplicate-recipe' );
+					$( 'input#recipe-' + newRecipe.id ).attr( 'disabled', 'disabled' );
+					$( 'span#recipe-' + newRecipe.id + '-message' ).text( recipe_import_messages.duplicate_recipe );
+				}
+
+				// Return something here that says it's similar.
+				if ( ! plugin.isDuplicateRecipe( newRecipe, oldRecipe ) && plugin.isSimilarRecipe( newRecipe, oldRecipe ) ) {
+					// Return something here that says it's similar.
+					$( 'li.' + newRecipe.slug ).addClass( 'similar-recipe' );
+					$( 'span#recipe-' + newRecipe.id + '-message' ).text( recipe_import_messages.similar_recipe );
+				}
+			},
+			error: function() {
+				return false;
+			},
+			cache: false
+		});
+	}
 
 	/**
 	 * Match meta of new recipe (from remote Recipe Box) to old recipe (from current Recipe Box) to determine if they are the same recipe.
