@@ -251,6 +251,26 @@ window.RecipeImport = {};
 
 		return false;
 	}
+
+	/**
+	 * Check if a new recipe is similar (has the same title) as an existing recipe.
+	 * @param  {object}  newRecipe The new recipe API object.
+	 * @param  {object}  oldRecipe The API object of the existing recipe.
+	 * @return {Boolean}           Whether the new recipe is similar.
+	 */
+	plugin.isSimilarRecipe = function( newRecipe, oldRecipe ) {
+
+		// Make sure both recipes have a title.
+		if ( typeof newRecipe.title.rendered !== 'undefined' && typeof oldRecipe.title.rendered !== 'undefined' ) {
+			if ( newRecipe.title.rendered === oldRecipe.title.rendered ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Display the footer and handle the fetching of more recipes.
 	 * @param  {string} apiUrl The API base URL used to fetch the recipes.
 	 */
