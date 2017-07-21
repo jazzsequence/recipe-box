@@ -188,7 +188,8 @@ window.RecipeImport = {};
 		for ( var i = 0, length = recipes.length; i < length; i++ ) {
 			recipe = recipes[ i ];
 			// console.log(recipe);
-			recipeList.append( '<li><input id="recipe-' + recipe.id + '" type="checkbox" value="' + recipe.id + '"> ' + recipe.title.rendered + '</li>' );
+			plugin.maybeDuplicateRecipe( recipe );
+			recipeList.append( '<li class="' + recipe.slug + '"><input id="recipe-' + recipe.id + '" type="checkbox" value="' + recipe.id + '"> ' + recipe.title.rendered + '<span class="recipe-message" id="recipe-' + recipe.id + '-message"></span></li>' );
 		}
 
 		// Show the list footer.
