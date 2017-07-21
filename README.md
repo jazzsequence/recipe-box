@@ -30,6 +30,7 @@ Easily store and publish recipes in WordPress.
 ### 0.3 ###
 * added moar api support
 * added ability and admin page to pull recipes from remote Recipe Box site using the API
+* check recipes being imported to see if they are duplicating recipes that exist on the current site.
 
 ### 0.2 ###
 * added options page to determine whether recipes should be mixed with normal blog posts (and therefore easily thrown on the front page of a blog site)
