@@ -8,7 +8,7 @@ window.RecipeImport = {};
 	plugin.init = function() {
 		plugin.cache();
 
-		if ( plugin.meetsRequirements ) {
+		if ( plugin.meetsRequirements() ) {
 			plugin.bindEvents();
 		}
 	};
