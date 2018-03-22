@@ -4,7 +4,7 @@
 **Tags:**  
 **Requires at least:** 4.4  
 **Tested up to:**      4.8  
-**Stable tag:**        0.3  
+**Stable tag:**        0.3.1  
 **License:**           GPLv3  
 **License URI:**       http://www.gnu.org/licenses/gpl-3.0.html  
 
@@ -26,6 +26,10 @@ Easily store and publish recipes in WordPress.
 
 
 ## Changelog ##
+
+### 0.3.1 ###
+* added support for [Slack](https://wordpress.org/plugins/slack/) plugin to allow recipes to post to Slack.
+* fixed a javascript bug (props [@igmoweb](https://github.com/igmoweb)).
 
 ### 0.3 ###
 * added moar api support

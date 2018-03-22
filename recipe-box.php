@@ -3,7 +3,7 @@
  * Plugin Name: Recipe Box
  * Plugin URI:  https://jazzsequence.com
  * Description: Easily store and publish recipes in WordPress.
- * Version:     0.3
+ * Version:     0.3.1
  * Author:      Chris Reynolds
  * Author URI:  https://jazzsequence.com
  * Donate link: https://jazzsequence.com
