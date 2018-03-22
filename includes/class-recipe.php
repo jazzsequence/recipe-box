@@ -86,6 +86,11 @@ class RB_Recipe {
 		add_action( 'save_post',              [ $this, 'save_ingredient' ], 10, 3 );
 		add_action( 'admin_enqueue_scripts',  [ $this, 'admin_enqueue_scripts' ], 9999 );
 		add_filter( 'rest_prepare_rb_recipe', [ $this, 'filter_recipes_json' ], 10, 2 );
+
+		// Allow the Slack Integration plugin to include the recipe post type.
+		add_filter( 'slack_event_transition_post_status_post_types', function( $post_types ) {
+			return array_merge( $post_types, [ 'rb_recipe' ] );
+		} );
 	}
 
 
