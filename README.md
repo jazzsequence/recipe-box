@@ -29,7 +29,7 @@ Easily store and publish recipes in WordPress.
 
 ### 0.3.1 ###
 * added support for [Slack](https://wordpress.org/plugins/slack/) plugin to allow recipes to post to Slack.
-* fixed a javascript bug (props [@igmoweb](https://github.com/igmoweb).
+* fixed a javascript bug (props [@igmoweb](https://github.com/igmoweb)).
 
 ### 0.3 ###
 * added moar api support
