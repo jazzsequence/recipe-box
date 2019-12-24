@@ -72,7 +72,8 @@ html {
 .postbox-container .cmb-row.cmb2-id--rb-preheat-group-0--rb-preheat-unit,
 .postbox-container .cmb2-wrap > .cmb-field-list > .cmb-row.cmb2-id--rb-prep-time,
 .postbox-container .cmb2-wrap > .cmb-field-list > .cmb-row.cmb2-id--rb-cook-time,
-.postbox-container .cmb2-wrap > .cmb-field-list > .cmb-row.cmb2-id--rb-total-time {
+.postbox-container .cmb2-wrap > .cmb-field-list > .cmb-row.cmb2-id--rb-total-time,
+.post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-row {
   margin: 0;
   padding: 0;
 }
@@ -86,7 +87,9 @@ html {
 .cmb2-id--rb-preheat-group-0--rb-preheat-temp .cmb-th,
 .cmb2-id--rb-preheat-group-0--rb-preheat-temp .cmb-th + .cmb-td,
 .cmb2-id--rb-preheat-group-0--rb-preheat-unit .cmb-th,
-.cmb2-id--rb-preheat-group-0--rb-preheat-unit .cmb-th + .cmb-td {
+.cmb2-id--rb-preheat-group-0--rb-preheat-unit .cmb-th + .cmb-td,
+.ingredients .postbox.cmb-repeatable-grouping .cmb-td.inside .cmb-th,
+.ingredients .postbox.cmb-repeatable-grouping .cmb-td.inside .cmb-td {
   width: 100%;
   float: none;
   text-align: center;
