@@ -66,7 +66,10 @@ html {
 .postbox-container .cmb2-id--rb-preheat-group .cmb-repeatable-grouping,
 .postbox-container .cmb2-id--rb-preheat-group .cmb-repeatable-grouping .inside,
 .postbox-container .cmb-row.cmb2-id--rb-preheat-group-0--rb-preheat-temp,
-.postbox-container .cmb-row.cmb2-id--rb-preheat-group-0--rb-preheat-unit {
+.postbox-container .cmb-row.cmb2-id--rb-preheat-group-0--rb-preheat-unit,
+.postbox-container .cmb2-wrap > .cmb-field-list > .cmb-row.cmb2-id--rb-prep-time,
+.postbox-container .cmb2-wrap > .cmb-field-list > .cmb-row.cmb2-id--rb-cook-time,
+.postbox-container .cmb2-wrap > .cmb-field-list > .cmb-row.cmb2-id--rb-total-time {
   margin: 0;
   padding: 0;
 }
@@ -112,6 +115,15 @@ html {
   clear: both;
   content: "";
   display: table;
+}
+
+.cmb2-metabox-description .extended-description {
+  display: block;
+  margin-top: .5rem;
+}
+
+.postbox-container .cmb2-wrap > .cmb-field-list > .cmb-row.cmb2-id--rb-preheat-group {
+  margin-bottom: 1rem;
 }
 
 /**
