@@ -3,7 +3,7 @@
  * Plugin Name: Recipe Box
  * Plugin URI:  https://jazzsequence.com
  * Description: Easily store and publish recipes in WordPress.
- * Version:     0.3.1
+ * Version:     0.3.2
  * Author:      Chris Reynolds
  * Author URI:  https://jazzsequence.com
  * Donate link: https://jazzsequence.com
@@ -14,11 +14,11 @@
  * @link https://jazzsequence.com
  *
  * @package Recipe Box
- * @version 0.3
+ * @version 0.3.2
  */
 
 /**
- * Copyright (c) 2016 Chris Reynolds (email : hello@chrisreynolds.io)
+ * Copyright (c) 2019 Chris Reynolds (email : hello@chrisreynolds.io)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2 or, at
@@ -34,11 +34,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-
-/**
- * Built using generator-plugin-wp
- */
-
 
 /**
  * Autoloads files with classes when needed
@@ -73,7 +68,7 @@ final class Recipe_Box {
 	 * @var  string
 	 * @since  0.1
 	 */
-	const VERSION = '0.3';
+	const VERSION = '0.3.2';
 
 	/**
 	 * URL of plugin directory
