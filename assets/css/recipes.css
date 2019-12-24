@@ -22,7 +22,7 @@ html {
   grid-template-areas:
   "servings servings servings"
   "prep cook total"
-  "preheat unit";
+  "preheat preheat preheat";
   grid-gap: 1rem;
 }
 
@@ -43,12 +43,39 @@ html {
   grid-area: "total";
 }
 
+.cmb2-id--rb-preheat-group {
+  grid-column: span 3;
+}
+
+.cmb2-id--rb-preheat-group .cmb-field-list.inside {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 .cmb2-id--rb-preheat-group-0--rb-preheat-temp {
-  grid-area: "preheat";
+  grid-column-start: 1;
 }
 
 .cmb2-id--rb-preheat-group-0--rb-preheat-unit {
-  grid-area: "unit";
+  grid-column-start: 2;
+}
+
+.cmb2-id--rb-preheat-group,
+.postbox-container .cmb2-wrap > .cmb-field-list > .cmb-row.cmb2-id--rb-preheat-group,
+.postbox-container .cmb2-id--rb-preheat-group .cmb-repeatable-grouping,
+.postbox-container .cmb2-id--rb-preheat-group .cmb-repeatable-grouping .inside,
+.postbox-container .cmb-row.cmb2-id--rb-preheat-group-0--rb-preheat-temp,
+.postbox-container .cmb-row.cmb2-id--rb-preheat-group-0--rb-preheat-unit {
+  margin: 0;
+  padding: 0;
+}
+
+.cmb2-id--rb-preheat-group {
+  margin-bottom: 2rem;
+}
+
+.cmb2-id--rb-preheat-group .postbox {
+  box-shadow: none;
 }
 
 .cmb2-id--rb-prep-time .cmb-th,
@@ -56,7 +83,11 @@ html {
 .cmb2-id--rb-cook-time .cmb-th,
 .cmb2-id--rb-cook-time .cmb-th + .cmb-td,
 .cmb2-id--rb-total-time .cmb-th,
-.cmb2-id--rb-total-time .cmb-th + .cmb-td {
+.cmb2-id--rb-total-time .cmb-th + .cmb-td,
+.cmb2-id--rb-preheat-group-0--rb-preheat-temp .cmb-th,
+.cmb2-id--rb-preheat-group-0--rb-preheat-temp .cmb-th + .cmb-td,
+.cmb2-id--rb-preheat-group-0--rb-preheat-unit .cmb-th,
+.cmb2-id--rb-preheat-group-0--rb-preheat-unit .cmb-th + .cmb-td {
   width: 100%;
   float: none;
   text-align: center;
@@ -64,7 +95,8 @@ html {
 
 .postbox-container .cmb-row.cmb2-id--rb-prep-time,
 .postbox-container .cmb-row.cmb2-id--rb-cook-time,
-.postbox-container .cmb-row.cmb2-id--rb-total-time {
+.postbox-container .cmb-row.cmb2-id--rb-total-time,
+.postbox-container .cmb-row.cmb2-id--rb-preheat-group-0--rb-preheat-temp {
   border-bottom: none;
 }
 
