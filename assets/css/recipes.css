@@ -133,6 +133,24 @@ html {
 }
 
 /**
+ * Ingredients Grid
+ */
+.ingredients .postbox.cmb-repeatable-grouping .cmb-td.inside {
+  display: grid;
+  grid-template-columns: repeat( 4, 1fr );
+  grid-gap: 1rem;
+}
+
+.ingredients .cmb-type-text-small .cmb2-metabox-description {
+  display: block;
+}
+
+.ingredients button.cmb-remove-group-row.alignright {
+  float: left;
+  text-align: left;
+}
+
+/**
  * Options page.
  */
 .rb_recipe_page_recipe_box_options #recipe_box_options_metabox .cmb2-id-recipes-with-blog .cmb-td {
