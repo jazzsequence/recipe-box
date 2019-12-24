@@ -199,21 +199,36 @@ class RB_Recipe {
 			'name'       => __( 'Preparation Time', 'recipe-box' ),
 			'id'         => $prefix . 'prep_time',
 			'type'       => 'text_small',
-			'desc'       => __( 'minutes<br>Time to prepare the recipe.', 'recipe-box' ),
+			'desc'       => __( 'minutes', 'recipe-box' ) .
+				// 1: opening div tag, 2: closing div tag.
+				sprintf( __( '%1$sTime to prepare the recipe.%2$s', 'recipe-box' ),
+				'<div class="extended-description">',
+				'</div>'
+			),
 		) );
 
 		$cmb->add_field( array(
 			'name'       => __( 'Cook Time', 'recipe-box' ),
 			'id'         => $prefix . 'cook_time',
 			'type'       => 'text_small',
-			'desc'       => __( 'minutes<br>Time to cook the recipe.', 'recipe-box' ),
+			'desc'       => __( 'minutes', 'recipe-box' ) .
+				// 1: opening div tag, 2: closing div tag.
+				sprintf( __( '%1$sTime to cook the recipe.%2$s', 'recipe-box' ),
+				'<div class="extended-description">',
+				'</div>'
+			)
 		) );
 
 		$cmb->add_field( array(
 			'name'       => __( 'Total Time (optional)', 'recipe-box' ),
 			'id'         => $prefix . 'total_time',
 			'type'       => 'text_small',
-			'desc'       => __( 'minutes<br>The total time to prepare the recipe. (Defaults to Prep Time + Cook Time. Change if that is not accurate.)', 'recipe-box' ),
+			'desc'       => __( 'minutes', 'recipe-box' ) .
+				sprintf( __( '%1$sThe total time to prepare the recipe. (Defaults to Prep Time + Cook Time. Change if that is not accurate.)%2$s', 'recipe-box' ),
+				// 1: opening div tag, 2: closing div tag.
+				'<div class="extended-description">',
+				'</div>'
+			),
 			'default'    => ( $post_id ) ? $this->get_total_time( $post_id ) : '',
 		) );
 
