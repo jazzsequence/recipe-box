@@ -15,7 +15,7 @@ html {
 }
 
 /**
- * Recipe Information
+ * Recipe Information Grid
  */
 .recipe-meta .cmb2-metabox {
   display: grid;
@@ -61,6 +61,9 @@ html {
   grid-column-start: 2;
 }
 
+/**
+ * Reset CMB2 styles
+ */
 .cmb2-id--rb-preheat-group,
 .postbox-container .cmb2-wrap > .cmb-field-list > .cmb-row.cmb2-id--rb-preheat-group,
 .postbox-container .cmb2-id--rb-preheat-group .cmb-repeatable-grouping,
@@ -72,14 +75,6 @@ html {
 .postbox-container .cmb2-wrap > .cmb-field-list > .cmb-row.cmb2-id--rb-total-time {
   margin: 0;
   padding: 0;
-}
-
-.cmb2-id--rb-preheat-group {
-  margin-bottom: 2rem;
-}
-
-.cmb2-id--rb-preheat-group .postbox {
-  box-shadow: none;
 }
 
 .cmb2-id--rb-prep-time .cmb-th,
@@ -102,6 +97,14 @@ html {
 .postbox-container .cmb-row.cmb2-id--rb-total-time,
 .postbox-container .cmb-row.cmb2-id--rb-preheat-group-0--rb-preheat-temp {
   border-bottom: none;
+}
+
+.cmb2-id--rb-preheat-group .postbox {
+  box-shadow: none;
+}
+
+.cmb2-id--rb-preheat-group {
+  margin-bottom: 2rem;
 }
 
 .post-type-rb_recipe .cmb2-wrap.ingredients .cmb-repeatable-group .cmb-field-list .cmb-remove-field-row:before {
