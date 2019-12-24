@@ -1,13 +1,14 @@
 {
-	"name": "recipe-box",
+	"name": "jazzsequence/recipe-box",
 	"title": "Recipe Box",
-	"version": "0.3",
+	"version": "0.3.1",
 	"description": "Easily store and publish recipes in WordPress.",
+	"repository": "https://github.com/jazzsequence/recipe-box",
 	"author": {
 		"name": "Chris Reynolds",
-		"url": "https://jazzsequence.com"
+		"url": "https://chrisreynolds.io"
 	},
-	"license": "GPLv3",
+	"license": "GPL-3.0-or-later",
 	"devDependencies": {
 		"grunt": "latest",
 		"grunt-contrib-watch": "latest",
