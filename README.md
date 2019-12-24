@@ -1,12 +1,12 @@
 # Recipe Box #
 **Contributors:**      [Chris Reynolds](https://chrisreynolds.io)  
 **Donate link:**       https://paypal.me/jazzsequence  
-**Tags:**  
+
 **Requires at least:** 4.4  
 **Tested up to:**      4.8  
-**Stable tag:**        0.3.1  
+**Stable tag:**        0.3.2  
 **License:**           GPLv3  
-**License URI:**       http://www.gnu.org/licenses/gpl-3.0.html  
+**License URI:**       http://www.gnu.org/licenses/gpl-3.0.html
 
 ## Description ##
 
@@ -27,6 +27,9 @@ Easily store and publish recipes in WordPress.
 
 ## Changelog ##
 
+### 0.3.2 ###
+* fixes styling bugs from Gutenberg update
+
 ### 0.3.1 ###
 * added support for [Slack](https://wordpress.org/plugins/slack/) plugin to allow recipes to post to Slack.
 * fixed a javascript bug (props [@igmoweb](https://github.com/igmoweb)).
@@ -44,7 +47,7 @@ Easily store and publish recipes in WordPress.
 * hooked all the things
 * added preheat temperature
 * removed tgm plugin activation for REST API now that API is in core
-* 
+*
 
 ### 0.1 ###
 * First release
