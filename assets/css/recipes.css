@@ -19,6 +19,7 @@ html {
  */
 .recipe-meta .cmb2-metabox {
   display: grid;
+  grid-template-columns: repeat( 3, 1fr );
   grid-template-areas:
   "servings servings servings"
   "prep cook total"
@@ -49,7 +50,7 @@ html {
 
 .cmb2-id--rb-preheat-group .cmb-field-list.inside {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat( 2, 1fr );
 }
 
 .cmb2-id--rb-preheat-group-0--rb-preheat-temp {
