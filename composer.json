@@ -1,0 +1,13 @@
+{
+    "name": "jazzsequence/recipe-box",
+    "description": "Easily store and publish recipes in WordPress.",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Chris Reynolds",
+            "email": "me@chrisreynolds.io"
+        }
+    ],
+    "require": {}
+}
