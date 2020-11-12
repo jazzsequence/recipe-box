@@ -4,7 +4,7 @@
 
 **Requires at least:** 4.4  
 **Tested up to:**      4.8  
-**Stable tag:**        0.3.2  
+**Stable tag:**        0.3.3  
 **License:**           GPLv3  
 **License URI:**       http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,6 +26,9 @@ Easily store and publish recipes in WordPress.
 
 
 ## Changelog ##
+
+### 0.3.3 ### 
+* Add `composer.json`
 
 ### 0.3.2 ###
 * fixes styling bugs from Gutenberg update
