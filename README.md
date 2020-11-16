@@ -1,11 +1,11 @@
 # Recipe Box #
-**Contributors:**      [Chris Reynolds](https://chrisreynolds.io)  
-**Donate link:**       https://paypal.me/jazzsequence  
+**Contributors:**      [Chris Reynolds](https://chrisreynolds.io)
+**Donate link:**       https://paypal.me/jazzsequence
 
-**Requires at least:** 4.4  
-**Tested up to:**      4.8  
-**Stable tag:**        0.3.3  
-**License:**           GPLv3  
+**Requires at least:** 4.4
+**Tested up to:**      4.8
+**Stable tag:**        0.3.4
+**License:**           GPLv3
 **License URI:**       http://www.gnu.org/licenses/gpl-3.0.html
 
 ## Description ##
@@ -27,7 +27,10 @@ Easily store and publish recipes in WordPress.
 
 ## Changelog ##
 
-### 0.3.3 ### 
+### 0.3.4 ###
+* Added additional units of measure
+
+### 0.3.3 ###
 * Add `composer.json`
 
 ### 0.3.2 ###
