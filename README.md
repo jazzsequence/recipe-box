@@ -4,7 +4,7 @@
 
 **Requires at least:** 4.4
 **Tested up to:**      4.8
-**Stable tag:**        0.3.3
+**Stable tag:**        0.3.4
 **License:**           GPLv3
 **License URI:**       http://www.gnu.org/licenses/gpl-3.0.html
 
