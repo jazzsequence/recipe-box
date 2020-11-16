@@ -377,7 +377,7 @@ class RB_Recipe {
 	 * @return array Different units of measurement that could be used in a recipe.
 	 */
 	private function get_units() {
-		return array(
+		return apply_filters( 'rb_filter_units', array(
 			'none'    => '&mdash;',
 			'bunch'   => __( 'bunch(es)', 'recipe-box' ),
 			'can'     => __( 'can(s)', 'recipe-box' ),
@@ -405,8 +405,7 @@ class RB_Recipe {
 			'tbsp'    => __( 'tablespoon(s)', 'recipe-box' ),
 			'tsp'     => __( 'teaspoon(s)', 'recipe-box' ),
 			'whole'   => __( 'whole', 'recipe-box' ),
-			'some'    => __( 'some', 'recipe-box' ),
-		);
+		) );
 	}
 
 	/**
