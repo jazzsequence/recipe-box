@@ -1,20 +1,36 @@
 # Recipe Box #
-**Contributors:**      [Chris Reynolds](https://chrisreynolds.io)
-**Donate link:**       https://paypal.me/jazzsequence
-
-**Requires at least:** 4.4
-**Tested up to:**      4.8
-**Stable tag:**        0.3.4
-**License:**           GPLv3
-**License URI:**       http://www.gnu.org/licenses/gpl-3.0.html
+**Contributors:** [Chris Reynolds](https://chrisreynolds.io)  
+**Donate link:** https://paypal.me/jazzsequence  
+**Requires at least:** 4.4  
+**Tested up to:** 6.8  
+**Stable tag:** 0.3.5  
+**License:** GPLv3  
+**License URI:** http://www.gnu.org/licenses/gpl-3.0.html
 
 ## Description ##
 
 Easily store and publish recipes in WordPress.
 
-## Installation ##
+## Installation
+### Via Composer
 
-### Manual Installation ###
+Recipe Box can be installed on Composer-based WordPress sites by using the following command:
+
+`composer require jazzsequence/recipe-box`
+
+### Via Git Updater
+
+Recipe Box supports Andy Fragen's [Git Updater](https://git-updater.com/) method of managing plugins.
+
+1. Download and install [Git Updater](https://git-updater.com/git-updater/) on your WordPress site.
+1. From the Git Updater admin pages, navigate to Install Plugin and use the following values:
+
+**Plugin URI:** `jazzsequence/recipe-box`  
+**Repository Branch:** `main`  
+**Remote Repository Host:** GitHub  
+**GitHub Access Token:** (optional, leave blank)
+
+### Manual
 
 1. Upload the entire `/recipe-box` directory to the `/wp-content/plugins/` directory.
 2. Activate Recipe Box through the 'Plugins' menu in WordPress.
@@ -26,6 +42,9 @@ Easily store and publish recipes in WordPress.
 
 
 ## Changelog ##
+
+### 0.3.5 ###
+* Add installation support for [Git Updater](https://git-updater.com/).
 
 ### 0.3.4 ###
 * Added additional units of measure
